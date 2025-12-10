@@ -2,12 +2,12 @@ from typing import Optional
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import format_time, TxMinedInfo
-from electrum_bsty.transaction import tx_from_any, Transaction, PartialTxInput, Sighash, PartialTransaction
-from electrum_bsty.network import Network
-from electrum_bsty.address_synchronizer import TX_HEIGHT_UNCONF_PARENT, TX_HEIGHT_UNCONFIRMED, TX_HEIGHT_FUTURE
+from electrum_brm.i18n import _
+from electrum_brm.logging import get_logger
+from electrum_brm.util import format_time, TxMinedInfo
+from electrum_brm.transaction import tx_from_any, Transaction, PartialTxInput, Sighash, PartialTransaction
+from electrum_brm.network import Network
+from electrum_brm.address_synchronizer import TX_HEIGHT_UNCONF_PARENT, TX_HEIGHT_UNCONFIRMED, TX_HEIGHT_FUTURE
 
 from .qewallet import QEWallet
 from .qetypes import QEAmount

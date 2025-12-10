@@ -2,11 +2,11 @@ import threading
 
 from PyQt6.QtCore import pyqtSignal, pyqtSlot
 
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import hook
+from electrum_brm.i18n import _
+from electrum_brm.plugin import hook
 
-from electrum_bsty.gui.qml.qewallet import QEWallet
-from electrum_bsty.gui.common_qt.plugins import PluginQObject
+from electrum_brm.gui.qml.qewallet import QEWallet
+from electrum_brm.gui.common_qt.plugins import PluginQObject
 
 from .labels import LabelsPlugin
 

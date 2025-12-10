@@ -27,14 +27,14 @@
 import asyncio
 from typing import TYPE_CHECKING
 
-from electrum_bsty.plugin import BasePlugin, hook
+from electrum_brm.plugin import BasePlugin, hook
 
 from .server import SwapServer
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.wallet import Abstract_Wallet
 
 
 class SwapServerPlugin(BasePlugin):

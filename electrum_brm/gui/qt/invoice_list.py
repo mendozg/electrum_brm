@@ -31,10 +31,10 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QAbstractItemView
 from PyQt5.QtWidgets import QMenu, QVBoxLayout, QTreeWidget, QTreeWidgetItem, QHeaderView
 
-from electrum_bsty.i18n import _
-from electrum_bsty.util import format_time
-from electrum_bsty.invoices import Invoice, PR_UNPAID, PR_PAID, PR_INFLIGHT, PR_FAILED
-from electrum_bsty.lnutil import HtlcLog
+from electrum_brm.i18n import _
+from electrum_brm.util import format_time
+from electrum_brm.invoices import Invoice, PR_UNPAID, PR_PAID, PR_INFLIGHT, PR_FAILED
+from electrum_brm.lnutil import HtlcLog
 
 from .util import read_QIcon, pr_icons
 from .util import CloseButton, Buttons
@@ -114,7 +114,7 @@ class InvoiceList(MyTreeView):
             if item.is_lightning():
                 icon_name = 'lightning.png'
             else:
-                icon_name = 'globalboost.png'
+                icon_name = 'bitraam.png'
                 if item.bip70:
                     icon_name = 'seal.png'
             status = self.wallet.get_invoice_status(item)
@@ -179,7 +179,7 @@ class InvoiceList(MyTreeView):
         copy_menu = self.add_copy_menu(menu, idx)
         address = invoice.get_address()
         if address:
-            copy_menu.addAction(_("Address"), lambda: self.main_window.do_copy(invoice.get_address(), title='GlobalBoost Address'))
+            copy_menu.addAction(_("Address"), lambda: self.main_window.do_copy(invoice.get_address(), title='BitRaam Address'))
         status = wallet.get_invoice_status(invoice)
         if status == PR_UNPAID:
             if bool(invoice.get_amount_sat()):

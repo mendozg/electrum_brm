@@ -103,7 +103,7 @@ Item {
                 Image {
                     Layout.preferredWidth: constants.iconSizeSmall
                     Layout.preferredHeight: constants.iconSizeSmall
-                    source: '../../../icons/globalboost.png'
+                    source: '../../../icons/bitraam.png'
                 }
                 Label {
                     text: qsTr('On-chain') + ':'

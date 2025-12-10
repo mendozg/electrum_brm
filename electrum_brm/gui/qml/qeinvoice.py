@@ -4,15 +4,15 @@ from urllib.parse import urlparse
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, pyqtEnum, QTimer
 
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import get_logger
-from electrum_bsty.invoices import (Invoice, PR_UNPAID, PR_EXPIRED, PR_UNKNOWN, PR_PAID, PR_INFLIGHT,
+from electrum_brm.i18n import _
+from electrum_brm.logging import get_logger
+from electrum_brm.invoices import (Invoice, PR_UNPAID, PR_EXPIRED, PR_UNKNOWN, PR_PAID, PR_INFLIGHT,
                                PR_FAILED, PR_ROUTING, PR_UNCONFIRMED, PR_BROADCASTING, PR_BROADCAST, LN_EXPIRY_NEVER)
-from electrum_bsty.transaction import PartialTxOutput, TxOutput
-from electrum_bsty.lnutil import format_short_channel_id
-from electrum_bsty.bitcoin import COIN
-from electrum_bsty.paymentrequest import PaymentRequest
-from electrum_bsty.payment_identifier import (PaymentIdentifier, PaymentIdentifierState, PaymentIdentifierType)
+from electrum_brm.transaction import PartialTxOutput, TxOutput
+from electrum_brm.lnutil import format_short_channel_id
+from electrum_brm.bitcoin import COIN
+from electrum_brm.paymentrequest import PaymentRequest
+from electrum_brm.payment_identifier import (PaymentIdentifier, PaymentIdentifierState, PaymentIdentifierType)
 from .qetypes import QEAmount
 from .qewallet import QEWallet
 from .util import status_update_timer_interval, QtEventListener, event_listener

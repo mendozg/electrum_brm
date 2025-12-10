@@ -27,16 +27,16 @@ from typing import Callable, Optional, TYPE_CHECKING, Mapping, Sequence
 from PyQt5.QtWidgets import QMessageBox, QWidget
 from PyQt5.QtGui import QImage
 
-from electrum_bsty.i18n import _
-from electrum_bsty.util import UserFacingException
-from electrum_bsty.logging import get_logger
-from electrum_bsty.qrreader import get_qr_reader, QrCodeResult, MissingQrDetectionLib
+from electrum_brm.i18n import _
+from electrum_brm.util import UserFacingException
+from electrum_brm.logging import get_logger
+from electrum_brm.qrreader import get_qr_reader, QrCodeResult, MissingQrDetectionLib
 
-from electrum_bsty.gui.qt.util import MessageBoxMixin, custom_message_box
+from electrum_brm.gui.qt.util import MessageBoxMixin, custom_message_box
 
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
+    from electrum_brm.simple_config import SimpleConfig
 
 
 _logger = get_logger(__name__)
@@ -79,7 +79,7 @@ def find_system_cameras() -> Mapping[str, str]:
         else:
             return find_system_cameras()
     else:  # desktop Linux and similar
-        from electrum_bsty import qrscanner
+        from electrum_brm import qrscanner
         return qrscanner.find_system_cameras()
 
 
@@ -91,7 +91,7 @@ def _scan_qrcode_using_zbar(
         config: 'SimpleConfig',
         callback: Callable[[bool, str, Optional[str]], None],
 ) -> None:
-    from electrum_bsty import qrscanner
+    from electrum_brm import qrscanner
     data = None
     try:
         data = qrscanner.scan_barcode(config.get_video_device())

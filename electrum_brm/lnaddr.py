@@ -11,7 +11,7 @@ from typing import Optional, TYPE_CHECKING, Type, Dict, Any
 import random
 import bitstring
 
-from .bitcoin import hash160_to_b58_address, b58_address_to_hash160, TOTAL_COIN_SUPPLY_LIMIT_IN_BSTY
+from .bitcoin import hash160_to_b58_address, b58_address_to_hash160, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
 from .segwit_addr import bech32_encode, bech32_decode, CHARSET
 from . import segwit_addr
 from . import constants
@@ -272,7 +272,7 @@ class LnAddr(object):
         self.signature = None
         self.pubkey = None
         self.net = constants.net if net is None else net  # type: Type[AbstractNet]
-        self._amount = amount  # type: Optional[Decimal]  # in globalboosts
+        self._amount = amount  # type: Optional[Decimal]  # in bitraams
 
     @property
     def amount(self) -> Optional[Decimal]:
@@ -286,8 +286,8 @@ class LnAddr(object):
             self._amount = None
             return
         assert isinstance(value, Decimal)
-        if value.is_nan() or not (0 <= value <= TOTAL_COIN_SUPPLY_LIMIT_IN_BSTY):
-            raise LnInvoiceException(f"amount is out-of-bounds: {value!r} BSTY")
+        if value.is_nan() or not (0 <= value <= TOTAL_COIN_SUPPLY_LIMIT_IN_BRM):
+            raise LnInvoiceException(f"amount is out-of-bounds: {value!r} BRM")
         if value * 10**12 % 10:
             # max resolution is millisatoshi
             raise LnInvoiceException(f"Cannot encode {value!r}: too many decimal places")
@@ -369,7 +369,7 @@ class LnAddr(object):
     def to_debug_json(self) -> Dict[str, Any]:
         d = {
             'pubkey': self.pubkey.serialize().hex(),
-            'amount_BSTY': str(self.amount),
+            'amount_BRM': str(self.amount),
             'rhash': self.paymenthash.hex(),
             'payment_secret': self.payment_secret.hex() if self.payment_secret else None,
             'description': self.get_description(),

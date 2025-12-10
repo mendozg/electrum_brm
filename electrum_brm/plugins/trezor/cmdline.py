@@ -1,6 +1,6 @@
-from electrum_bsty.plugin import hook
-from electrum_bsty.i18n import _
-from electrum_bsty.util import print_stderr
+from electrum_brm.plugin import hook
+from electrum_brm.i18n import _
+from electrum_brm.util import print_stderr
 from .trezor import TrezorPlugin, PASSPHRASE_ON_DEVICE
 from ..hw_wallet import CmdLineHandler
 

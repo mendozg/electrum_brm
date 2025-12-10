@@ -1,15 +1,15 @@
 from typing import NamedTuple, Union
 
-from electrum_bsty import transaction, bitcoin
-from electrum_bsty.transaction import (convert_raw_tx_to_hex, tx_from_any, Transaction,
+from electrum_brm import transaction, bitcoin
+from electrum_brm.transaction import (convert_raw_tx_to_hex, tx_from_any, Transaction,
                                   PartialTransaction, TxOutpoint, PartialTxInput,
                                   PartialTxOutput, Sighash, match_script_against_template,
                                   SCRIPTPUBKEY_TEMPLATE_ANYSEGWIT)
-from electrum_bsty.util import bfh
-from electrum_bsty.bitcoin import (deserialize_privkey, opcodes,
+from electrum_brm.util import bfh
+from electrum_brm.bitcoin import (deserialize_privkey, opcodes,
                               construct_script, construct_witness)
-from electrum_bsty.ecc import ECPrivkey
-from electrum_bsty import descriptor
+from electrum_brm.ecc import ECPrivkey
+from electrum_brm import descriptor
 
 from .test_bitcoin import disable_ecdsa_r_value_grinding
 from . import ElectrumTestCase

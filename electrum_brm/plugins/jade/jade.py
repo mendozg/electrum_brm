@@ -3,23 +3,23 @@ import base64
 import json
 from typing import Optional, TYPE_CHECKING
 
-from electrum_bsty import bip32, constants
-from electrum_bsty.crypto import sha256
-from electrum_bsty.i18n import _
-from electrum_bsty.keystore import Hardware_KeyStore
-from electrum_bsty.transaction import Transaction
-from electrum_bsty.wallet import Multisig_Wallet
-from electrum_bsty.util import UserFacingException
-from electrum_bsty.logging import get_logger
-from electrum_bsty.plugin import runs_in_hwd_thread, Device
-from electrum_bsty.network import Network
+from electrum_brm import bip32, constants
+from electrum_brm.crypto import sha256
+from electrum_brm.i18n import _
+from electrum_brm.keystore import Hardware_KeyStore
+from electrum_brm.transaction import Transaction
+from electrum_brm.wallet import Multisig_Wallet
+from electrum_brm.util import UserFacingException
+from electrum_brm.logging import get_logger
+from electrum_brm.plugin import runs_in_hwd_thread, Device
+from electrum_brm.network import Network
 
-from electrum_bsty.plugins.hw_wallet import HW_PluginBase, HardwareClientBase
-from electrum_bsty.plugins.hw_wallet.plugin import OutdatedHwFirmwareException
+from electrum_brm.plugins.hw_wallet import HW_PluginBase, HardwareClientBase
+from electrum_brm.plugins.hw_wallet.plugin import OutdatedHwFirmwareException
 
 if TYPE_CHECKING:
-    from electrum_bsty.plugin import DeviceInfo
-    from electrum_bsty.wizard import NewWalletWizard
+    from electrum_brm.plugin import DeviceInfo
+    from electrum_brm.wizard import NewWalletWizard
 
 _logger = get_logger(__name__)
 

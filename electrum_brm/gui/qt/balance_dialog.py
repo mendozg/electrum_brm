@@ -32,13 +32,13 @@ from PyQt5.QtCore import QRect, QEventLoop, Qt, pyqtSignal
 from PyQt5.QtGui import QPalette, QPen, QPainter, QPixmap
 
 
-from electrum_bsty.i18n import _
+from electrum_brm.i18n import _
 
 from .util import Buttons, CloseButton, WindowModalDialog, ColorScheme, font_height, AmountLabel
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.wallet import Abstract_Wallet
 
 
 # Todo:

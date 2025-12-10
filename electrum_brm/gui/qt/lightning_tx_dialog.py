@@ -30,9 +30,9 @@ import datetime
 from PyQt5.QtGui import QFont
 from PyQt5.QtWidgets import QVBoxLayout, QLabel, QGridLayout
 
-from electrum_bsty.i18n import _
-from electrum_bsty.lnworker import PaymentDirection
-from electrum_bsty.invoices import Invoice
+from electrum_brm.i18n import _
+from electrum_brm.lnworker import PaymentDirection
+from electrum_brm.invoices import Invoice
 
 from .util import WindowModalDialog, ShowQRLineEdit, ColorScheme, Buttons, CloseButton, font_height, ButtonsLineEdit
 from .qrtextedit import ShowQRTextEdit

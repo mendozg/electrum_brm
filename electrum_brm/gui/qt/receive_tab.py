@@ -9,13 +9,13 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import (QComboBox, QLabel, QVBoxLayout, QGridLayout, QLineEdit, QTextEdit,
                              QHBoxLayout, QPushButton, QWidget, QSizePolicy, QFrame)
 
-from electrum_bsty.bitcoin import is_address
-from electrum_bsty.i18n import _
-from electrum_bsty.util import InvoiceError
-from electrum_bsty.invoices import pr_expiration_values
-from electrum_bsty.logging import Logger
+from electrum_brm.bitcoin import is_address
+from electrum_brm.i18n import _
+from electrum_brm.util import InvoiceError
+from electrum_brm.invoices import pr_expiration_values
+from electrum_brm.logging import Logger
 
-from .amountedit import AmountEdit, BSTYAmountEdit, SizedFreezableLineEdit
+from .amountedit import AmountEdit, BRMAmountEdit, SizedFreezableLineEdit
 from .qrcodewidget import QRCodeWidget
 from .util import read_QIcon, ColorScheme, HelpLabel, WWLabel, MessageBoxMixin, MONOSPACE_FONT
 from .util import ButtonsTextEdit, get_iconname_qrcode
@@ -54,7 +54,7 @@ class ReceiveTab(QWidget, MessageBoxMixin, Logger):
         grid.addWidget(QLabel(_('Description')), 0, 0)
         grid.addWidget(self.receive_message_e, 0, 1, 1, 4)
 
-        self.receive_amount_e = BSTYAmountEdit(self.window.get_decimal_point)
+        self.receive_amount_e = BRMAmountEdit(self.window.get_decimal_point)
         grid.addWidget(QLabel(_('Requested amount')), 1, 0)
         grid.addWidget(self.receive_amount_e, 1, 1)
 
@@ -185,8 +185,8 @@ class ReceiveTab(QWidget, MessageBoxMixin, Logger):
             _('This information is seen by the recipient if you send them a signed payment request.'),
             '\n\n',
             _('For on-chain requests, the address gets reserved until expiration. After that, it might get reused.'), ' ',
-            _('The globalboost address never expires and will always be part of this electrum wallet.'), ' ',
-            _('You can reuse a globalboost address any number of times but it is not good for your privacy.'),
+            _('The bitraam address never expires and will always be part of this electrum wallet.'), ' ',
+            _('You can reuse a bitraam address any number of times but it is not good for your privacy.'),
             '\n\n',
             _('For Lightning requests, payments will not be accepted after the expiration.'),
         ])
@@ -206,9 +206,9 @@ class ReceiveTab(QWidget, MessageBoxMixin, Logger):
     def update_view_button(self):
         i = self.config.GUI_QT_RECEIVE_TABS_INDEX
         if i == 0:
-            icon, text = read_QIcon("link.png"), _('GlobalBoost URI')
+            icon, text = read_QIcon("link.png"), _('BitRaam URI')
         elif i == 1:
-            icon, text = read_QIcon("globalboost.png"), _('Address')
+            icon, text = read_QIcon("bitraam.png"), _('Address')
         elif i == 2:
             icon, text = read_QIcon("lightning.png"), _('Lightning')
         self.toggle_view_button.setText(text)
@@ -282,7 +282,7 @@ class ReceiveTab(QWidget, MessageBoxMixin, Logger):
     def get_tab_data(self):
         i = self.config.GUI_QT_RECEIVE_TABS_INDEX
         if i == 0:
-            out = self.URI, self.URI, self.URI_help, _('GlobalBoost URI')
+            out = self.URI, self.URI, self.URI_help, _('BitRaam URI')
         elif i == 1:
             out = self.addr, self.addr, self.address_help, _('Address')
         elif i == 2:

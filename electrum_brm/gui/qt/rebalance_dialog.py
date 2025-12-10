@@ -3,11 +3,11 @@ from typing import TYPE_CHECKING
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QGridLayout, QPushButton
 
-from electrum_bsty.i18n import _
-from electrum_bsty.lnchannel import Channel
+from electrum_brm.i18n import _
+from electrum_brm.lnchannel import Channel
 
 from .util import WindowModalDialog, Buttons, OkButton, CancelButton, WWLabel
-from .amountedit import BSTYAmountEdit
+from .amountedit import BRMAmountEdit
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow
@@ -24,7 +24,7 @@ class RebalanceDialog(WindowModalDialog):
         vbox = QVBoxLayout(self)
         vbox.addWidget(WWLabel(_('Rebalance your channels in order to increase your sending or receiving capacity') + ':'))
         grid = QGridLayout()
-        self.amount_e = BSTYAmountEdit(self.window.get_decimal_point)
+        self.amount_e = BRMAmountEdit(self.window.get_decimal_point)
         self.amount_e.setAmount(amount_sat)
         self.amount_e.textChanged.connect(self.on_amount)
         self.rev_button = QPushButton(u'\U000021c4')

@@ -40,14 +40,14 @@ from PyQt5.QtWidgets import (QMenu, QHeaderView, QLabel, QMessageBox,
                              QPushButton, QComboBox, QVBoxLayout, QCalendarWidget,
                              QGridLayout)
 
-from electrum_bsty.gui import messages
-from electrum_bsty.address_synchronizer import TX_HEIGHT_LOCAL, TX_HEIGHT_FUTURE
-from electrum_bsty.i18n import _
-from electrum_bsty.util import (block_explorer_URL, profiler, TxMinedInfo,
+from electrum_brm.gui import messages
+from electrum_brm.address_synchronizer import TX_HEIGHT_LOCAL, TX_HEIGHT_FUTURE
+from electrum_brm.i18n import _
+from electrum_brm.util import (block_explorer_URL, profiler, TxMinedInfo,
                            OrderedDictWithIndex, timestamp_to_datetime,
                            Satoshis, Fiat, format_time)
-from electrum_bsty.logging import get_logger, Logger
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.logging import get_logger, Logger
+from electrum_brm.simple_config import SimpleConfig
 
 from .custom_model import CustomNode, CustomModel
 from .util import (read_QIcon, MONOSPACE_FONT, Buttons, CancelButton, OkButton,
@@ -56,7 +56,7 @@ from .util import (read_QIcon, MONOSPACE_FONT, Buttons, CancelButton, OkButton,
 from .my_treeview import MyTreeView
 
 if TYPE_CHECKING:
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.wallet import Abstract_Wallet
     from .main_window import ElectrumWindow
 
 
@@ -621,13 +621,13 @@ class HistoryList(MyTreeView, AcceptFileDragDrop):
         grid.addWidget(QLabel(self.format_date(start_date)), 1, 1)
         grid.addWidget(QLabel(self.format_date(end_date)), 1, 2)
         #
-        grid.addWidget(QLabel(_("BSTY balance")), 2, 0)
-        grid.addWidget(QLabel(format_amount(start['BSTY_balance'])), 2, 1)
-        grid.addWidget(QLabel(format_amount(end['BSTY_balance'])), 2, 2)
+        grid.addWidget(QLabel(_("BRM balance")), 2, 0)
+        grid.addWidget(QLabel(format_amount(start['BRM_balance'])), 2, 1)
+        grid.addWidget(QLabel(format_amount(end['BRM_balance'])), 2, 2)
         #
-        grid.addWidget(QLabel(_("BSTY Fiat price")), 3, 0)
-        grid.addWidget(QLabel(format_fiat(start.get('BSTY_fiat_price'))), 3, 1)
-        grid.addWidget(QLabel(format_fiat(end.get('BSTY_fiat_price'))), 3, 2)
+        grid.addWidget(QLabel(_("BRM Fiat price")), 3, 0)
+        grid.addWidget(QLabel(format_fiat(start.get('BRM_fiat_price'))), 3, 1)
+        grid.addWidget(QLabel(format_fiat(end.get('BRM_fiat_price'))), 3, 2)
         #
         grid.addWidget(QLabel(_("Fiat balance")), 4, 0)
         grid.addWidget(QLabel(format_fiat(start.get('fiat_balance'))), 4, 1)
@@ -642,12 +642,12 @@ class HistoryList(MyTreeView, AcceptFileDragDrop):
         grid.addWidget(QLabel(format_fiat(end.get('unrealized_gains', ''))), 6, 2)
         #
         grid2 = QGridLayout()
-        grid2.addWidget(QLabel(_("BSTY incoming")), 0, 0)
-        grid2.addWidget(QLabel(format_amount(flow['BSTY_incoming'])), 0, 1)
+        grid2.addWidget(QLabel(_("BRM incoming")), 0, 0)
+        grid2.addWidget(QLabel(format_amount(flow['BRM_incoming'])), 0, 1)
         grid2.addWidget(QLabel(_("Fiat incoming")), 1, 0)
         grid2.addWidget(QLabel(format_fiat(flow.get('fiat_incoming'))), 1, 1)
-        grid2.addWidget(QLabel(_("BSTY outgoing")), 2, 0)
-        grid2.addWidget(QLabel(format_amount(flow['BSTY_outgoing'])), 2, 1)
+        grid2.addWidget(QLabel(_("BRM outgoing")), 2, 0)
+        grid2.addWidget(QLabel(format_amount(flow['BRM_outgoing'])), 2, 1)
         grid2.addWidget(QLabel(_("Fiat outgoing")), 3, 0)
         grid2.addWidget(QLabel(format_fiat(flow.get('fiat_outgoing'))), 3, 1)
         #
@@ -662,9 +662,9 @@ class HistoryList(MyTreeView, AcceptFileDragDrop):
 
     def plot_history_dialog(self):
         try:
-            from electrum_bsty.plot import plot_history, NothingToPlotException
+            from electrum_brm.plot import plot_history, NothingToPlotException
         except Exception as e:
-            _logger.error(f"could not import electrum_bsty.plot. This feature needs matplotlib to be installed. exc={e!r}")
+            _logger.error(f"could not import electrum_brm.plot. This feature needs matplotlib to be installed. exc={e!r}")
             self.main_window.show_message(
                 _("Can't plot history.") + '\n' +
                 _("Perhaps some dependencies are missing...") + " (matplotlib?)" + '\n' +
@@ -863,7 +863,7 @@ class HistoryList(MyTreeView, AcceptFileDragDrop):
                 for line in lines:
                     transaction.writerow(line)
             else:
-                from electrum_bsty.util import json_encode
+                from electrum_brm.util import json_encode
                 f.write(json_encode(txns))
 
     def get_text_from_coordinate(self, row, col):

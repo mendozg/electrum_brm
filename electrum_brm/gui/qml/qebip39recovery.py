@@ -5,11 +5,11 @@ from enum import IntEnum
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, pyqtEnum
 from PyQt6.QtCore import Qt, QAbstractListModel, QModelIndex
 
-from electrum_bsty import Network, keystore
-from electrum_bsty.bip32 import BIP32Node
-from electrum_bsty.bip39_recovery import account_discovery
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import get_asyncio_loop
+from electrum_brm import Network, keystore
+from electrum_brm.bip32 import BIP32Node
+from electrum_brm.bip39_recovery import account_discovery
+from electrum_brm.logging import get_logger
+from electrum_brm.util import get_asyncio_loop
 
 from .util import TaskThread
 

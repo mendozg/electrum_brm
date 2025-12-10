@@ -1,7 +1,7 @@
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.logging import get_logger
-from electrum_bsty.i18n import _
+from electrum_brm.logging import get_logger
+from electrum_brm.i18n import _
 
 # container for satoshi amounts that can be passed around more
 # easily between python, QML-property and QML-javascript contexts

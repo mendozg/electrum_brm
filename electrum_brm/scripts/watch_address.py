@@ -3,16 +3,16 @@
 import sys
 import asyncio
 
-from electrum_bsty.network import Network
-from electrum_bsty.util import print_msg, create_and_start_event_loop
-from electrum_bsty.synchronizer import SynchronizerBase
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.network import Network
+from electrum_brm.util import print_msg, create_and_start_event_loop
+from electrum_brm.synchronizer import SynchronizerBase
+from electrum_brm.simple_config import SimpleConfig
 
 
 try:
     addr = sys.argv[1]
 except Exception:
-    print("usage: watch_address <globalboost_address>")
+    print("usage: watch_address <bitraam_address>")
     sys.exit(1)
 
 config = SimpleConfig()

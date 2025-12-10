@@ -35,13 +35,13 @@ from PyQt5.QtWidgets import (QTreeWidget, QTreeWidgetItem, QMenu, QGridLayout, Q
                              QTabWidget, QWidget, QLabel)
 from PyQt5.QtGui import QIntValidator
 
-from electrum_bsty.i18n import _
-from electrum_bsty import constants, blockchain, util
-from electrum_bsty.interface import ServerAddr, PREFERRED_NETWORK_PROTOCOL
-from electrum_bsty.network import Network
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import detect_tor_socks_proxy
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.i18n import _
+from electrum_brm import constants, blockchain, util
+from electrum_brm.interface import ServerAddr, PREFERRED_NETWORK_PROTOCOL
+from electrum_brm.network import Network
+from electrum_brm.logging import get_logger
+from electrum_brm.util import detect_tor_socks_proxy
+from electrum_brm.simple_config import SimpleConfig
 
 from .util import (Buttons, CloseButton, HelpButton, read_QIcon, char_width_in_lineedit,
                    PasswordLineEdit)

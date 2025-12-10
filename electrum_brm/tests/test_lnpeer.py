@@ -14,34 +14,34 @@ from typing import Iterable, NamedTuple, Tuple, List, Dict
 
 from aiorpcx import timeout_after, TaskTimeout
 
-import electrum_bsty as electrum
-import electrum_bsty.trampoline
-from electrum_bsty import bitcoin
-from electrum_bsty import util
-from electrum_bsty import constants
-from electrum_bsty.network import Network
-from electrum_bsty.ecc import ECPrivkey
-from electrum_bsty import simple_config, lnutil
-from electrum_bsty.lnaddr import lnencode, LnAddr, lndecode
-from electrum_bsty.bitcoin import COIN, sha256
-from electrum_bsty.util import NetworkRetryManager, bfh, OldTaskGroup, EventListener, InvoiceError
-from electrum_bsty.lnpeer import Peer
-from electrum_bsty.lnutil import LNPeerAddr, Keypair, privkey_to_pubkey
-from electrum_bsty.lnutil import PaymentFailure, LnFeatures, HTLCOwner, PaymentFeeBudget
-from electrum_bsty.lnchannel import ChannelState, PeerState, Channel
-from electrum_bsty.lnrouter import LNPathFinder, PathEdge, LNPathInconsistent
-from electrum_bsty.channel_db import ChannelDB
-from electrum_bsty.lnworker import LNWallet, NoPathFound, SentHtlcInfo, PaySession
-from electrum_bsty.lnmsg import encode_msg, decode_msg
-from electrum_bsty import lnmsg
-from electrum_bsty.logging import console_stderr_handler, Logger
-from electrum_bsty.lnworker import PaymentInfo, RECEIVED
-from electrum_bsty.lnonion import OnionFailureCode, OnionRoutingFailure
-from electrum_bsty.lnutil import UpdateAddHtlc
-from electrum_bsty.lnutil import LOCAL, REMOTE
-from electrum_bsty.invoices import PR_PAID, PR_UNPAID
-from electrum_bsty.interface import GracefulDisconnect
-from electrum_bsty.simple_config import SimpleConfig
+import electrum_brm as electrum
+import electrum_brm.trampoline
+from electrum_brm import bitcoin
+from electrum_brm import util
+from electrum_brm import constants
+from electrum_brm.network import Network
+from electrum_brm.ecc import ECPrivkey
+from electrum_brm import simple_config, lnutil
+from electrum_brm.lnaddr import lnencode, LnAddr, lndecode
+from electrum_brm.bitcoin import COIN, sha256
+from electrum_brm.util import NetworkRetryManager, bfh, OldTaskGroup, EventListener, InvoiceError
+from electrum_brm.lnpeer import Peer
+from electrum_brm.lnutil import LNPeerAddr, Keypair, privkey_to_pubkey
+from electrum_brm.lnutil import PaymentFailure, LnFeatures, HTLCOwner, PaymentFeeBudget
+from electrum_brm.lnchannel import ChannelState, PeerState, Channel
+from electrum_brm.lnrouter import LNPathFinder, PathEdge, LNPathInconsistent
+from electrum_brm.channel_db import ChannelDB
+from electrum_brm.lnworker import LNWallet, NoPathFound, SentHtlcInfo, PaySession
+from electrum_brm.lnmsg import encode_msg, decode_msg
+from electrum_brm import lnmsg
+from electrum_brm.logging import console_stderr_handler, Logger
+from electrum_brm.lnworker import PaymentInfo, RECEIVED
+from electrum_brm.lnonion import OnionFailureCode, OnionRoutingFailure
+from electrum_brm.lnutil import UpdateAddHtlc
+from electrum_brm.lnutil import LOCAL, REMOTE
+from electrum_brm.invoices import PR_PAID, PR_UNPAID
+from electrum_brm.interface import GracefulDisconnect
+from electrum_brm.simple_config import SimpleConfig
 
 from .test_lnchannel import create_test_channels
 from . import ElectrumTestCase
@@ -932,10 +932,10 @@ class TestPeerDirect(TestPeer):
     async def test_payment_recv_mpp_confusion1(self):
         """Regression test for https://github.com/spesmilo/electrum/security/advisories/GHSA-8r85-vp7r-hjxf"""
         # This test checks that the following attack does not work:
-        #   - Bob creates invoice1: 1 BSTY, H1, S1
-        #   - Bob creates invoice2: 1 BSTY, H2, S2;  both given to attacker to pay
-        #   - Alice sends htlc1: 0.1 BSTY, H1, S1  (total_msat=1 BSTY)
-        #   - Alice sends htlc2: 0.9 BSTY, H2, S1  (total_msat=1 BSTY)
+        #   - Bob creates invoice1: 1 BRM, H1, S1
+        #   - Bob creates invoice2: 1 BRM, H2, S2;  both given to attacker to pay
+        #   - Alice sends htlc1: 0.1 BRM, H1, S1  (total_msat=1 BRM)
+        #   - Alice sends htlc2: 0.9 BRM, H2, S1  (total_msat=1 BRM)
         #   - Bob(victim) reveals preimage for H1 and fulfills htlc1 (fails other)
         alice_channel, bob_channel = create_test_channels()
         p1, p2, w1, w2, _q1, _q2 = self.prepare_peers(alice_channel, bob_channel)
@@ -1010,9 +1010,9 @@ class TestPeerDirect(TestPeer):
     async def test_payment_recv_mpp_confusion2(self):
         """Regression test for https://github.com/spesmilo/electrum/security/advisories/GHSA-8r85-vp7r-hjxf"""
         # This test checks that the following attack does not work:
-        #   - Bob creates invoice: 1 BSTY
-        #   - Alice sends htlc1: 0.1 BSTY  (total_msat=0.2 BSTY)
-        #   - Alice sends htlc2: 0.1 BSTY  (total_msat=1 BSTY)
+        #   - Bob creates invoice: 1 BRM
+        #   - Alice sends htlc1: 0.1 BRM  (total_msat=0.2 BRM)
+        #   - Alice sends htlc2: 0.1 BRM  (total_msat=1 BRM)
         #   - Bob(victim) reveals preimage and fulfills htlc2 (fails other)
         alice_channel, bob_channel = create_test_channels()
         p1, p2, w1, w2, _q1, _q2 = self.prepare_peers(alice_channel, bob_channel)
@@ -1567,7 +1567,7 @@ class TestPeerForwarding(TestPeer):
 
     async def test_refuse_to_forward_htlc_that_corresponds_to_payreq_we_created(self):
         # This test checks that the following attack does not work:
-        #   - Bob creates payment request with HASH1, for 1 BSTY; and gives the payreq to Alice
+        #   - Bob creates payment request with HASH1, for 1 BRM; and gives the payreq to Alice
         #   - Alice sends htlc A->B->D, for 100k sat, with HASH1
         #   - Bob must not release the preimage of HASH1
         graph_def = self.GRAPH_DEFINITIONS['square_graph']

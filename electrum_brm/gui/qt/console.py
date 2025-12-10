@@ -10,8 +10,8 @@ from PyQt5 import QtCore
 from PyQt5 import QtGui
 from PyQt5 import QtWidgets
 
-from electrum_bsty import util
-from electrum_bsty.i18n import _
+from electrum_brm import util
+from electrum_brm.i18n import _
 
 from .util import MONOSPACE_FONT, font_height
 

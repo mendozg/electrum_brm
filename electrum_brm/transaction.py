@@ -46,7 +46,7 @@ from .i18n import _
 from .util import profiler, to_bytes, bfh, chunks, is_hex_str, parse_max_spend
 from .bitcoin import (TYPE_ADDRESS, TYPE_SCRIPT, hash_160,
                       hash160_to_p2sh, hash160_to_p2pkh, hash_to_segwit_addr,
-                      var_int, TOTAL_COIN_SUPPLY_LIMIT_IN_BSTY, COIN,
+                      var_int, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, COIN,
                       int_to_hex, push_script, b58_address_to_hash160,
                       opcodes, add_number_to_script, base_decode,
                       base_encode, construct_witness, construct_script)
@@ -719,7 +719,7 @@ def parse_witness(vds: BCDataStream, txin: TxInput) -> None:
 
 def parse_output(vds: BCDataStream) -> TxOutput:
     value = vds.read_int64()
-    if value > TOTAL_COIN_SUPPLY_LIMIT_IN_BSTY * COIN:
+    if value > TOTAL_COIN_SUPPLY_LIMIT_IN_BRM * COIN:
         raise SerializationError('invalid output amount (too large)')
     if value < 0:
         raise SerializationError('invalid output amount (negative)')

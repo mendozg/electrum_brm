@@ -9,25 +9,25 @@ import logging
 import pyperclip
 from typing import TYPE_CHECKING, Optional
 
-import electrum_bsty as electrum
-from electrum_bsty.gui import BaseElectrumGui
-from electrum_bsty.bip21 import parse_bip21_URI
-from electrum_bsty.util import format_satoshis, format_time
-from electrum_bsty.util import EventListener, event_listener
-from electrum_bsty.bitcoin import is_address, address_to_script, COIN
-from electrum_bsty.transaction import PartialTxOutput
-from electrum_bsty.wallet import Wallet, Abstract_Wallet
-from electrum_bsty.wallet_db import WalletDB
-from electrum_bsty.storage import WalletStorage
-from electrum_bsty.network import NetworkParameters, TxBroadcastError, BestEffortRequestFailed
-from electrum_bsty.interface import ServerAddr
-from electrum_bsty.invoices import Invoice
-from electrum_bsty.invoices import PR_DEFAULT_EXPIRATION_WHEN_CREATING
+import electrum_brm as electrum
+from electrum_brm.gui import BaseElectrumGui
+from electrum_brm.bip21 import parse_bip21_URI
+from electrum_brm.util import format_satoshis, format_time
+from electrum_brm.util import EventListener, event_listener
+from electrum_brm.bitcoin import is_address, address_to_script, COIN
+from electrum_brm.transaction import PartialTxOutput
+from electrum_brm.wallet import Wallet, Abstract_Wallet
+from electrum_brm.wallet_db import WalletDB
+from electrum_brm.storage import WalletStorage
+from electrum_brm.network import NetworkParameters, TxBroadcastError, BestEffortRequestFailed
+from electrum_brm.interface import ServerAddr
+from electrum_brm.invoices import Invoice
+from electrum_brm.invoices import PR_DEFAULT_EXPIRATION_WHEN_CREATING
 
 if TYPE_CHECKING:
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.plugin import Plugins
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.plugin import Plugins
 
 
 _ = lambda x:x  # i18n
@@ -41,7 +41,7 @@ def parse_bip21(text):
 
 
 def parse_bolt11(text):
-    from electrum_bsty.lnaddr import lndecode
+    from electrum_brm.lnaddr import lndecode
     try:
         return lndecode(text)
     except Exception:
@@ -55,7 +55,7 @@ class ElectrumGui(BaseElectrumGui, EventListener):
         self.network = daemon.network
         storage = WalletStorage(config.get_wallet_path(use_gui_last_wallet=True))
         if not storage.file_exists():
-            print("Wallet not found. try 'electrum-bsty create'")
+            print("Wallet not found. try 'electrum-brm create'")
             exit()
         if storage.is_encrypted():
             password = getpass.getpass('Password:', stream=None)
@@ -623,7 +623,7 @@ class ElectrumGui(BaseElectrumGui, EventListener):
                 pr=None,
                 URI=None)
         else:
-            self.show_message(_('Invalid GlobalBoost address'))
+            self.show_message(_('Invalid BitRaam address'))
             return
         return invoice
 

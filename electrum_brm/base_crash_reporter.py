@@ -1,4 +1,4 @@
-# Electrum-BSTY - lightweight GlobalBoost client
+# Electrum-BRM - lightweight BitRaam client
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -41,7 +41,7 @@ class CrashReportResponse(NamedTuple):
 
 
 class BaseCrashReporter(Logger):
-    report_server = "https://crashhub.electrum-bsty.org"
+    report_server = "https://crashhub.electrum-brm.org"
     issue_template = """<h2>Traceback</h2>
 <pre>
 {traceback}
@@ -49,14 +49,14 @@ class BaseCrashReporter(Logger):
 
 <h2>Additional information</h2>
 <ul>
-  <li>Electrum-BSTY version: {app_version}</li>
+  <li>Electrum-BRM version: {app_version}</li>
   <li>Python version: {python_version}</li>
   <li>Operating system: {os}</li>
   <li>Wallet type: {wallet_type}</li>
   <li>Locale: {locale}</li>
 </ul>
     """
-    CRASH_MESSAGE = _('Something went wrong while executing Electrum-BSTY.')
+    CRASH_MESSAGE = _('Something went wrong while executing Electrum-BRM.')
     CRASH_TITLE = _('Sorry!')
     REQUEST_HELP_MESSAGE = _('To help us diagnose and fix the problem, you can send us a bug report that contains '
                              'useful debug information:')

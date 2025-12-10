@@ -19,7 +19,7 @@
 #
 # Note: steps before doing a new release:
 # - update locale:
-#     1. cd /opt/electrum-bsty-locale && ./update.py && git push
+#     1. cd /opt/electrum-brm-locale && ./update.py && git push
 #     2. cd to the submodule dir, and git pull
 #     3. cd .. && git push
 # - update RELEASE-NOTES and version.py
@@ -97,7 +97,7 @@ fi
 set -x
 
 # create tarball
-tarball="Electrum-BSTY-$VERSION.tar.gz"
+tarball="Electrum-BRM-$VERSION.tar.gz"
 if test -f "dist/$tarball"; then
     info "file exists: $tarball"
 else
@@ -105,7 +105,7 @@ else
 fi
 
 # create source-only tarball
-srctarball="Electrum-BSTY-sourceonly-$VERSION.tar.gz"
+srctarball="Electrum-BRM-sourceonly-$VERSION.tar.gz"
 if test -f "dist/$srctarball"; then
     info "file exists: $srctarball"
 else
@@ -113,7 +113,7 @@ else
 fi
 
 # appimage
-appimage="electrum-bsty-$REV-x86_64.AppImage"
+appimage="electrum-brm-$REV-x86_64.AppImage"
 if test -f "dist/$appimage"; then
     info "file exists: $appimage"
 else
@@ -122,9 +122,9 @@ fi
 
 
 # windows
-win1="electrum-bsty-$REV.exe"
-win2="electrum-bsty-$REV-portable.exe"
-win3="electrum-bsty-$REV-setup.exe"
+win1="electrum-brm-$REV.exe"
+win2="electrum-brm-$REV-portable.exe"
+win3="electrum-brm-$REV-setup.exe"
 if test -f "dist/$win1"; then
     info "file exists: $win1"
 else
@@ -147,8 +147,8 @@ fi
 # android
 for arch in armeabi-v7a arm64-v8a x86_64
 do
-    apk="Electrum-BSTY-$VERSION.0-$arch-release.apk"
-    apk_unsigned="Electrum-BSTY-$VERSION.0-$arch-release-unsigned.apk"
+    apk="Electrum-BRM-$VERSION.0-$arch-release.apk"
+    apk_unsigned="Electrum-BRM-$VERSION.0-$arch-release-unsigned.apk"
     if test -f "dist/$apk"; then
         info "file exists: $apk"
     else
@@ -164,7 +164,7 @@ done
 
 # the macos binary is built on a separate machine.
 # the file that needs to be copied over is the codesigned release binary (regardless of builder role)
-dmg=electrum-bsty-$VERSION.dmg
+dmg=electrum-brm-$VERSION.dmg
 if ! test -f "dist/$dmg"; then
     if [ ! -z "$RELEASEMANAGER" ] ; then  # RM
         fail "dmg is missing, aborting. Please build and codesign the dmg on a mac and copy it over."

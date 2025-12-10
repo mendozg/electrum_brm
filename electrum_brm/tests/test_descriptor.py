@@ -8,7 +8,7 @@
 from binascii import unhexlify
 import unittest
 
-from electrum_bsty.descriptor import (
+from electrum_brm.descriptor import (
     parse_descriptor,
     MultisigDescriptor,
     SHDescriptor,
@@ -18,8 +18,8 @@ from electrum_bsty.descriptor import (
     WSHDescriptor,
     PubkeyProvider,
 )
-from electrum_bsty import ecc
-from electrum_bsty.util import bfh
+from electrum_brm import ecc
+from electrum_brm.util import bfh
 
 from . import ElectrumTestCase, as_testnet
 

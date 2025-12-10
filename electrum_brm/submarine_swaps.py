@@ -571,7 +571,7 @@ class SwapManager(Logger):
             tx: PartialTransaction = None,
             channels = None,
     ) -> Optional[str]:
-        """send on-chain BSTY, receive on Lightning
+        """send on-chain BRM, receive on Lightning
 
         Old (removed) flow:
         - User generates an LN invoice with RHASH, and knows preimage.
@@ -761,7 +761,7 @@ class SwapManager(Logger):
         payment_hash = sha256(preimage)
         request_data = {
             "type": "reversesubmarine",
-            "pairId": "BSTY/BSTY",
+            "pairId": "BRM/BRM",
             "orderSide": "buy",
             "invoiceAmount": lightning_amount_sat,
             "preimageHash": payment_hash.hex(),
@@ -865,12 +865,12 @@ class SwapManager(Logger):
         # cache data to disk
         with open(self.pairs_filename(), 'w', encoding='utf-8') as f:
             f.write(json.dumps(pairs))
-        fees = pairs['pairs']['BSTY/BSTY']['fees']
+        fees = pairs['pairs']['BRM/BRM']['fees']
         self.percentage = fees['percentage']
         self.normal_fee = fees['minerFees']['baseAsset']['normal']
         self.lockup_fee = fees['minerFees']['baseAsset']['reverse']['lockup']
         self.claim_fee = fees['minerFees']['baseAsset']['reverse']['claim']
-        limits = pairs['pairs']['BSTY/BSTY']['limits']
+        limits = pairs['pairs']['BRM/BRM']['limits']
         self._min_amount = limits['minimal']
         self._max_amount = limits['maximal']
         assert pairs.get('htlcFirst') is True
@@ -883,7 +883,7 @@ class SwapManager(Logger):
         try:
             with open(self.pairs_filename(), 'r', encoding='utf-8') as f:
                 pairs = json.loads(f.read())
-            limits = pairs['pairs']['BSTY/BSTY']['limits']
+            limits = pairs['pairs']['BRM/BRM']['limits']
             self._min_amount = limits['minimal']
             self._max_amount = limits['maximal']
         except Exception:

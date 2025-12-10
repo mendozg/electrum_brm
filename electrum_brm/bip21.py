@@ -5,11 +5,11 @@ from typing import Optional
 
 from . import bitcoin
 from .util import format_satoshis_plain
-from .bitcoin import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BSTY
+from .bitcoin import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
 from .lnaddr import lndecode, LnDecodeException
 
 # note: when checking against these, use .lower() to support case-insensitivity
-GLOBALBOOST_BIP21_URI_SCHEME = 'globalboost'
+BITRAAM_BIP21_URI_SCHEME = 'bitraam'
 LIGHTNING_URI_SCHEME = 'lightning'
 
 
@@ -25,11 +25,11 @@ def parse_bip21_URI(uri: str) -> dict:
 
     if ':' not in uri:
         if not bitcoin.is_address(uri):
-            raise InvalidBitcoinURI("Not a globalboost address")
+            raise InvalidBitcoinURI("Not a bitraam address")
         return {'address': uri}
 
     u = urllib.parse.urlparse(uri)
-    if u.scheme.lower() != GLOBALBOOST_BIP21_URI_SCHEME:
+    if u.scheme.lower() != BITRAAM_BIP21_URI_SCHEME:
         raise InvalidBitcoinURI("Not a bitcoin URI")
     address = u.path
 
@@ -47,7 +47,7 @@ def parse_bip21_URI(uri: str) -> dict:
     out = {k: v[0] for k, v in pq.items()}
     if address:
         if not bitcoin.is_address(address):
-            raise InvalidBitcoinURI(f"Invalid globalboost address: {address}")
+            raise InvalidBitcoinURI(f"Invalid bitraam address: {address}")
         out['address'] = address
     if 'amount' in out:
         am = out['amount']
@@ -58,8 +58,8 @@ def parse_bip21_URI(uri: str) -> dict:
                 amount = Decimal(m.group(1)) * pow(Decimal(10), k)
             else:
                 amount = Decimal(am) * COIN
-            if amount > TOTAL_COIN_SUPPLY_LIMIT_IN_BSTY * COIN:
-                raise InvalidBitcoinURI(f"amount is out-of-bounds: {amount!r} BSTY")
+            if amount > TOTAL_COIN_SUPPLY_LIMIT_IN_BRM * COIN:
+                raise InvalidBitcoinURI(f"amount is out-of-bounds: {amount!r} BRM")
             out['amount'] = int(amount)
         except Exception as e:
             raise InvalidBitcoinURI(f"failed to parse 'amount' field: {repr(e)}") from e
@@ -117,7 +117,7 @@ def create_bip21_uri(addr, amount_sat: Optional[int], message: Optional[str],
         v = urllib.parse.quote(v)
         query.append(f"{k}={v}")
     p = urllib.parse.ParseResult(
-        scheme=GLOBALBOOST_BIP21_URI_SCHEME,
+        scheme=BITRAAM_BIP21_URI_SCHEME,
         netloc='',
         path=addr,
         params='',

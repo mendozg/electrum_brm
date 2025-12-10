@@ -47,35 +47,35 @@ from PyQt5.QtWidgets import (QMessageBox, QSystemTrayIcon, QTabWidget,
                              QWidget, QSizePolicy, QStatusBar, QToolTip,
                              QMenu, QAction, QStackedWidget, QToolButton)
 
-import electrum_bsty as electrum
-from electrum_bsty.gui import messages
-from electrum_bsty import (keystore, ecc, constants, util, bitcoin, commands,
+import electrum_brm as electrum
+from electrum_brm.gui import messages
+from electrum_brm import (keystore, ecc, constants, util, bitcoin, commands,
                       paymentrequest, lnutil)
-from electrum_bsty.bitcoin import COIN, is_address, DummyAddress
-from electrum_bsty.plugin import run_hook, BasePlugin
-from electrum_bsty.i18n import _
-from electrum_bsty.util import (format_time, UserCancelled, profiler, bfh, InvalidPassword,
+from electrum_brm.bitcoin import COIN, is_address, DummyAddress
+from electrum_brm.plugin import run_hook, BasePlugin
+from electrum_brm.i18n import _
+from electrum_brm.util import (format_time, UserCancelled, profiler, bfh, InvalidPassword,
                            UserFacingException, get_new_wallet_name, send_exception_to_crash_reporter,
                            AddTransactionException, os_chmod)
-from electrum_bsty.bip21 import GLOBALBOOST_BIP21_URI_SCHEME
-from electrum_bsty.payment_identifier import PaymentIdentifier
-from electrum_bsty.invoices import PR_PAID, Invoice
-from electrum_bsty.transaction import (Transaction, PartialTxInput,
+from electrum_brm.bip21 import BITRAAM_BIP21_URI_SCHEME
+from electrum_brm.payment_identifier import PaymentIdentifier
+from electrum_brm.invoices import PR_PAID, Invoice
+from electrum_brm.transaction import (Transaction, PartialTxInput,
                                   PartialTransaction, PartialTxOutput)
-from electrum_bsty.wallet import (Multisig_Wallet, Abstract_Wallet,
+from electrum_brm.wallet import (Multisig_Wallet, Abstract_Wallet,
                              sweep_preparations, InternalAddressCorruption,
                              CannotCPFP)
-from electrum_bsty.version import ELECTRUM_VERSION
-from electrum_bsty.network import Network, UntrustedServerReturnedError, NetworkException
-from electrum_bsty.exchange_rate import FxThread
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.logging import Logger
-from electrum_bsty.lnutil import extract_nodeid, ConnStringFormatError
-from electrum_bsty.lnaddr import lndecode
-from electrum_bsty.submarine_swaps import SwapServerError
+from electrum_brm.version import ELECTRUM_VERSION
+from electrum_brm.network import Network, UntrustedServerReturnedError, NetworkException
+from electrum_brm.exchange_rate import FxThread
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.logging import Logger
+from electrum_brm.lnutil import extract_nodeid, ConnStringFormatError
+from electrum_brm.lnaddr import lndecode
+from electrum_brm.submarine_swaps import SwapServerError
 
 from .exception_window import Exception_Hook
-from .amountedit import BSTYAmountEdit
+from .amountedit import BRMAmountEdit
 from .qrcodewidget import QRDialog
 from .qrtextedit import ShowQRTextEdit, ScanQRTextEdit, ScanShowQRTextEdit
 from .transaction_dialog import show_transaction
@@ -101,7 +101,7 @@ from .swap_dialog import SwapDialog, InvalidSwapParameters
 from .balance_dialog import BalanceToolButton, COLOR_FROZEN, COLOR_UNMATURED, COLOR_UNCONFIRMED, COLOR_CONFIRMED, COLOR_LIGHTNING, COLOR_FROZEN_LIGHTNING
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import ConfigVarWithConfig
+    from electrum_brm.simple_config import ConfigVarWithConfig
     from . import ElectrumGui
 
 
@@ -244,7 +244,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         if self.config.GUI_QT_WINDOW_IS_MAXIMIZED:
             self.showMaximized()
 
-        self.setWindowIcon(read_QIcon("electrum-bsty.png"))
+        self.setWindowIcon(read_QIcon("electrum-brm.png"))
         self.init_menubar()
 
         wrtabs = weakref.proxy(tabs)
@@ -282,7 +282,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         # If the option hasn't been set yet
         if not config.cv.AUTOMATIC_CENTRALIZED_UPDATE_CHECKS.is_set():
             choice = self.question(title="Electrum - " + _("Enable update check"),
-                                   msg=_("For security reasons we advise that you always use the latest version of Electrum-BSTY.") + " " +
+                                   msg=_("For security reasons we advise that you always use the latest version of Electrum-BRM.") + " " +
                                        _("Would you like to be notified when there is a newer version of Electrum available?"))
             config.AUTOMATIC_CENTRALIZED_UPDATE_CHECKS = bool(choice)
 
@@ -301,7 +301,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
 
     def run_coroutine_dialog(self, coro, text, on_result, on_cancelled):
         """ run coroutine in a waiting dialog, with a Cancel button that cancels the coroutine """
-        from electrum_bsty import util
+        from electrum_brm import util
         loop = util.get_asyncio_loop()
         assert util.get_running_loop() != loop, 'must not be called from asyncio thread'
         future = asyncio.run_coroutine_threadsafe(coro, loop)
@@ -550,7 +550,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
 
     @classmethod
     def get_app_name_and_version_str(cls) -> str:
-        name = "Electrum-BSTY"
+        name = "Electrum-BRM"
         if constants.net.TESTNET:
             name += " " + constants.net.NET_NAME.capitalize()
         return f"{name} {ELECTRUM_VERSION}"
@@ -572,7 +572,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         if self.wallet.is_watching_only():
             msg = ' '.join([
                 _("This wallet is watching-only."),
-                _("This means you will not be able to spend GlobalBoosts with it."),
+                _("This means you will not be able to spend BitRaams with it."),
                 _("Make sure you own the seed phrase or the private keys, before you request Bitcoins to be sent to this wallet.")
             ])
             self.show_warning(msg, title=_('Watch-only wallet'))
@@ -590,7 +590,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         msg = ''.join([
             _("You are in testnet mode."), ' ',
             _("Testnet coins are worthless."), '\n',
-            _("Testnet is separate from the main GlobalBoost-Y network. It is used for testing.")
+            _("Testnet is separate from the main BitRaam-Y network. It is used for testing.")
         ])
         cb = QCheckBox(_("Don't show this again."))
         cb_checked = False
@@ -785,18 +785,18 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         d = self.network.get_donation_address()
         if d:
             host = self.network.get_parameters().server.host
-            self.handle_payment_identifier('globalboost:%s?message=donation for %s' % (d, host))
+            self.handle_payment_identifier('bitraam:%s?message=donation for %s' % (d, host))
         else:
             self.show_error(_('No donation address for this server'))
 
     def show_about(self):
-        QMessageBox.about(self, "Electrum-BSTY",
+        QMessageBox.about(self, "Electrum-BRM",
                           (_("Version")+" %s" % ELECTRUM_VERSION + "\n\n" +
-                           _("Electrum-BSTY's focus is speed, with low resource usage and simplifying GlobalBoost.") + " " +
+                           _("Electrum-BRM's focus is speed, with low resource usage and simplifying BitRaam.") + " " +
                            _("You do not need to perform regular backups, because your wallet can be "
                               "recovered from a secret phrase that you can memorize or write on paper.") + " " +
                            _("Startup times are instant because it operates in conjunction with high-performance "
-                              "servers that handle the most complicated parts of the GlobalBoost system.") + "\n\n" +
+                              "servers that handle the most complicated parts of the BitRaam system.") + "\n\n" +
                            _("Uses icons from the Icons8 icon pack (icons8.com).")))
 
     def show_bitcoin_paper(self):
@@ -861,9 +861,9 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         if self.tray:
             try:
                 # this requires Qt 5.9
-                self.tray.showMessage("Electrum-BSTY", message, read_QIcon("electrum_dark_icon"), 20000)
+                self.tray.showMessage("Electrum-BRM", message, read_QIcon("electrum_dark_icon"), 20000)
             except TypeError:
-                self.tray.showMessage("Electrum-BSTY", message, QSystemTrayIcon.Information, 20000)
+                self.tray.showMessage("Electrum-BRM", message, QSystemTrayIcon.Information, 20000)
 
     def timer_actions(self):
         # refresh invoices and requests because they show ETA
@@ -900,8 +900,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         )
 
     def format_amount_and_units(self, amount_sat, *, timestamp: int = None) -> str:
-        """Returns string with both globalboosts and fiat amounts, in desired units.
-        E.g. 500_000 -> '0.005 BSTY (191.42 EUR)'
+        """Returns string with both bitraams and fiat amounts, in desired units.
+        E.g. 500_000 -> '0.005 BRM (191.42 EUR)'
         """
         text = self.config.format_amount_and_units(amount_sat)
         fiat = self.fx.format_amount_and_units(amount_sat, timestamp=timestamp) if self.fx else None
@@ -1510,7 +1510,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         d.exec_()
 
     def show_lightning_invoice(self, invoice: Invoice):
-        from electrum_bsty.util import format_short_id
+        from electrum_brm.util import format_short_id
         lnaddr = lndecode(invoice.lightning_invoice)
         d = WindowModalDialog(self, _("Lightning Invoice"))
         vbox = QVBoxLayout(d)
@@ -1716,7 +1716,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         self.password_button.setVisible(self.wallet.may_have_password())
 
     def change_password_dialog(self):
-        from electrum_bsty.storage import StorageEncryptionVersion
+        from electrum_brm.storage import StorageEncryptionVersion
         if self.wallet.get_available_storage_encryption_version() == StorageEncryptionVersion.XPUB_PASSWORD:
             from .password_dialog import ChangePasswordDialogForHW
             d = ChangePasswordDialogForHW(self, self.wallet)
@@ -1769,7 +1769,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
             tab.searchable_list.filter(t)
 
     def new_channel_dialog(self, *, amount_sat=None, min_amount_sat=None):
-        from electrum_bsty.lnutil import MIN_FUNDING_SAT
+        from electrum_brm.lnutil import MIN_FUNDING_SAT
         from .new_channel_dialog import NewChannelDialog
         confirmed, unconfirmed, unmatured, frozen, lightning, f_lightning = self.wallet.get_balances_for_piechart()
         min_amount_sat = min_amount_sat or MIN_FUNDING_SAT
@@ -1807,7 +1807,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         assert not self.wallet.has_lightning()
         if self.wallet.can_have_deterministic_lightning():
             msg = _(
-                "Lightning is not enabled because this wallet was created with an old version of Electrum-BSTY. "
+                "Lightning is not enabled because this wallet was created with an old version of Electrum-BRM. "
                 "Create lightning keys?")
         else:
             msg = _(
@@ -1914,7 +1914,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         address  = address.text().strip()
         message = message.toPlainText().strip()
         if not bitcoin.is_address(address):
-            self.show_message(_('Invalid GlobalBoost address.'))
+            self.show_message(_('Invalid BitRaam address.'))
             return
         if self.wallet.is_watching_only():
             self.show_message(_('This is a watching-only wallet.'))
@@ -1942,7 +1942,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         address  = address.text().strip()
         message = message.toPlainText().strip().encode('utf-8')
         if not bitcoin.is_address(address):
-            self.show_message(_('Invalid GlobalBoost address.'))
+            self.show_message(_('Invalid BitRaam address.'))
             return
         try:
             # This can throw on invalid base64
@@ -2070,7 +2070,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         return d.run()
 
     def tx_from_text(self, data: Union[str, bytes]) -> Union[None, 'PartialTransaction', 'Transaction']:
-        from electrum_bsty.transaction import tx_from_any
+        from electrum_brm.transaction import tx_from_any
         try:
             return tx_from_any(data)
         except BaseException as e:
@@ -2098,7 +2098,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
             if not data:
                 return
             # if the user scanned a bitcoin URI
-            if data.lower().startswith(GLOBALBOOST_BIP21_URI_SCHEME + ':'):
+            if data.lower().startswith(BITRAAM_BIP21_URI_SCHEME + ':'):
                 self.handle_payment_identifier(data)
                 return
             if data.lower().startswith('channel_backup:'):
@@ -2165,7 +2165,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
     def do_process_from_txid(self, *, parent: QWidget = None, txid: str = None):
         if parent is None:
             parent = self
-        from electrum_bsty import transaction
+        from electrum_brm import transaction
         if txid is None:
             txid, ok = QInputDialog.getText(parent, _('Lookup transaction'), _('Transaction ID') + ':')
             if not ok:
@@ -2226,7 +2226,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         e.setReadOnly(True)
         vbox.addWidget(e)
 
-        defaultname = f'electrum-bsty-private-keys-{self.wallet.basename()}.csv'
+        defaultname = f'electrum-brm-private-keys-{self.wallet.basename()}.csv'
         select_msg = _('Select file to export your private keys to')
         hbox, filename_e, csv_button = filename_field(self, self.config, defaultname, select_msg)
         vbox.addLayout(hbox)
@@ -2611,7 +2611,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         output_amount = QLabel('')
         grid.addWidget(QLabel(_('Output amount') + ':'), 2, 0)
         grid.addWidget(output_amount, 2, 1)
-        fee_e = BSTYAmountEdit(self.get_decimal_point)
+        fee_e = BRMAmountEdit(self.get_decimal_point)
         combined_fee = QLabel('')
         combined_feerate = QLabel('')
         def on_fee_edit(x):

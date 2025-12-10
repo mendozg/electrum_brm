@@ -30,17 +30,17 @@ import PyQt5.QtCore as QtCore
 from PyQt5.QtWidgets import (QWidget, QLabel, QPushButton, QTextEdit,
                              QMessageBox, QHBoxLayout, QVBoxLayout)
 
-from electrum_bsty.i18n import _
-from electrum_bsty.base_crash_reporter import BaseCrashReporter, EarlyExceptionsQueue, CrashReportResponse
-from electrum_bsty.logging import Logger
-from electrum_bsty import constants
-from electrum_bsty.network import Network
+from electrum_brm.i18n import _
+from electrum_brm.base_crash_reporter import BaseCrashReporter, EarlyExceptionsQueue, CrashReportResponse
+from electrum_brm.logging import Logger
+from electrum_brm import constants
+from electrum_brm.network import Network
 
 from .util import MessageBoxMixin, read_QIcon, WaitingDialog, font_height
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.wallet import Abstract_Wallet
 
 
 class Exception_Window(BaseCrashReporter, QWidget, MessageBoxMixin, Logger):
@@ -52,7 +52,7 @@ class Exception_Window(BaseCrashReporter, QWidget, MessageBoxMixin, Logger):
         self.config = config
 
         QWidget.__init__(self)
-        self.setWindowTitle('Electrum-BSTY - ' + _('An Error Occurred'))
+        self.setWindowTitle('Electrum-BRM - ' + _('An Error Occurred'))
         self.setMinimumSize(600, 300)
 
         Logger.__init__(self)

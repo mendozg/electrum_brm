@@ -8,14 +8,14 @@ from PyQt5.QtGui import QPixmap
 from PyQt5.QtWidgets import (QDialog, QPushButton, QWidget, QLabel, QVBoxLayout, QScrollArea,
                              QHBoxLayout, QLayout, QStackedWidget)
 
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import get_logger
-from electrum_bsty.gui.qt.util import Buttons, icon_path, MessageBoxMixin, WWLabel, ResizableStackedWidget
+from electrum_brm.i18n import _
+from electrum_brm.logging import get_logger
+from electrum_brm.gui.qt.util import Buttons, icon_path, MessageBoxMixin, WWLabel, ResizableStackedWidget
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.gui.qt import QElectrumApplication
-    from electrum_bsty.wizard import WizardViewState
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.gui.qt import QElectrumApplication
+    from electrum_brm.wizard import WizardViewState
 
 
 class QEAbstractWizard(QDialog, MessageBoxMixin):
@@ -100,7 +100,7 @@ class QEAbstractWizard(QDialog, MessageBoxMixin):
         outer_vbox.addLayout(Buttons(self.back_button, self.next_button))
 
         self.icon_filename = None
-        self.set_icon('electrum-bsty.png')
+        self.set_icon('electrum-brm.png')
 
         self.start_viewstate = start_viewstate
 
@@ -177,7 +177,7 @@ class QEAbstractWizard(QDialog, MessageBoxMixin):
         self.please_wait_l.setText(page.busy_msg if page.busy_msg else _("Please wait..."))
         self.error_msg.setText(str(page.error))
         self.error.setVisible(not page.busy and bool(page.error))
-        icon = page.params.get('icon', icon_path('electrum-bsty.png'))
+        icon = page.params.get('icon', icon_path('electrum-brm.png'))
         if icon != self.icon_filename:
             self.set_icon(icon)
 

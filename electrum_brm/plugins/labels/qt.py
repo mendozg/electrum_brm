@@ -6,16 +6,16 @@ from typing import TYPE_CHECKING
 from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtWidgets import (QHBoxLayout, QLabel, QVBoxLayout)
 
-from electrum_bsty.plugin import hook
-from electrum_bsty.i18n import _
-from electrum_bsty.gui.qt.util import ThreadedButton, Buttons, EnterButton, WindowModalDialog, OkButton
+from electrum_brm.plugin import hook
+from electrum_brm.i18n import _
+from electrum_brm.gui.qt.util import ThreadedButton, Buttons, EnterButton, WindowModalDialog, OkButton
 
 from .labels import LabelsPlugin
 
 if TYPE_CHECKING:
-    from electrum_bsty.gui.qt import ElectrumGui
-    from electrum_bsty.gui.qt.main_window import ElectrumWindow
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.gui.qt import ElectrumGui
+    from electrum_brm.gui.qt.main_window import ElectrumWindow
+    from electrum_brm.wallet import Abstract_Wallet
 
 class QLabelsSignalObject(QObject):
     labels_changed_signal = pyqtSignal(object)

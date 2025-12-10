@@ -3,18 +3,18 @@ from typing import TYPE_CHECKING
 
 from PyQt5.QtCore import pyqtSignal
 
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import hook
-from electrum_bsty.wallet import Standard_Wallet
+from electrum_brm.i18n import _
+from electrum_brm.plugin import hook
+from electrum_brm.wallet import Standard_Wallet
 
-from electrum_bsty.plugins.hw_wallet.qt import QtHandlerBase, QtPluginBase
-from electrum_bsty.plugins.hw_wallet import plugin
-from electrum_bsty.gui.qt.wizard.wallet import WCScriptAndDerivation, WCHWUnlock, WCHWXPub, WCHWUninitialized
+from electrum_brm.plugins.hw_wallet.qt import QtHandlerBase, QtPluginBase
+from electrum_brm.plugins.hw_wallet import plugin
+from electrum_brm.gui.qt.wizard.wallet import WCScriptAndDerivation, WCHWUnlock, WCHWXPub, WCHWUninitialized
 
 from .jade import JadePlugin
 
 if TYPE_CHECKING:
-    from electrum_bsty.gui.qt.wizard.wallet import QENewWalletWizard
+    from electrum_brm.gui.qt.wizard.wallet import QENewWalletWizard
 
 
 class Plugin(JadePlugin, QtPluginBase):

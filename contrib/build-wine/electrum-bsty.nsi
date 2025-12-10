@@ -6,8 +6,8 @@
 ;--------------------------------
 ;Variables
 
-  !define PRODUCT_NAME "Electrum-BSTY"
-  !define PRODUCT_WEB_SITE "https://github.com/mendozg/electrum-bsty"
+  !define PRODUCT_NAME "Electrum-BRM"
+  !define PRODUCT_WEB_SITE "https://github.com/mendozg/electrum-brm"
   !define PRODUCT_PUBLISHER "Electrum Technologies GmbH"
   !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
 
@@ -16,7 +16,7 @@
 
   ;Name and file
   Name "${PRODUCT_NAME}"
-  OutFile "dist/electrum-bsty-setup.exe"
+  OutFile "dist/electrum-brm-setup.exe"
 
   ;Default installation folder
   InstallDir "$PROGRAMFILES\${PRODUCT_NAME}"
@@ -72,7 +72,7 @@
   !define MUI_ABORTWARNING
   !define MUI_ABORTWARNING_TEXT "Are you sure you wish to abort the installation of ${PRODUCT_NAME}?"
 
-  !define MUI_ICON "..\..\electrum_bsty\gui\icons\electrum-bsty.ico"
+  !define MUI_ICON "..\..\electrum_brm\gui\icons\electrum-brm.ico"
 
 ;--------------------------------
 ;Pages
@@ -110,8 +110,8 @@ Section
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\*.*"
 
   ;Files to pack into the installer
-  File /r "dist\electrum_bsty\*.*"
-  File "..\..\electrum_bsty\gui\icons\electrum-bsty.ico"
+  File /r "dist\electrum_brm\*.*"
+  File "..\..\electrum_brm\gui\icons\electrum-brm.ico"
 
   ;Store installation folder
   WriteRegStr HKCU "Software\${PRODUCT_NAME}" "" $INSTDIR
@@ -132,15 +132,15 @@ Section
   CreateShortCut "$SMPROGRAMS\${PRODUCT_NAME}\${PRODUCT_NAME} Testnet.lnk" "$INSTDIR\electrum-${PRODUCT_VERSION}.exe" "--testnet" "$INSTDIR\electrum-${PRODUCT_VERSION}.exe" 0
 
 
-  ;Links globalboost: and lightning: URIs to Electrum-BSTY
-  WriteRegStr HKCU "Software\Classes\globalboost" "" "URL:globalboost Protocol"
-  WriteRegStr HKCU "Software\Classes\globalboost" "URL Protocol" ""
-  WriteRegStr HKCU "Software\Classes\globalboost" "DefaultIcon" "$\"$INSTDIR\electrum-bsty.ico, 0$\""
-  WriteRegStr HKCU "Software\Classes\globalboost\shell\open\command" "" "$\"$INSTDIR\electrum-bsty-${PRODUCT_VERSION}.exe$\" $\"%1$\""
+  ;Links bitraam: and lightning: URIs to Electrum-BRM
+  WriteRegStr HKCU "Software\Classes\bitraam" "" "URL:bitraam Protocol"
+  WriteRegStr HKCU "Software\Classes\bitraam" "URL Protocol" ""
+  WriteRegStr HKCU "Software\Classes\bitraam" "DefaultIcon" "$\"$INSTDIR\electrum-brm.ico, 0$\""
+  WriteRegStr HKCU "Software\Classes\bitraam\shell\open\command" "" "$\"$INSTDIR\electrum-brm-${PRODUCT_VERSION}.exe$\" $\"%1$\""
   WriteRegStr HKCU "Software\Classes\lightning" "" "URL:lightning Protocol"
   WriteRegStr HKCU "Software\Classes\lightning" "URL Protocol" ""
-  WriteRegStr HKCU "Software\Classes\lightning" "DefaultIcon" "$\"$INSTDIR\electrum-bsty.ico, 0$\""
-  WriteRegStr HKCU "Software\Classes\lightning\shell\open\command" "" "$\"$INSTDIR\electrum-bsty-${PRODUCT_VERSION}.exe$\" $\"%1$\""
+  WriteRegStr HKCU "Software\Classes\lightning" "DefaultIcon" "$\"$INSTDIR\electrum-brm.ico, 0$\""
+  WriteRegStr HKCU "Software\Classes\lightning\shell\open\command" "" "$\"$INSTDIR\electrum-brm-${PRODUCT_VERSION}.exe$\" $\"%1$\""
 
   ;Adds an uninstaller possibility to Windows Uninstall or change a program section
   WriteRegStr HKCU "${PRODUCT_UNINST_KEY}" "DisplayName" "$(^Name)"
@@ -148,7 +148,7 @@ Section
   WriteRegStr HKCU "${PRODUCT_UNINST_KEY}" "DisplayVersion" "${PRODUCT_VERSION}"
   WriteRegStr HKCU "${PRODUCT_UNINST_KEY}" "URLInfoAbout" "${PRODUCT_WEB_SITE}"
   WriteRegStr HKCU "${PRODUCT_UNINST_KEY}" "Publisher" "${PRODUCT_PUBLISHER}"
-  WriteRegStr HKCU "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\electrum-bsty.ico"
+  WriteRegStr HKCU "${PRODUCT_UNINST_KEY}" "DisplayIcon" "$INSTDIR\electrum-brm.ico"
 
   ;Fixes Windows broken size estimates
   ${GetSize} "$INSTDIR" "/S=0K" $0 $1 $2
@@ -171,7 +171,7 @@ Section "Uninstall"
   Delete "$SMPROGRAMS\${PRODUCT_NAME}\*.*"
   RMDir  "$SMPROGRAMS\${PRODUCT_NAME}"
 
-  DeleteRegKey HKCU "Software\Classes\globalboost"
+  DeleteRegKey HKCU "Software\Classes\bitraam"
   DeleteRegKey HKCU "Software\${PRODUCT_NAME}"
   DeleteRegKey HKCU "${PRODUCT_UNINST_KEY}"
 SectionEnd

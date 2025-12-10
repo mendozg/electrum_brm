@@ -2,17 +2,17 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, QObject
 
-from electrum_bsty.logging import get_logger
-from electrum_bsty import constants
-from electrum_bsty.interface import ServerAddr
-from electrum_bsty.simple_config import FEERATE_DEFAULT_RELAY
+from electrum_brm.logging import get_logger
+from electrum_brm import constants
+from electrum_brm.interface import ServerAddr
+from electrum_brm.simple_config import FEERATE_DEFAULT_RELAY
 
 from .util import QtEventListener, event_listener
 from .qeserverlistmodel import QEServerListModel
 
 if TYPE_CHECKING:
     from .qeconfig import QEConfig
-    from electrum_bsty.network import Network
+    from electrum_brm.network import Network
 
 
 class QENetwork(QObject, QtEventListener):
@@ -248,7 +248,7 @@ class QENetwork(QObject, QtEventListener):
 
     @pyqtProperty(str, notify=dataChanged)
     def networkName(self):
-        return constants.net.__name__.replace('GlobalBoost', '')
+        return constants.net.__name__.replace('BitRaam', '')
 
     @pyqtProperty('QVariantMap', notify=proxyChanged)
     def proxy(self):

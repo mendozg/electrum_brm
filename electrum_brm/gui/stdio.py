@@ -4,15 +4,15 @@ import datetime
 import logging
 from typing import Optional
 
-from electrum_bsty.gui import BaseElectrumGui
-from electrum_bsty import util
-from electrum_bsty import WalletStorage, Wallet
-from electrum_bsty.wallet import Abstract_Wallet
-from electrum_bsty.wallet_db import WalletDB
-from electrum_bsty.util import format_satoshis, EventListener, event_listener
-from electrum_bsty.bitcoin import is_address, COIN
-from electrum_bsty.transaction import PartialTxOutput
-from electrum_bsty.network import TxBroadcastError, BestEffortRequestFailed
+from electrum_brm.gui import BaseElectrumGui
+from electrum_brm import util
+from electrum_brm import WalletStorage, Wallet
+from electrum_brm.wallet import Abstract_Wallet
+from electrum_brm.wallet_db import WalletDB
+from electrum_brm.util import format_satoshis, EventListener, event_listener
+from electrum_brm.bitcoin import is_address, COIN
+from electrum_brm.transaction import PartialTxOutput
+from electrum_brm.network import TxBroadcastError, BestEffortRequestFailed
 
 _ = lambda x:x  # i18n
 
@@ -27,7 +27,7 @@ class ElectrumGui(BaseElectrumGui, EventListener):
         self.network = daemon.network
         storage = WalletStorage(config.get_wallet_path(use_gui_last_wallet=True))
         if not storage.file_exists():
-            print("Wallet not found. try 'electrum-bsty create'")
+            print("Wallet not found. try 'electrum-brm create'")
             exit()
         if storage.is_encrypted():
             password = getpass.getpass('Password:', stream=None)
@@ -185,7 +185,7 @@ class ElectrumGui(BaseElectrumGui, EventListener):
 
     def do_send(self):
         if not is_address(self.str_recipient):
-            print(_('Invalid GlobalBoost address'))
+            print(_('Invalid BitRaam address'))
             return
         try:
             amount = int(Decimal(self.str_amount) * COIN)
@@ -238,12 +238,12 @@ class ElectrumGui(BaseElectrumGui, EventListener):
             #self.update_contacts_tab()
 
     def network_dialog(self):
-        print("use 'electrum-bsty setconfig server/proxy' to change your network settings")
+        print("use 'electrum-brm setconfig server/proxy' to change your network settings")
         return True
 
 
     def settings_dialog(self):
-        print("use 'electrum-bsty setconfig' to change your settings")
+        print("use 'electrum-brm setconfig' to change your settings")
         return True
 
     def password_dialog(self):

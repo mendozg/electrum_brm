@@ -12,13 +12,13 @@ from PyQt6.QtCore import (pyqtSlot, pyqtSignal, pyqtProperty, QObject, QT_VERSIO
 from PyQt6.QtGui import QGuiApplication, QFontDatabase, QScreen
 from PyQt6.QtQml import qmlRegisterType, qmlRegisterUncreatableType, QQmlApplicationEngine
 
-from electrum_bsty import version, constants
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import Logger, get_logger
-from electrum_bsty.bip21 import GLOBALBOOST_BIP21_URI_SCHEME, LIGHTNING_URI_SCHEME
-from electrum_bsty.base_crash_reporter import BaseCrashReporter, EarlyExceptionsQueue
-from electrum_bsty.network import Network
-from electrum_bsty.plugin import run_hook
+from electrum_brm import version, constants
+from electrum_brm.i18n import _
+from electrum_brm.logging import Logger, get_logger
+from electrum_brm.bip21 import BITRAAM_BIP21_URI_SCHEME, LIGHTNING_URI_SCHEME
+from electrum_brm.base_crash_reporter import BaseCrashReporter, EarlyExceptionsQueue
+from electrum_brm.network import Network
+from electrum_brm.plugin import run_hook
 
 from .qeconfig import QEConfig
 from .qedaemon import QEDaemon
@@ -43,10 +43,10 @@ from .qemodelfilter import QEFilterProxyModel
 from .qebip39recovery import QEBip39RecoveryListModel
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.wallet import Abstract_Wallet
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.plugin import Plugins
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.wallet import Abstract_Wallet
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.plugin import Plugins
 
 if 'ANDROID_DATA' in os.environ:
     from jnius import autoclass, cast
@@ -151,7 +151,7 @@ class QEAppController(BaseCrashReporter, QObject):
             if not notification:
                 from plyer import notification
             icon = (os.path.dirname(os.path.realpath(__file__))
-                    + '/../icons/electrum-bsty.png')
+                    + '/../icons/electrum-brm.png')
             notification.notify('Electrum', message, app_icon=icon, app_name='Electrum')
         except ImportError:
             self.logger.warning('Notification: needs plyer; `sudo python3 -m pip install plyer`')
@@ -175,7 +175,7 @@ class QEAppController(BaseCrashReporter, QObject):
         data = str(intent.getDataString())
         self.logger.debug(f'received intent: {repr(data)}')
         scheme = str(intent.getScheme()).lower()
-        if scheme == GLOBALBOOST_BIP21_URI_SCHEME or scheme == LIGHTNING_URI_SCHEME:
+        if scheme == BITRAAM_BIP21_URI_SCHEME or scheme == LIGHTNING_URI_SCHEME:
             self.uriReceived.emit(data)
 
     def startupFinished(self):
@@ -389,8 +389,8 @@ class ElectrumQmlApplication(QGuiApplication):
 
         # add a monospace font as we can't rely on device having one
         self.fixedFont = 'PT Mono'
-        not_loaded = QFontDatabase.addApplicationFont('electrum_bsty/gui/qml/fonts/PTMono-Regular.ttf') < 0
-        not_loaded = QFontDatabase.addApplicationFont('electrum_bsty/gui/qml/fonts/PTMono-Bold.ttf') < 0 and not_loaded
+        not_loaded = QFontDatabase.addApplicationFont('electrum_brm/gui/qml/fonts/PTMono-Regular.ttf') < 0
+        not_loaded = QFontDatabase.addApplicationFont('electrum_brm/gui/qml/fonts/PTMono-Bold.ttf') < 0 and not_loaded
         if not_loaded:
             self.logger.warning('Could not load font PT Mono')
             self.fixedFont = 'Monospace' # hope for the best

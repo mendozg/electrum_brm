@@ -40,8 +40,8 @@ def read_json(filename, default):
     return r
 
 
-GIT_REPO_URL = "https://github.com/globalboost/electrum-bsty"
-GIT_REPO_ISSUES_URL = "https://github.com/globalboost/electrum-bsty/issues"
+GIT_REPO_URL = "https://github.com/bitraam/electrum-brm"
+GIT_REPO_ISSUES_URL = "https://github.com/bitraam/electrum-brm/issues"
 BIP39_WALLET_FORMATS = read_json('bip39_wallet_formats.json', [])
 
 
@@ -102,7 +102,7 @@ class BitcoinMainnet(AbstractNet):
     BIP44_COIN_TYPE = 664
     LN_REALM_BYTE = 0
     LN_DNS_SEEDS = [
-        'bsty.nodes.lightning.directory.',
+        'brm.nodes.lightning.directory.',
     ]
 
 
@@ -140,7 +140,7 @@ class BitcoinTestnet(AbstractNet):
     LN_REALM_BYTE = 1
     LN_DNS_SEEDS = [  # TODO investigate this again
         #'test.nodes.lightning.directory.',  # times out.
-        #'lseed.globalbooststats.com.',  # ignores REALM byte and returns mainnet peers...
+        #'lseed.bitraamstats.com.',  # ignores REALM byte and returns mainnet peers...
     ]
 
 

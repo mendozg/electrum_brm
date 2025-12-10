@@ -1,16 +1,16 @@
 from typing import TYPE_CHECKING
 
-from electrum_bsty.i18n import _
-from electrum_bsty.wizard import ServerConnectWizard
-from electrum_bsty.gui.qt.network_dialog import ProxyWidget, ServerWidget
-from electrum_bsty.gui.qt.util import ChoiceWidget
+from electrum_brm.i18n import _
+from electrum_brm.wizard import ServerConnectWizard
+from electrum_brm.gui.qt.network_dialog import ProxyWidget, ServerWidget
+from electrum_brm.gui.qt.util import ChoiceWidget
 from .wizard import QEAbstractWizard, WizardComponent
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.plugin import Plugins
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.gui.qt import QElectrumApplication
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.plugin import Plugins
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.gui.qt import QElectrumApplication
 
 
 class QEServerConnectWizard(ServerConnectWizard, QEAbstractWizard):

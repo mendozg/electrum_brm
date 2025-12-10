@@ -1,4 +1,4 @@
-from electrum_bsty.i18n import _
+from electrum_brm.i18n import _
 
 fullname = "BitBox02"
 description = (

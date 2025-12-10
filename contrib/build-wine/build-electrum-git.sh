@@ -1,6 +1,6 @@
 #!/bin/bash
 
-NAME_ROOT=electrum-bsty
+NAME_ROOT=electrum-brm
 
 export PYTHONDONTWRITEBYTECODE=1  # don't create __pycache__/ folders with .pyc files
 
@@ -10,7 +10,7 @@ set -e
 
 . "$CONTRIB"/build_tools_util.sh
 
-pushd $WINEPREFIX/drive_c/electrum-bsty
+pushd $WINEPREFIX/drive_c/electrum-brm
 
 VERSION=$(git describe --tags --dirty --always)
 info "Last commit: $VERSION"
@@ -18,10 +18,10 @@ info "Last commit: $VERSION"
 # Load electrum-locale for this release
 git submodule update --init
 
-LOCALE="$WINEPREFIX/drive_c/electrum-bsty/electrum_bsty/locale/"
+LOCALE="$WINEPREFIX/drive_c/electrum-brm/electrum_brm/locale/"
 # we want the binary to have only compiled (.mo) locale files; not source (.po) files
 rm -rf "$LOCALE"
-"$CONTRIB/build_locale.sh" "$CONTRIB/deterministic-build/electrum-bsty-locale/locale/" "$LOCALE"
+"$CONTRIB/build_locale.sh" "$CONTRIB/deterministic-build/electrum-brm-locale/locale/" "$LOCALE"
 
 find -exec touch -h -d '2000-11-11T11:11:11+00:00' {} +
 popd
@@ -46,13 +46,13 @@ $WINE_PYTHON -m pip install --no-build-isolation --no-dependencies --no-warn-scr
     --no-binary :all: --only-binary cffi,cryptography,hidapi \
     --cache-dir "$WINE_PIP_CACHE_DIR" -r "$CONTRIB"/deterministic-build/requirements-hw.txt
 
-pushd $WINEPREFIX/drive_c/electrum-bsty
+pushd $WINEPREFIX/drive_c/electrum-brm
 # see https://github.com/pypa/pip/issues/2195 -- pip makes a copy of the entire directory
-info "Pip installing Electrum-BSTY. This might take a long time if the project folder is large."
+info "Pip installing Electrum-BRM. This might take a long time if the project folder is large."
 $WINE_PYTHON -m pip install --no-build-isolation --no-dependencies --no-warn-script-location .
-# pyinstaller needs to be able to "import electrum_bsty", for which we need libsecp256k1:
+# pyinstaller needs to be able to "import electrum_brm", for which we need libsecp256k1:
 # (or could try "pip install -e" instead)
-cp electrum_bsty/libsecp256k1-*.dll "$WINEPREFIX/drive_c/python3/Lib/site-packages/electrum_bsty/"
+cp electrum_brm/libsecp256k1-*.dll "$WINEPREFIX/drive_c/python3/Lib/site-packages/electrum_brm/"
 popd
 
 
@@ -68,11 +68,11 @@ find -exec touch -h -d '2000-11-11T11:11:11+00:00' {} +
 popd
 
 info "building NSIS installer"
-# $VERSION could be passed to the electrum-bsty.nsi script, but this would require some rewriting in the script itself.
-makensis -DPRODUCT_VERSION=$VERSION electrum-bsty.nsi
+# $VERSION could be passed to the electrum-brm.nsi script, but this would require some rewriting in the script itself.
+makensis -DPRODUCT_VERSION=$VERSION electrum-brm.nsi
 
 cd dist
-mv electrum-bsty-setup.exe $NAME_ROOT-$VERSION-setup.exe
+mv electrum-brm-setup.exe $NAME_ROOT-$VERSION-setup.exe
 cd ..
 
 info "Padding binaries to 8-byte boundaries, and fixing COFF image checksum in PE header"

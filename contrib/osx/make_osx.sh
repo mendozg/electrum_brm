@@ -5,7 +5,7 @@ set -e
 # Parameterize
 PYTHON_VERSION=3.10.11
 PY_VER_MAJOR="3.10"  # as it appears in fs paths
-PACKAGE=Electrum-BSTY
+PACKAGE=Electrum-BRM
 GIT_REPO=https://github.com/spesmilo/electrum
 
 export GCC_STRIP_BINARIES="1"
@@ -170,10 +170,10 @@ info "generating locale"
         brew install gettext
         brew link --force gettext
     fi
-    LOCALE="$PROJECT_ROOT/electrum_bsty/locale/"
+    LOCALE="$PROJECT_ROOT/electrum_brm/locale/"
     # we want the binary to have only compiled (.mo) locale files; not source (.po) files
     rm -rf "$LOCALE"
-    "$CONTRIB/build_locale.sh" "$CONTRIB/deterministic-build/electrum-bsty-locale/locale/" "$LOCALE"
+    "$CONTRIB/build_locale.sh" "$CONTRIB/deterministic-build/electrum-brm-locale/locale/" "$LOCALE"
 ) || fail "failed generating locale"
 
 
@@ -183,7 +183,7 @@ if [ ! -f "$DLL_TARGET_DIR/libsecp256k1.2.dylib" ]; then
 else
     info "Skipping libsecp256k1 build: reusing already built dylib."
 fi
-cp -f "$DLL_TARGET_DIR"/libsecp256k1.*.dylib "$PROJECT_ROOT/electrum_bsty/" || fail "Could not copy libsecp256k1 dylib"
+cp -f "$DLL_TARGET_DIR"/libsecp256k1.*.dylib "$PROJECT_ROOT/electrum_brm/" || fail "Could not copy libsecp256k1 dylib"
 
 if [ ! -f "$DLL_TARGET_DIR/libzbar.0.dylib" ]; then
     info "Building ZBar dylib..."
@@ -191,7 +191,7 @@ if [ ! -f "$DLL_TARGET_DIR/libzbar.0.dylib" ]; then
 else
     info "Skipping ZBar build: reusing already built dylib."
 fi
-cp -f "$DLL_TARGET_DIR/libzbar.0.dylib" "$PROJECT_ROOT/electrum_bsty/" || fail "Could not copy ZBar dylib"
+cp -f "$DLL_TARGET_DIR/libzbar.0.dylib" "$PROJECT_ROOT/electrum_brm/" || fail "Could not copy ZBar dylib"
 
 if [ ! -f "$DLL_TARGET_DIR/libusb-1.0.dylib" ]; then
     info "Building libusb dylib..."
@@ -199,7 +199,7 @@ if [ ! -f "$DLL_TARGET_DIR/libusb-1.0.dylib" ]; then
 else
     info "Skipping libusb build: reusing already built dylib."
 fi
-cp -f "$DLL_TARGET_DIR/libusb-1.0.dylib" "$PROJECT_ROOT/electrum_bsty/" || fail "Could not copy libusb dylib"
+cp -f "$DLL_TARGET_DIR/libusb-1.0.dylib" "$PROJECT_ROOT/electrum_brm/" || fail "Could not copy libusb dylib"
 
 
 info "Installing requirements..."
@@ -223,9 +223,9 @@ python3 -m pip install --no-build-isolation --no-dependencies --no-binary :all: 
 info "Building $PACKAGE..."
 python3 -m pip install --no-build-isolation --no-dependencies \
     --no-warn-script-location . > /dev/null || fail "Could not build $PACKAGE"
-# pyinstaller needs to be able to "import electrum_bsty", for which we need libsecp256k1:
+# pyinstaller needs to be able to "import electrum_brm", for which we need libsecp256k1:
 # (or could try "pip install -e" instead)
-cp "$PROJECT_ROOT/electrum_bsty"/libsecp256k1.*.dylib "$VENV_DIR/lib/python$PY_VER_MAJOR/site-packages/electrum_bsty/"
+cp "$PROJECT_ROOT/electrum_brm"/libsecp256k1.*.dylib "$VENV_DIR/lib/python$PY_VER_MAJOR/site-packages/electrum_brm/"
 
 # strip debug symbols of some compiled libs
 # - hidapi (hid.cpython-39-darwin.so) in particular is not reproducible without this
@@ -252,9 +252,9 @@ if [ ! -z "$CODESIGN_CERT" ]; then
 fi
 
 info "Creating .DMG"
-hdiutil create -fs HFS+ -volname $PACKAGE -srcfolder dist/$PACKAGE.app dist/electrum-bsty-$VERSION.dmg || fail "Could not create .DMG"
+hdiutil create -fs HFS+ -volname $PACKAGE -srcfolder dist/$PACKAGE.app dist/electrum-brm-$VERSION.dmg || fail "Could not create .DMG"
 
-DoCodeSignMaybe ".DMG" "dist/electrum-bsty-${VERSION}.dmg"
+DoCodeSignMaybe ".DMG" "dist/electrum-brm-${VERSION}.dmg"
 
 if [ -z "$CODESIGN_CERT" ]; then
     warn "App was built successfully but was not code signed. Users may get security warnings from macOS."

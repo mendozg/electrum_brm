@@ -1,14 +1,14 @@
 import time
 from struct import pack
 
-from electrum_bsty import ecc
-from electrum_bsty.i18n import _
-from electrum_bsty.util import UserCancelled, UserFacingException
-from electrum_bsty.keystore import bip39_normalize_passphrase
-from electrum_bsty.bip32 import BIP32Node, convert_bip32_strpath_to_intpath as parse_path
-from electrum_bsty.logging import Logger
-from electrum_bsty.plugin import runs_in_hwd_thread
-from electrum_bsty.plugins.hw_wallet.plugin import OutdatedHwFirmwareException, HardwareClientBase
+from electrum_brm import ecc
+from electrum_brm.i18n import _
+from electrum_brm.util import UserCancelled, UserFacingException
+from electrum_brm.keystore import bip39_normalize_passphrase
+from electrum_brm.bip32 import BIP32Node, convert_bip32_strpath_to_intpath as parse_path
+from electrum_brm.logging import Logger
+from electrum_brm.plugin import runs_in_hwd_thread
+from electrum_brm.plugins.hw_wallet.plugin import OutdatedHwFirmwareException, HardwareClientBase
 
 from trezorlib.client import TrezorClient, PASSPHRASE_ON_DEVICE
 from trezorlib.exceptions import TrezorFailure, Cancelled, OutdatedFirmwareError

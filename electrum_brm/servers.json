@@ -5,13 +5,13 @@
         "t": "50001",
         "version": "1.4"
     },
-    "electrumserver01.globalboost.info": {
+    "electrumserver01.bitraam.info": {
         "pruning": "-",
         "s": "50014",
         "t": "50013",
         "version": "1.4"
     },
-    "electrumserver02.globalboost.info": {
+    "electrumserver02.bitraam.info": {
         "pruning": "-",
         "s": "50014",
         "t": "50013",

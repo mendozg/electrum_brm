@@ -56,7 +56,7 @@ console_formatter = LogFormatterForConsole(fmt="%(asctime)s | %(levelname).1s | 
 def _shorten_name_of_logrecord(record: logging.LogRecord) -> logging.LogRecord:
     record = copy.copy(record)  # avoid mutating arg
     # strip the main module name from the logger name
-    if record.name.startswith("electrum_bsty."):
+    if record.name.startswith("electrum_brm."):
         record.name = record.name[14:]
     # manual map to shorten common module names
     record.name = record.name.replace("interface.Interface", "interface", 1)
@@ -136,7 +136,7 @@ def _configure_file_logging(log_directory: pathlib.Path, *, num_files_keep: int)
 
     timestamp = datetime.datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
     PID = os.getpid()
-    _logfile_path = log_directory / f"electrum_bsty_log_{timestamp}_{PID}.log"
+    _logfile_path = log_directory / f"electrum_brm_log_{timestamp}_{PID}.log"
 
     file_handler = logging.FileHandler(_logfile_path, encoding='utf-8')
     file_handler.setFormatter(file_formatter)
@@ -267,14 +267,14 @@ if getattr(sys, "_ELECTRUM_RUNNING_VIA_RUNELECTRUM", False):
     root_logger.addHandler(_inmemory_startup_logs)
 
 # creates a logger specifically for electrum library
-electrum_logger = logging.getLogger("electrum_bsty")
+electrum_logger = logging.getLogger("electrum_brm")
 electrum_logger.setLevel(logging.DEBUG)
 
 
 # --- External API
 
 def get_logger(name: str) -> logging.Logger:
-    if name.startswith("electrum_bsty."):
+    if name.startswith("electrum_brm."):
         name = name[14:]
     return electrum_logger.getChild(name)
 
@@ -343,7 +343,7 @@ def configure_logging(config: 'SimpleConfig', *, log_to_file: Optional[bool] = N
 
     from . import ELECTRUM_VERSION
     from .constants import GIT_REPO_URL
-    _logger.info(f"Electrum-BSTY version: {ELECTRUM_VERSION} - https://electrum.org - {GIT_REPO_URL}")
+    _logger.info(f"Electrum-BRM version: {ELECTRUM_VERSION} - https://electrum.org - {GIT_REPO_URL}")
     _logger.info(f"Python version: {sys.version}. On platform: {describe_os_version()}")
     _logger.info(f"Logging to file: {str(_logfile_path)}")
     _logger.info(f"Log filters: verbosity {repr(verbosity)}, verbosity_shortcuts {repr(verbosity_shortcuts)}")

@@ -12,10 +12,10 @@ from PyQt6.QtGui import QImage, QColor
 from PyQt6.QtQuick import QQuickImageProvider
 from PyQt6.QtMultimedia import QVideoSink
 
-from electrum_bsty.logging import get_logger
-from electrum_bsty.qrreader import get_qr_reader
-from electrum_bsty.i18n import _
-from electrum_bsty.util import profiler, get_asyncio_loop
+from electrum_brm.logging import get_logger
+from electrum_brm.qrreader import get_qr_reader
+from electrum_brm.i18n import _
+from electrum_brm.util import profiler, get_asyncio_loop
 
 
 class QEQRParser(QObject):

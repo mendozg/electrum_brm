@@ -1,10 +1,10 @@
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot
 from PyQt6.QtCore import Qt, QAbstractListModel, QModelIndex
 
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import Satoshis
-from electrum_bsty.interface import ServerAddr, PREFERRED_NETWORK_PROTOCOL
-from electrum_bsty import blockchain
+from electrum_brm.logging import get_logger
+from electrum_brm.util import Satoshis
+from electrum_brm.interface import ServerAddr, PREFERRED_NETWORK_PROTOCOL
+from electrum_brm import blockchain
 
 from .util import QtEventListener, qt_event_listener
 

@@ -33,7 +33,7 @@ try:
     import PyQt5
     import PyQt5.QtGui
 except Exception as e:
-    from electrum_bsty import GuiImportError
+    from electrum_brm import GuiImportError
     raise GuiImportError(
         "Error: Could not import PyQt5. On Linux systems, "
         "you may try 'sudo apt-get install python3-pyqt5'") from e
@@ -52,18 +52,18 @@ try:
 except ImportError as e:
     pass  # failure is ok; it is an optional dependency.
 
-from electrum_bsty.i18n import _, set_language
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.util import (UserCancelled, profiler, send_exception_to_crash_reporter,
+from electrum_brm.i18n import _, set_language
+from electrum_brm.plugin import run_hook
+from electrum_brm.util import (UserCancelled, profiler, send_exception_to_crash_reporter,
                            WalletFileException, BitcoinException, get_new_wallet_name, InvalidPassword)
-from electrum_bsty.wallet import Wallet, Abstract_Wallet
-from electrum_bsty.wallet_db import WalletDB, WalletRequiresSplit, WalletRequiresUpgrade, WalletUnfinished
-from electrum_bsty.logging import Logger
-from electrum_bsty.gui import BaseElectrumGui
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.storage import WalletStorage
-from electrum_bsty.wizard import WizardViewState
-from electrum_bsty.keystore import load_keystore
+from electrum_brm.wallet import Wallet, Abstract_Wallet
+from electrum_brm.wallet_db import WalletDB, WalletRequiresSplit, WalletRequiresUpgrade, WalletUnfinished
+from electrum_brm.logging import Logger
+from electrum_brm.gui import BaseElectrumGui
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.storage import WalletStorage
+from electrum_brm.wizard import WizardViewState
+from electrum_brm.keystore import load_keystore
 
 from .util import read_QIcon, ColorScheme, custom_message_box, MessageBoxMixin, WWLabel
 from .main_window import ElectrumWindow
@@ -76,8 +76,8 @@ from .wizard.server_connect import QEServerConnectWizard
 from .wizard.wallet import QENewWalletWizard
 
 if TYPE_CHECKING:
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.plugin import Plugins
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.plugin import Plugins
 
 
 class OpenFileEventFilter(QObject):
@@ -122,13 +122,13 @@ class ElectrumGui(BaseElectrumGui, Logger):
         if hasattr(QtCore.Qt, "AA_ShareOpenGLContexts"):
             QtCore.QCoreApplication.setAttribute(QtCore.Qt.AA_ShareOpenGLContexts)
         if hasattr(QGuiApplication, 'setDesktopFileName'):
-            QGuiApplication.setDesktopFileName('electrum-bsty.desktop')
+            QGuiApplication.setDesktopFileName('electrum-brm.desktop')
         self.gui_thread = threading.current_thread()
         self.windows = []  # type: List[ElectrumWindow]
         self.efilter = OpenFileEventFilter(self.windows)
         self.app = QElectrumApplication(sys.argv)
         self.app.installEventFilter(self.efilter)
-        self.app.setWindowIcon(read_QIcon("electrum-bsty.png"))
+        self.app.setWindowIcon(read_QIcon("electrum-brm.png"))
         self._cleaned_up = False
         # timer
         self.timer = QTimer(self.app)

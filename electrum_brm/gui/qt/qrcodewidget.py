@@ -11,8 +11,8 @@ from PyQt5.QtWidgets import (
     QFileDialog,
 )
 
-from electrum_bsty.i18n import _
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.i18n import _
+from electrum_brm.simple_config import SimpleConfig
 
 from .util import WindowModalDialog, WWLabel, getSaveFileName
 

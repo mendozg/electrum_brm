@@ -2,19 +2,19 @@ from typing import TYPE_CHECKING, Optional
 
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QGridLayout, QPushButton, QComboBox, QLineEdit, QSpacerItem, QWidget, QHBoxLayout
 
-from electrum_bsty.i18n import _
-from electrum_bsty.transaction import PartialTxOutput, PartialTransaction
-from electrum_bsty.lnutil import MIN_FUNDING_SAT
-from electrum_bsty.lnworker import hardcoded_trampoline_nodes
-from electrum_bsty import ecc
-from electrum_bsty.util import NotEnoughFunds, NoDynamicFeeEstimates
+from electrum_brm.i18n import _
+from electrum_brm.transaction import PartialTxOutput, PartialTransaction
+from electrum_brm.lnutil import MIN_FUNDING_SAT
+from electrum_brm.lnworker import hardcoded_trampoline_nodes
+from electrum_brm import ecc
+from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates
 
-from electrum_bsty.gui import messages
+from electrum_brm.gui import messages
 from . import util
 from .util import (WindowModalDialog, Buttons, OkButton, CancelButton,
                    EnterButton, ColorScheme, WWLabel, read_QIcon, IconLabel,
                    char_width_in_lineedit)
-from .amountedit import BSTYAmountEdit
+from .amountedit import BRMAmountEdit
 from .my_treeview import create_toolbar_with_menu
 
 if TYPE_CHECKING:
@@ -52,7 +52,7 @@ class NewChannelDialog(WindowModalDialog):
             self.trampoline_combo = QComboBox()
             self.trampoline_combo.addItems(self.trampoline_names)
             self.trampoline_combo.setCurrentIndex(1)
-        self.amount_e = BSTYAmountEdit(self.window.get_decimal_point)
+        self.amount_e = BRMAmountEdit(self.window.get_decimal_point)
         self.amount_e.setAmount(amount_sat)
 
         btn_width = 10 * char_width_in_lineedit()

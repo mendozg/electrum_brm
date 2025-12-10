@@ -881,7 +881,7 @@ below are user-visible.
 
  * Do not expose users to server error messages (#4968)
  * Notify users of new releases. Release announcements must be signed,
-   and they are verified byElectrum using a hardcoded GlobalBoost address.
+   and they are verified byElectrum using a hardcoded BitRaam address.
  * Hardware wallet fixes (#4991, #4993, #5006)
  * Display only QR code in QRcode Window
  * Fixed code signing on MacOS
@@ -1582,13 +1582,13 @@ issue #3374. Users should upgrade to 3.0.5.
  * Various GUI improvements
 
 # Release 2.4
- * Payment to DNS names storing a GlobalBoost addresses (OpenAlias) is
+ * Payment to DNS names storing a BitRaam addresses (OpenAlias) is
    supported directly, without activating a plugin. The verification
    uses DNSSEC.
  * The DNSSEC verification code was rewritten. The previous code,
    which was part of the OpenAlias plugin, is vulnerable and should
    not be trusted (Electrum 2.0 to 2.3).
- * Payment requests can be signed using GlobalBoost addresses stored
+ * Payment requests can be signed using BitRaam addresses stored
    in DNS (OpenAlias). The identity of the requestor is verified using
    DNSSEC.
  * Payment requests signed with OpenAlias keys can be shared as
@@ -1686,10 +1686,10 @@ issue #3374. Users should upgrade to 3.0.5.
  * The network daemon must be started explicitly before using commands
    that require a connection
    Example:
-     electrum daemon start
-     electrum getaddressunspent <addr>
-     electrum daemon status
-     electrum daemon stop
+     electrum-bmr daemon start
+     electrum-brm getaddressunspent <addr>
+     electrum-brm daemon status
+     electrum-brm daemon stop
    If a daemon is running, the GUI will use it.
 
 # Release 2.0.3 - bugfixes and minor GUI improvements

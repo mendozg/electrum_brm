@@ -8,15 +8,15 @@ from functools import partial
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QTimer
 
-from electrum_bsty.i18n import _
-from electrum_bsty.invoices import InvoiceError, PR_PAID, PR_BROADCASTING, PR_BROADCAST
-from electrum_bsty.logging import get_logger
-from electrum_bsty.network import TxBroadcastError, BestEffortRequestFailed
-from electrum_bsty.transaction import PartialTransaction, Transaction
-from electrum_bsty.util import InvalidPassword, event_listener, AddTransactionException, get_asyncio_loop
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.wallet import Multisig_Wallet
-from electrum_bsty.crypto import pw_decode_with_version_and_mac
+from electrum_brm.i18n import _
+from electrum_brm.invoices import InvoiceError, PR_PAID, PR_BROADCASTING, PR_BROADCAST
+from electrum_brm.logging import get_logger
+from electrum_brm.network import TxBroadcastError, BestEffortRequestFailed
+from electrum_brm.transaction import PartialTransaction, Transaction
+from electrum_brm.util import InvalidPassword, event_listener, AddTransactionException, get_asyncio_loop
+from electrum_brm.plugin import run_hook
+from electrum_brm.wallet import Multisig_Wallet
+from electrum_brm.crypto import pw_decode_with_version_and_mac
 
 from .auth import AuthMixin, auth_protect
 from .qeaddresslistmodel import QEAddressCoinListModel
@@ -27,7 +27,7 @@ from .qetypes import QEAmount
 from .util import QtEventListener, qt_event_listener
 
 if TYPE_CHECKING:
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.wallet import Abstract_Wallet
     from .qeinvoice import QEInvoice
 
 
@@ -35,7 +35,7 @@ class QEWallet(AuthMixin, QObject, QtEventListener):
     __instances = []
 
     # this factory method should be used to instantiate QEWallet
-    # so we have only one QEWallet for each electrum_bsty.wallet
+    # so we have only one QEWallet for each electrum_brm.wallet
     @classmethod
     def getInstanceFor(cls, wallet):
         for i in cls.__instances:

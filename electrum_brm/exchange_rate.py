@@ -32,7 +32,7 @@ CCY_PRECISIONS = {'BHD': 3, 'BIF': 0, 'BYR': 0, 'CLF': 4, 'CLP': 0,
                   'RWF': 0, 'TND': 3, 'UGX': 0, 'UYI': 0, 'VND': 0,
                   'VUV': 0, 'XAF': 0, 'XAU': 4, 'XOF': 0, 'XPF': 0,
                   # Cryptocurrencies
-                  'BSTY': 8, 'LTC': 8, 'XRP': 6, 'ETH': 18,
+                  'BRM': 8, 'LTC': 8, 'XRP': 6, 'ETH': 18,
                   }
 
 SPOT_RATE_REFRESH_TARGET = 150      # approx. every 2.5 minutes, try to refresh spot price
@@ -169,7 +169,7 @@ class ExchangeBase(Logger):
 
     def get_cached_spot_quote(self, ccy: str) -> Decimal:
         """Returns the cached exchange rate as a Decimal"""
-        if ccy == 'BSTY':
+        if ccy == 'BRM':
             return Decimal(1)
         rate = self._quotes.get(ccy)
         if rate is None:
@@ -182,7 +182,7 @@ class ExchangeBase(Logger):
 class CoinGecko(ExchangeBase):
 
     async def get_rates(self, ccy):
-        json = await self.get_json('api.coingecko.com', '/api/v3/coins/globalboost?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false')
+        json = await self.get_json('api.coingecko.com', '/api/v3/coins/bitraam?localization=false&tickers=false&community_data=false&developer_data=false&sparkline=false')
         return dict([(ccy.upper(), to_decimal(d))
                      for ccy, d in json['market_data']['current_price'].items()])
 
@@ -192,7 +192,7 @@ class CoinGecko(ExchangeBase):
 
     async def request_history(self, ccy):
         history = await self.get_json('api.coingecko.com',
-                                      '/api/v3/coins/globalboost/market_chart?vs_currency=%s&days=max' % ccy)
+                                      '/api/v3/coins/bitraam/market_chart?vs_currency=%s&days=max' % ccy)
 
         return dict([(datetime.utcfromtimestamp(h[0]/1000).strftime('%Y-%m-%d'), str(h[1]))
                      for h in history['prices']])
@@ -238,7 +238,7 @@ class TheRockTrading(ExchangeBase):
 
     async def get_rates(self, ccy):
         json = await self.get_json('api.therocktrading.com',
-                             '/v1/funds/BSTYEUR/ticker')
+                             '/v1/funds/BRMEUR/ticker')
         return {'EUR': to_decimal(json['last'])}
 
 
@@ -268,14 +268,14 @@ class Zaif(ExchangeBase):
 class Bitragem(ExchangeBase):
 
     async def get_rates(self,ccy):
-        json = await self.get_json('api.bitragem.com', '/v1/index?asset=BSTY&market=BRL')
+        json = await self.get_json('api.bitragem.com', '/v1/index?asset=BRM&market=BRL')
         return {'BRL': to_decimal(json['response']['index'])}
 
 
 class Biscoint(ExchangeBase):
 
     async def get_rates(self,ccy):
-        json = await self.get_json('api.biscoint.io', '/v1/ticker?base=BSTY&quote=BRL')
+        json = await self.get_json('api.biscoint.io', '/v1/ticker?base=BRM&quote=BRL')
         return {'BRL': to_decimal(json['data']['last'])}
 
 

@@ -72,9 +72,9 @@ $ adb shell monkey -p org.electrum.electrum 1
 ### How do I get an interactive shell inside docker?
 ```
 $ docker run -it --rm \
-    -v $PWD:/home/user/wspace/electrum_bsty \
+    -v $PWD:/home/user/wspace/electrum_brm \
     -v $PWD/.buildozer/.gradle:/home/user/.gradle \
-    --workdir /home/user/wspace/electrum_bsty \
+    --workdir /home/user/wspace/electrum_brm \
     electrum-android-builder-img
 ```
 
@@ -100,7 +100,7 @@ Install requirements:
 python3 -m pip install "pyqt6==6.5.2" "Pillow>=8.4"
 ```
 
-Run electrum-bsty with the `-g` switch: `electrum-bsty -g qml`
+Run electrum-brm with the `-g` switch: `electrum-brm -g qml`
 
 Notes:
 
@@ -186,5 +186,5 @@ However, it is possible to resign the apk manually with one's own key, using
 e.g. [`apksigner`](https://developer.android.com/studio/command-line/apksigner),
 mutating the apk in place, after which it should be possible to upgrade:
 ```
-apksigner sign --ks ~/wspace/electrum_bsty/contrib/android/android_debug.keystore Electrum-BSTY-*-arm64-v8a-debug.apk
+apksigner sign --ks ~/wspace/electrum_brm/contrib/android/android_debug.keystore Electrum-BRM-*-arm64-v8a-debug.apk
 ```

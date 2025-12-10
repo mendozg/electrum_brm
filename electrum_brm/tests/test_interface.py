@@ -1,4 +1,4 @@
-from electrum_bsty.interface import ServerAddr
+from electrum_brm.interface import ServerAddr
 
 from . import ElectrumTestCase
 

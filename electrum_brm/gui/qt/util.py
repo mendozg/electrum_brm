@@ -17,19 +17,19 @@ from PyQt5.QtWidgets import (QPushButton, QLabel, QMessageBox, QHBoxLayout, QVBo
                              QFileDialog, QWidget, QToolButton, QPlainTextEdit, QApplication, QToolTip,
                              QGraphicsEffect, QGraphicsScene, QGraphicsPixmapItem, QLayoutItem, QLayout, QMenu)
 
-from electrum_bsty.i18n import _
-from electrum_bsty.util import FileImportFailed, FileExportFailed, resource_path
-from electrum_bsty.util import EventListener, event_listener, get_logger
-from electrum_bsty.invoices import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT, PR_UNKNOWN, PR_FAILED, PR_ROUTING, PR_UNCONFIRMED, PR_BROADCASTING, PR_BROADCAST
-from electrum_bsty.logging import Logger
-from electrum_bsty.qrreader import MissingQrDetectionLib
+from electrum_brm.i18n import _
+from electrum_brm.util import FileImportFailed, FileExportFailed, resource_path
+from electrum_brm.util import EventListener, event_listener, get_logger
+from electrum_brm.invoices import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT, PR_UNKNOWN, PR_FAILED, PR_ROUTING, PR_UNCONFIRMED, PR_BROADCASTING, PR_BROADCAST
+from electrum_brm.logging import Logger
+from electrum_brm.qrreader import MissingQrDetectionLib
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow
     from .paytoedit import PayToEdit
 
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.simple_config import ConfigVarWithConfig
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.simple_config import ConfigVarWithConfig
 
 
 if platform.system() == 'Windows':

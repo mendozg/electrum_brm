@@ -29,7 +29,7 @@ from PyQt5.QtWidgets import QWidget
 from PyQt5.QtGui import QPainter, QPaintEvent, QPen, QPainterPath, QColor, QTransform
 from PyQt5.QtCore import QPoint, QSize, QRect, QRectF, Qt
 
-from electrum_bsty.qrreader import QrCodeResult
+from electrum_brm.qrreader import QrCodeResult
 
 from .validator import QrReaderValidatorResult
 

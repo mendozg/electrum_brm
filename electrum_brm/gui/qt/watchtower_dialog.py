@@ -29,7 +29,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import (QDialog, QVBoxLayout, QPushButton, QLabel)
 
-from electrum_bsty.i18n import _
+from electrum_brm.i18n import _
 from .util import Buttons
 from .my_treeview import MyTreeView
 

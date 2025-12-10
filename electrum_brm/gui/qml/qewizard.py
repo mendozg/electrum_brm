@@ -3,13 +3,13 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.logging import get_logger
-from electrum_bsty import mnemonic
-from electrum_bsty.wizard import NewWalletWizard, ServerConnectWizard
+from electrum_brm.logging import get_logger
+from electrum_brm import mnemonic
+from electrum_brm.wizard import NewWalletWizard, ServerConnectWizard
 
 if TYPE_CHECKING:
-    from electrum_bsty.gui.qml.qedaemon import QEDaemon
-    from electrum_bsty.plugin import Plugins
+    from electrum_brm.gui.qml.qedaemon import QEDaemon
+    from electrum_brm.plugin import Plugins
 
 
 class QEAbstractWizard(QObject):

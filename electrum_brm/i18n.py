@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Electrum-BSTY - lightweight Bitcoin client
+# Electrum-BRM - lightweight Bitcoin client
 # Copyright (C) 2012 thomasv@gitorious
 #
 # Permission is hereby granted, free of charge, to any person

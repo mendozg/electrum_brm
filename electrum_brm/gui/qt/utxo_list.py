@@ -31,11 +31,11 @@ from PyQt5.QtCore import Qt
 from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont
 from PyQt5.QtWidgets import QAbstractItemView, QMenu, QLabel, QHBoxLayout
 
-from electrum_bsty.i18n import _
-from electrum_bsty.bitcoin import is_address
-from electrum_bsty.transaction import PartialTxInput, PartialTxOutput
-from electrum_bsty.lnutil import MIN_FUNDING_SAT
-from electrum_bsty.util import profiler
+from electrum_brm.i18n import _
+from electrum_brm.bitcoin import is_address
+from electrum_brm.transaction import PartialTxInput, PartialTxOutput
+from electrum_brm.lnutil import MIN_FUNDING_SAT
+from electrum_brm.util import profiler
 
 from .util import ColorScheme, MONOSPACE_FONT, EnterButton
 from .my_treeview import MyTreeView

@@ -5,19 +5,19 @@ from typing import TYPE_CHECKING
 from PyQt5.QtCore import Qt, QMetaObject, Q_RETURN_ARG, pyqtSlot, pyqtSignal
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QLineEdit, QHBoxLayout
 
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import hook
-from electrum_bsty.util import UserCancelled, UserFacingException
+from electrum_brm.i18n import _
+from electrum_brm.plugin import hook
+from electrum_brm.util import UserCancelled, UserFacingException
 
 from .bitbox02 import BitBox02Plugin
 from ..hw_wallet.qt import QtHandlerBase, QtPluginBase
 from ..hw_wallet.plugin import only_hook_if_libraries_available, OperationCancelled
 
-from electrum_bsty.gui.qt.wizard.wallet import WCScriptAndDerivation, WCHWUnlock, WCHWUninitialized, WCHWXPub
-from electrum_bsty.gui.qt.util import WindowModalDialog, OkButton, ButtonsTextEdit
+from electrum_brm.gui.qt.wizard.wallet import WCScriptAndDerivation, WCHWUnlock, WCHWUninitialized, WCHWXPub
+from electrum_brm.gui.qt.util import WindowModalDialog, OkButton, ButtonsTextEdit
 
 if TYPE_CHECKING:
-    from electrum_bsty.gui.qt.wizard.wallet import QENewWalletWizard
+    from electrum_brm.gui.qt.wizard.wallet import QENewWalletWizard
 
 
 class Plugin(BitBox02Plugin, QtPluginBase):

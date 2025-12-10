@@ -1,6 +1,6 @@
 from PyQt6.QtCore import pyqtSignal, pyqtProperty, QSortFilterProxyModel, QModelIndex, pyqtSlot
 
-from electrum_bsty.logging import get_logger
+from electrum_brm.logging import get_logger
 
 
 class QEFilterProxyModel(QSortFilterProxyModel):

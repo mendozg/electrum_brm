@@ -9,18 +9,18 @@ from PyQt5.QtWidgets import (QLabel, QVBoxLayout, QGridLayout, QHBoxLayout,
                              QWidget, QToolTip, QPushButton, QApplication)
 from PyQt5.QtGui import QMovie, QColor
 
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import Logger
-from electrum_bsty.bitcoin import DummyAddress
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.util import NotEnoughFunds, NoDynamicFeeEstimates, parse_max_spend
-from electrum_bsty.invoices import PR_PAID, Invoice, PR_BROADCASTING, PR_BROADCAST
-from electrum_bsty.transaction import Transaction, PartialTxInput, PartialTxOutput
-from electrum_bsty.network import TxBroadcastError, BestEffortRequestFailed
-from electrum_bsty.payment_identifier import PaymentIdentifierState, PaymentIdentifierType, PaymentIdentifier, \
+from electrum_brm.i18n import _
+from electrum_brm.logging import Logger
+from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.plugin import run_hook
+from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates, parse_max_spend
+from electrum_brm.invoices import PR_PAID, Invoice, PR_BROADCASTING, PR_BROADCAST
+from electrum_brm.transaction import Transaction, PartialTxInput, PartialTxOutput
+from electrum_brm.network import TxBroadcastError, BestEffortRequestFailed
+from electrum_brm.payment_identifier import PaymentIdentifierState, PaymentIdentifierType, PaymentIdentifier, \
     invoice_from_payment_identifier, payment_identifier_from_invoice
 
-from .amountedit import AmountEdit, BSTYAmountEdit, SizedFreezableLineEdit
+from .amountedit import AmountEdit, BRMAmountEdit, SizedFreezableLineEdit
 from .paytoedit import InvalidPaymentIdentifier
 from .util import (WaitingDialog, HelpLabel, MessageBoxMixin, EnterButton,
                    char_width_in_lineedit, get_iconname_camera, get_iconname_qrcode,
@@ -61,12 +61,12 @@ class SendTab(QWidget, MessageBoxMixin, Logger):
         grid.setColumnStretch(3, 1)
 
         from .paytoedit import PayToEdit
-        self.amount_e = BSTYAmountEdit(self.window.get_decimal_point)
+        self.amount_e = BRMAmountEdit(self.window.get_decimal_point)
         self.payto_e = PayToEdit(self)
         msg = (_("Recipient of the funds.")
                + "\n\n"
                + _("This field can contain:") + "\n"
-               + _("- a GlobalBoost-Y address or BIP21 URI") + "\n"
+               + _("- a BitRaam-Y address or BIP21 URI") + "\n"
                + _("- a Lightning invoice") + "\n"
                + _("- a label from your list of contacts") + "\n"
                + _("- an openalias") + "\n"
@@ -610,7 +610,7 @@ class SendTab(QWidget, MessageBoxMixin, Logger):
 
         for o in outputs:
             if o.scriptpubkey is None:
-                self.show_error(_('GlobalBoost Address is None'))
+                self.show_error(_('BitRaam Address is None'))
                 return True
             if o.value is None:
                 self.show_error(_('Invalid Amount'))

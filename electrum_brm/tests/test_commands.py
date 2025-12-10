@@ -2,13 +2,13 @@ import unittest
 from unittest import mock
 from decimal import Decimal
 
-from electrum_bsty.commands import Commands, eval_bool
-from electrum_bsty import storage, wallet
-from electrum_bsty.wallet import restore_wallet_from_text, Abstract_Wallet
-from electrum_bsty.address_synchronizer import TX_HEIGHT_UNCONFIRMED
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.transaction import Transaction, TxOutput, tx_from_any
-from electrum_bsty.util import UserFacingException, NotEnoughFunds
+from electrum_brm.commands import Commands, eval_bool
+from electrum_brm import storage, wallet
+from electrum_brm.wallet import restore_wallet_from_text, Abstract_Wallet
+from electrum_brm.address_synchronizer import TX_HEIGHT_UNCONFIRMED
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.transaction import Transaction, TxOutput, tx_from_any
+from electrum_brm.util import UserFacingException, NotEnoughFunds
 
 from . import ElectrumTestCase
 from .test_wallet_vertical import WalletIntegrityHelper

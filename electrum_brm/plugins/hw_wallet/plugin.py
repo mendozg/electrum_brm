@@ -26,20 +26,20 @@
 from abc import abstractmethod, ABC
 from typing import TYPE_CHECKING, Sequence, Optional, Type, Iterable, Any
 
-from electrum_bsty.plugin import (BasePlugin, hook, Device, DeviceMgr,
+from electrum_brm.plugin import (BasePlugin, hook, Device, DeviceMgr,
                              assert_runs_in_hwd_thread, runs_in_hwd_thread)
-from electrum_bsty.i18n import _
-from electrum_bsty.bitcoin import is_address, opcodes
-from electrum_bsty.util import versiontuple, UserFacingException
-from electrum_bsty.transaction import TxOutput, PartialTransaction
-from electrum_bsty.bip32 import BIP32Node
-from electrum_bsty.storage import get_derivation_used_for_hw_device_encryption
-from electrum_bsty.keystore import Xpub, Hardware_KeyStore
+from electrum_brm.i18n import _
+from electrum_brm.bitcoin import is_address, opcodes
+from electrum_brm.util import versiontuple, UserFacingException
+from electrum_brm.transaction import TxOutput, PartialTransaction
+from electrum_brm.bip32 import BIP32Node
+from electrum_brm.storage import get_derivation_used_for_hw_device_encryption
+from electrum_brm.keystore import Xpub, Hardware_KeyStore
 
 if TYPE_CHECKING:
     import threading
-    from electrum_bsty.plugin import DeviceInfo
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.plugin import DeviceInfo
+    from electrum_brm.wallet import Abstract_Wallet
 
 
 class HW_PluginBase(BasePlugin, ABC):
@@ -107,7 +107,7 @@ class HW_PluginBase(BasePlugin, ABC):
         if keystore is None:
             keystore = wallet.get_keystore()
         if not is_address(address):
-            keystore.handler.show_error(_('Invalid GlobalBoost Address'))
+            keystore.handler.show_error(_('Invalid BitRaam Address'))
             return False
         if not wallet.is_mine(address):
             keystore.handler.show_error(_('Address not in wallet.'))
@@ -224,7 +224,7 @@ class HardwareClientBase(ABC):
         So ideally, different devices would have different labels.
         """
         # When returning a constant here (i.e. not implementing the method in the way
-        # it is supposed to work), make sure the return value is in electrum_bsty.plugin.PLACEHOLDER_HW_CLIENT_LABELS
+        # it is supposed to work), make sure the return value is in electrum_brm.plugin.PLACEHOLDER_HW_CLIENT_LABELS
         return " "
 
     def get_soft_device_id(self) -> Optional[str]:

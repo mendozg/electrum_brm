@@ -1,11 +1,11 @@
 from datetime import datetime
 from decimal import Decimal
 
-from electrum_bsty import util
-from electrum_bsty.util import (format_satoshis, format_fee_satoshis, is_hash256_str, chunks, is_ip_address,
+from electrum_brm import util
+from electrum_brm.util import (format_satoshis, format_fee_satoshis, is_hash256_str, chunks, is_ip_address,
                            list_enabled_bits, format_satoshis_plain, is_private_netaddress, is_hex_str,
                            is_integer, is_non_negative_integer, is_int_or_float, is_non_negative_int_or_float)
-from electrum_bsty.bip21 import parse_bip21_URI, InvalidBitcoinURI
+from electrum_brm.bip21 import parse_bip21_URI, InvalidBitcoinURI
 from . import ElectrumTestCase, as_testnet
 
 

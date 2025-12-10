@@ -3,10 +3,10 @@ import os
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 from PyQt6.QtGui import QGuiApplication
 
-from electrum_bsty.util import send_exception_to_crash_reporter, UserFacingException
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.logging import get_logger
-from electrum_bsty.i18n import _
+from electrum_brm.util import send_exception_to_crash_reporter, UserFacingException
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.logging import get_logger
+from electrum_brm.i18n import _
 
 
 if 'ANDROID_DATA' in os.environ:
@@ -78,7 +78,7 @@ class QEQRScanner(QObject):
         self.scanData = data
         self.found.emit()
         return
-        # from electrum_bsty import qrscanner
+        # from electrum_brm import qrscanner
         # from .qeapp import ElectrumQmlApplication
         # daemon = ElectrumQmlApplication._daemon
         # config = daemon.config  # type: SimpleConfig

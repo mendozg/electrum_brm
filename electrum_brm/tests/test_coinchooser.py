@@ -1,5 +1,5 @@
-from electrum_bsty.coinchooser import CoinChooserPrivacy
-from electrum_bsty.util import NotEnoughFunds
+from electrum_brm.coinchooser import CoinChooserPrivacy
+from electrum_brm.util import NotEnoughFunds
 
 from . import ElectrumTestCase
 

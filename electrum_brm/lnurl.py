@@ -11,11 +11,11 @@ import urllib.parse
 import aiohttp.client_exceptions
 from aiohttp import ClientResponse
 
-from electrum_bsty import segwit_addr
-from electrum_bsty.segwit_addr import bech32_decode, Encoding, convertbits, bech32_encode
-from electrum_bsty.lnaddr import LnDecodeException, LnEncodeException
-from electrum_bsty.network import Network
-from electrum_bsty.logging import get_logger
+from electrum_brm import segwit_addr
+from electrum_brm.segwit_addr import bech32_decode, Encoding, convertbits, bech32_encode
+from electrum_brm.lnaddr import LnDecodeException, LnEncodeException
+from electrum_brm.network import Network
+from electrum_brm.logging import get_logger
 
 if TYPE_CHECKING:
     from collections.abc import Coroutine

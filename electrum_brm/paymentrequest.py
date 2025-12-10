@@ -55,8 +55,8 @@ if TYPE_CHECKING:
 _logger = get_logger(__name__)
 
 
-REQUEST_HEADERS = {'Accept': 'application/globalboost-paymentrequest', 'User-Agent': 'Electrum-BSTY'}
-ACK_HEADERS = {'Content-Type':'application/globalboost-payment','Accept':'application/globalboost-paymentack','User-Agent':'Electrum-BSTY'}
+REQUEST_HEADERS = {'Accept': 'application/bitraam-paymentrequest', 'User-Agent': 'Electrum-BRM'}
+ACK_HEADERS = {'Content-Type':'application/bitraam-payment','Accept':'application/bitraam-paymentack','User-Agent':'Electrum-BRM'}
 
 ca_path = certifi.where()
 ca_list = None
@@ -81,7 +81,7 @@ async def get_payment_request(url: str) -> 'PaymentRequest':
                 async with session.get(url) as response:
                     resp_content = await response.read()
                     response.raise_for_status()
-                    # Guard against `globalboost:`-URIs with invalid payment request URLs
+                    # Guard against `bitraam:`-URIs with invalid payment request URLs
                     if "Content-Type" not in response.headers \
                     or response.headers["Content-Type"] != "application/bitcoin-paymentrequest":
                         data = None
@@ -292,7 +292,7 @@ class PaymentRequest:
         paymnt.transactions.append(bfh(raw_tx))
         ref_out = paymnt.refund_to.add()
         ref_out.script = util.bfh(address_to_script(refund_addr))
-        paymnt.memo = "Paid using Electrum-BSTY"
+        paymnt.memo = "Paid using Electrum-BRM"
         pm = paymnt.SerializeToString()
         payurl = urllib.parse.urlparse(pay_det.payment_url)
         resp_content = None

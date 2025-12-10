@@ -9,19 +9,19 @@ from PyQt5.QtCore import Qt, QThread, pyqtSignal
 from PyQt5.QtWidgets import (QWidget, QVBoxLayout, QLabel, QProgressBar,
                              QHBoxLayout, QPushButton, QDialog)
 
-from electrum_bsty import version
-from electrum_bsty import constants
-from electrum_bsty import ecc
-from electrum_bsty.i18n import _
-from electrum_bsty.util import make_aiohttp_session
-from electrum_bsty.logging import Logger
-from electrum_bsty.network import Network
-from electrum_bsty._vendor.distutils.version import StrictVersion
+from electrum_brm import version
+from electrum_brm import constants
+from electrum_brm import ecc
+from electrum_brm.i18n import _
+from electrum_brm.util import make_aiohttp_session
+from electrum_brm.logging import Logger
+from electrum_brm.network import Network
+from electrum_brm._vendor.distutils.version import StrictVersion
 
 
 class UpdateCheck(QDialog, Logger):
-    url = "https://electrum-bsty.org/version"
-    download_url = "https://electrum-bsty.org/#download"
+    url = "https://electrum-brm.org/version"
+    download_url = "https://electrum-brm.org/#download"
 
     VERSION_ANNOUNCEMENT_SIGNING_KEYS = (
         "13xjmVAB1EATPP8RshTE8S8sNwwSUM9p1P",  # ThomasV (since 3.3.4)
@@ -30,7 +30,7 @@ class UpdateCheck(QDialog, Logger):
 
     def __init__(self, *, latest_version=None):
         QDialog.__init__(self)
-        self.setWindowTitle('Electrum-BSTY - ' + _('Update Check'))
+        self.setWindowTitle('Electrum-BRM - ' + _('Update Check'))
         self.content = QVBoxLayout()
         self.content.setContentsMargins(*[10]*4)
 
@@ -88,7 +88,7 @@ class UpdateCheck(QDialog, Logger):
                 self.detail_label.setText(_("You can download the new version from {}.").format(url))
             else:
                 self.heading_label.setText('<h2>' + _("Already up to date") + '</h2>')
-                self.detail_label.setText(_("You are already on the latest version of Electrum-BSTY."))
+                self.detail_label.setText(_("You are already on the latest version of Electrum-BRM."))
         else:
             self.heading_label.setText('<h2>' + _("Checking for updates...") + '</h2>')
             self.detail_label.setText(_("Please wait while Electrum checks for available updates."))

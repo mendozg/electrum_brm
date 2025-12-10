@@ -6,11 +6,11 @@ from typing import Union, Optional
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QTimer, pyqtEnum
 
-from electrum_bsty.i18n import _
-from electrum_bsty.bitcoin import DummyAddress
-from electrum_bsty.logging import get_logger
-from electrum_bsty.transaction import PartialTxOutput, PartialTransaction
-from electrum_bsty.util import NotEnoughFunds, NoDynamicFeeEstimates, profiler, get_asyncio_loop
+from electrum_brm.i18n import _
+from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.logging import get_logger
+from electrum_brm.transaction import PartialTxOutput, PartialTransaction
+from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates, profiler, get_asyncio_loop
 
 from .auth import AuthMixin, auth_protect
 from .qetypes import QEAmount

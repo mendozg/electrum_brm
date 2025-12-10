@@ -31,10 +31,10 @@ from PyQt5.QtWidgets import (QVBoxLayout, QCheckBox, QHBoxLayout, QLineEdit,
                              QLabel, QCompleter, QDialog, QStyledItemDelegate,
                              QScrollArea, QWidget, QPushButton)
 
-from electrum_bsty.i18n import _
-from electrum_bsty.mnemonic import Mnemonic, seed_type
-from electrum_bsty import old_mnemonic
-from electrum_bsty import slip39
+from electrum_brm.i18n import _
+from electrum_brm.mnemonic import Mnemonic, seed_type
+from electrum_brm import old_mnemonic
+from electrum_brm import slip39
 
 from .util import (Buttons, OkButton, WWLabel, ButtonsTextEdit, icon_path,
                    EnterButton, CloseButton, WindowModalDialog, ColorScheme,
@@ -43,14 +43,14 @@ from .qrtextedit import ShowQRTextEdit, ScanQRTextEdit
 from .completion_text_edit import CompletionTextEdit
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
+    from electrum_brm.simple_config import SimpleConfig
 
 
 MSG_PASSPHRASE_WARN_ISSUE4566 = _("Warning") + ": "\
                               + _("You have multiple consecutive whitespaces or leading/trailing "
                                   "whitespaces in your passphrase.") + " " \
                               + _("This is discouraged.") + " " \
-                              + _("Due to a bug, old versions of Electrum-BSTY will NOT be creating the "
+                              + _("Due to a bug, old versions of Electrum-BRM will NOT be creating the "
                                   "same wallet as newer versions or other software.")
 
 
@@ -106,7 +106,7 @@ class SeedLayout(QVBoxLayout):
                         _('BIP39 seeds can be imported in Electrum, so that users can access funds locked in other wallets.'),
                         _('However, we do not generate BIP39 seeds, because they do not meet our safety standard.'),
                         _('BIP39 seeds do not include a version number, which compromises compatibility with future software.'),
-                        _('We do not guarantee that BIP39 imports will always be supported in Electrum-BSTY.'),
+                        _('We do not guarantee that BIP39 imports will always be supported in Electrum-BRM.'),
                     ])
                 elif self.seed_type == 'slip39':
                     msg = ' '.join([
@@ -265,7 +265,7 @@ class SeedLayout(QVBoxLayout):
         s = ' '.join(self.get_seed_words())
         b = self.is_seed(s)
         if self.seed_type == 'bip39':
-            from electrum_bsty.keystore import bip39_is_checksum_valid
+            from electrum_brm.keystore import bip39_is_checksum_valid
             is_checksum, is_wordlist = bip39_is_checksum_valid(s)
             label = ''
             if bool(s):
@@ -390,7 +390,7 @@ class KeysLayout(QVBoxLayout):
 class SeedDialog(WindowModalDialog):
 
     def __init__(self, parent, seed, passphrase, *, config: 'SimpleConfig'):
-        WindowModalDialog.__init__(self, parent, ('Electrum-BSTY - ' + _('Seed')))
+        WindowModalDialog.__init__(self, parent, ('Electrum-BRM - ' + _('Seed')))
         self.setMinimumWidth(400)
         vbox = QVBoxLayout(self)
         title =  _("Your wallet generation seed is:")

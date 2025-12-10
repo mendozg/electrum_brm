@@ -30,7 +30,7 @@ from PyQt5.QtCore import Qt, QUrl
 from PyQt5.QtGui import QTextCharFormat, QFont
 from PyQt5.QtWidgets import QVBoxLayout, QHBoxLayout, QLabel, QTextBrowser
 
-from electrum_bsty.i18n import _
+from electrum_brm.i18n import _
 
 from .util import WindowModalDialog, ButtonsLineEdit, ShowQRLineEdit, ColorScheme, Buttons, CloseButton, MONOSPACE_FONT, WWLabel
 from .history_list import HistoryList, HistoryModel
@@ -38,7 +38,7 @@ from .qrtextedit import ShowQRTextEdit
 from .transaction_dialog import TxOutputColoring, QTextBrowserWithDefaultSize
 
 if TYPE_CHECKING:
-    from electrum_bsty.transaction import PartialTxInput
+    from electrum_brm.transaction import PartialTxInput
     from .main_window import ElectrumWindow
 
 

@@ -1,6 +1,6 @@
-from electrum_bsty.plugin import hook
-from electrum_bsty.util import print_msg, raw_input, print_stderr
-from electrum_bsty.logging import get_logger
+from electrum_brm.plugin import hook
+from electrum_brm.util import print_msg, raw_input, print_stderr
+from electrum_brm.logging import get_logger
 
 from ..hw_wallet.cmdline import CmdLineHandler
 

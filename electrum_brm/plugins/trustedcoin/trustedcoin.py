@@ -32,20 +32,20 @@ from urllib.parse import urljoin
 from urllib.parse import quote
 from aiohttp import ClientResponse
 
-from electrum_bsty import ecc, constants, keystore, version, bip32, bitcoin
-from electrum_bsty.bip32 import BIP32Node, xpub_type
-from electrum_bsty.crypto import sha256
-from electrum_bsty.transaction import PartialTxOutput, PartialTxInput, PartialTransaction, Transaction
-from electrum_bsty.mnemonic import Mnemonic, seed_type, is_any_2fa_seed_type
-from electrum_bsty.wallet import Multisig_Wallet, Deterministic_Wallet
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import BasePlugin, hook
-from electrum_bsty.util import NotEnoughFunds, UserFacingException
-from electrum_bsty.network import Network
-from electrum_bsty.logging import Logger
+from electrum_brm import ecc, constants, keystore, version, bip32, bitcoin
+from electrum_brm.bip32 import BIP32Node, xpub_type
+from electrum_brm.crypto import sha256
+from electrum_brm.transaction import PartialTxOutput, PartialTxInput, PartialTransaction, Transaction
+from electrum_brm.mnemonic import Mnemonic, seed_type, is_any_2fa_seed_type
+from electrum_brm.wallet import Multisig_Wallet, Deterministic_Wallet
+from electrum_brm.i18n import _
+from electrum_brm.plugin import BasePlugin, hook
+from electrum_brm.util import NotEnoughFunds, UserFacingException
+from electrum_brm.network import Network
+from electrum_brm.logging import Logger
 
 if TYPE_CHECKING:
-    from electrum_bsty.wizard import NewWalletWizard
+    from electrum_brm.wizard import NewWalletWizard
 
 
 def get_signing_xpub(xtype):

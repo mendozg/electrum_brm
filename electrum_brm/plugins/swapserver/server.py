@@ -5,14 +5,14 @@ from typing import TYPE_CHECKING
 
 from aiohttp import web
 
-from electrum_bsty.util import log_exceptions, ignore_exceptions
-from electrum_bsty.logging import Logger
-from electrum_bsty.util import EventListener
-from electrum_bsty.lnaddr import lndecode
+from electrum_brm.util import log_exceptions, ignore_exceptions
+from electrum_brm.logging import Logger
+from electrum_brm.util import EventListener
+from electrum_brm.lnaddr import lndecode
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.wallet import Abstract_Wallet
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.wallet import Abstract_Wallet
 
 
 class SwapServer(Logger, EventListener):
@@ -58,7 +58,7 @@ class SwapServer(Logger, EventListener):
             "warnings": [],
             "htlcFirst": True,
             "pairs": {
-                "BSTY/BSTY": {
+                "BRM/BRM": {
                     "rate": 1,
                     "limits": {
                         "maximal": sm._max_amount,
@@ -125,7 +125,7 @@ class SwapServer(Logger, EventListener):
         self.sm.init_pairs()
         request = await r.json()
         req_type = request['type']
-        assert request['pairId'] == 'BSTY/BSTY'
+        assert request['pairId'] == 'BRM/BRM'
         if req_type == 'reversesubmarine':
             lightning_amount_sat=request['invoiceAmount']
             payment_hash=bytes.fromhex(request['preimageHash'])

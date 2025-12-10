@@ -42,18 +42,18 @@ from PyQt5.QtWidgets import (QDialog, QLabel, QPushButton, QHBoxLayout, QVBoxLay
 import qrcode
 from qrcode import exceptions
 
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.util import quantize_feerate
-from electrum_bsty import bitcoin
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.util import quantize_feerate
+from electrum_brm import bitcoin
 
-from electrum_bsty.bitcoin import base_encode, NLOCKTIME_BLOCKHEIGHT_MAX, DummyAddress
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import run_hook
-from electrum_bsty import simple_config
-from electrum_bsty.transaction import SerializationError, Transaction, PartialTransaction, TxOutpoint, TxinDataFetchProgress
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import ShortID, get_asyncio_loop
-from electrum_bsty.network import Network
+from electrum_brm.bitcoin import base_encode, NLOCKTIME_BLOCKHEIGHT_MAX, DummyAddress
+from electrum_brm.i18n import _
+from electrum_brm.plugin import run_hook
+from electrum_brm import simple_config
+from electrum_brm.transaction import SerializationError, Transaction, PartialTransaction, TxOutpoint, TxinDataFetchProgress
+from electrum_brm.logging import get_logger
+from electrum_brm.util import ShortID, get_asyncio_loop
+from electrum_brm.network import Network
 
 from . import util
 from .util import (MessageBoxMixin, read_QIcon, Buttons, icon_path,
@@ -68,8 +68,8 @@ from .my_treeview import create_toolbar_with_menu
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow
-    from electrum_bsty.wallet import Abstract_Wallet
-    from electrum_bsty.payment_identifier import PaymentIdentifier
+    from electrum_brm.wallet import Abstract_Wallet
+    from electrum_brm.payment_identifier import PaymentIdentifier
 
 
 _logger = get_logger(__name__)

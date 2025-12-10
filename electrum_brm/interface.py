@@ -922,7 +922,7 @@ class Interface(Logger):
 
     @classmethod
     def client_name(cls) -> str:
-        return f'electrum_bsty/{version.ELECTRUM_VERSION}'
+        return f'electrum_brm/{version.ELECTRUM_VERSION}'
 
     def is_tor(self):
         return self.host.endswith('.onion')
@@ -1105,7 +1105,7 @@ class Interface(Logger):
             return ''
         if not bitcoin.is_address(res):
             # note: do not hard-fail -- allow server to use future-type
-            #       globalboost address we do not recognize
+            #       bitraam address we do not recognize
             self.logger.info(f"invalid donation address from server: {repr(res)}")
             res = ''
         return res

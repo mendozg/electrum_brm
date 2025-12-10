@@ -17,7 +17,7 @@ _min_python_version_tuple = tuple(map(int, (MIN_PYTHON_VERSION.split("."))))
 
 
 if sys.version_info[:3] < _min_python_version_tuple:
-    sys.exit("Error: Electrum-BSTY requires Python version >= %s..." % MIN_PYTHON_VERSION)
+    sys.exit("Error: Electrum-BRM requires Python version >= %s..." % MIN_PYTHON_VERSION)
 
 with open('contrib/requirements/requirements.txt') as f:
     requirements = f.read().splitlines()
@@ -26,7 +26,7 @@ with open('contrib/requirements/requirements-hw.txt') as f:
     requirements_hw = f.read().splitlines()
 
 # load version.py; needlessly complicated alternative to "imp.load_source":
-version_spec = importlib.util.spec_from_file_location('version', 'electrum_bsty/version.py')
+version_spec = importlib.util.spec_from_file_location('version', 'electrum_brm/version.py')
 version_module = version = importlib.util.module_from_spec(version_spec)
 version_spec.loader.exec_module(version_module)
 
@@ -35,9 +35,9 @@ data_files = []
 if platform.system() in ['Linux', 'FreeBSD', 'DragonFly']:
     # note: we can't use absolute paths here. see #7787
     data_files += [
-        (os.path.join('share', 'applications'),               ['electrum-bsty.desktop']),
-        (os.path.join('share', 'pixmaps'),                    ['electrum_bsty/gui/icons/electrum-bsty.png']),
-        (os.path.join('share', 'icons/hicolor/128x128/apps'), ['electrum_bsty/gui/icons/electrum-bsty.png']),
+        (os.path.join('share', 'applications'),               ['electrum-brm.desktop']),
+        (os.path.join('share', 'pixmaps'),                    ['electrum_brm/gui/icons/electrum-brm.png']),
+        (os.path.join('share', 'icons/hicolor/128x128/apps'), ['electrum_brm/gui/icons/electrum-brm.png']),
     ]
 
 extras_require = {
@@ -55,27 +55,27 @@ extras_require['fast'] = extras_require['crypto']
 
 
 setup(
-    name="Electrum-BSTY",
+    name="Electrum-BRM",
     version=version.ELECTRUM_VERSION,
     python_requires='>={}'.format(MIN_PYTHON_VERSION),
     install_requires=requirements,
     extras_require=extras_require,
-    packages=(['electrum_bsty',]
-              + [('electrum_bsty.'+pkg) for pkg in
-                 find_packages('electrum_bsty', exclude=["tests"])]),
+    packages=(['electrum_brm',]
+              + [('electrum_brm.'+pkg) for pkg in
+                 find_packages('electrum_brm', exclude=["tests"])]),
     package_dir={
-        'electrum_bsty': 'electrum_bsty'
+        'electrum_brm': 'electrum_brm'
     },
     # Note: MANIFEST.in lists what gets included in the tar.gz, and the
     # package_data kwarg lists what gets put in site-packages when pip installing the tar.gz.
     # By specifying include_package_data=True, MANIFEST.in becomes responsible for both.
     include_package_data=True,
-    scripts=['electrum_bsty/electrum-bsty'],
+    scripts=['electrum_brm/electrum-brm'],
     data_files=data_files,
-    description="Lightweight GlobalBoost-Y Wallet",
+    description="Lightweight BitRaam-Y Wallet",
     author="Thomas Voegtlin",
     author_email="thomasv@electrum.org",
     license="MIT Licence",
     url="https://electrum.org",
-    long_description="""Lightweight GlobalBoost-Y Wallet""",
+    long_description="""Lightweight BitRaam-Y Wallet""",
 )

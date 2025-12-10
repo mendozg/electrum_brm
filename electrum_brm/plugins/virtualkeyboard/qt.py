@@ -3,8 +3,8 @@ import random
 from PyQt5.QtWidgets import (QVBoxLayout, QGridLayout, QPushButton)
 from PyQt5.QtGui import QFontMetrics
 
-from electrum_bsty.plugin import BasePlugin, hook
-from electrum_bsty.i18n import _
+from electrum_brm.plugin import BasePlugin, hook
+from electrum_brm.i18n import _
 
 
 class Plugin(BasePlugin):

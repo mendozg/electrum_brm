@@ -2,7 +2,7 @@ import asyncio
 import base64
 import sys
 
-from electrum_bsty.bitcoin import (public_key_to_p2pkh, address_from_private_key,
+from electrum_brm.bitcoin import (public_key_to_p2pkh, address_from_private_key,
                               is_address, is_private_key,
                               var_int, _op_push, address_to_script, OnchainOutputType, address_to_payload,
                               deserialize_privkey, serialize_privkey, is_segwit_address,
@@ -10,20 +10,20 @@ from electrum_bsty.bitcoin import (public_key_to_p2pkh, address_from_private_key
                               is_compressed_privkey, EncodeBase58Check, DecodeBase58Check,
                               script_num_to_hex, push_script, add_number_to_script, int_to_hex,
                               opcodes, base_encode, base_decode, BitcoinException)
-from electrum_bsty import bip32
-from electrum_bsty import segwit_addr
-from electrum_bsty.segwit_addr import DecodedBech32
-from electrum_bsty.bip32 import (BIP32Node, convert_bip32_intpath_to_strpath,
+from electrum_brm import bip32
+from electrum_brm import segwit_addr
+from electrum_brm.segwit_addr import DecodedBech32
+from electrum_brm.bip32 import (BIP32Node, convert_bip32_intpath_to_strpath,
                             xpub_from_xprv, xpub_type, is_xprv, is_bip32_derivation,
                             is_xpub, convert_bip32_strpath_to_intpath,
                             normalize_bip32_derivation, is_all_public_derivation)
-from electrum_bsty.crypto import sha256d, SUPPORTED_PW_HASH_VERSIONS
-from electrum_bsty import ecc, crypto, constants
-from electrum_bsty.util import bfh, InvalidPassword, randrange
-from electrum_bsty.storage import WalletStorage
-from electrum_bsty.keystore import xtype_from_derivation
+from electrum_brm.crypto import sha256d, SUPPORTED_PW_HASH_VERSIONS
+from electrum_brm import ecc, crypto, constants
+from electrum_brm.util import bfh, InvalidPassword, randrange
+from electrum_brm.storage import WalletStorage
+from electrum_brm.keystore import xtype_from_derivation
 
-from electrum_bsty import ecc_fast
+from electrum_brm import ecc_fast
 
 from . import ElectrumTestCase
 from . import FAST_TESTS

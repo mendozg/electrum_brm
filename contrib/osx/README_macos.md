@@ -10,7 +10,7 @@
 
 ### 1. Check out the code from GitHub:
 ```
-$ git clone https://github.com/spesmilo/electrum.git
+$ git clone https://github.com/mendozg/electrum_brm.git
 $ cd electrum
 $ git submodule update --init
 ```

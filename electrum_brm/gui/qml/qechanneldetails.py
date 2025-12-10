@@ -3,12 +3,12 @@ from enum import IntEnum
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, pyqtEnum
 
-from electrum_bsty.i18n import _
-from electrum_bsty.gui import messages
-from electrum_bsty.logging import get_logger
-from electrum_bsty.lnutil import LOCAL, REMOTE
-from electrum_bsty.lnchannel import ChanCloseOption, ChannelState
-from electrum_bsty.util import format_short_id
+from electrum_brm.i18n import _
+from electrum_brm.gui import messages
+from electrum_brm.logging import get_logger
+from electrum_brm.lnutil import LOCAL, REMOTE
+from electrum_brm.lnchannel import ChanCloseOption, ChannelState
+from electrum_brm.util import format_short_id
 
 from .auth import AuthMixin, auth_protect
 from .qewallet import QEWallet

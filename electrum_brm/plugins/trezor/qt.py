@@ -8,24 +8,24 @@ from PyQt5.QtWidgets import (QVBoxLayout, QLabel, QGridLayout, QPushButton,
                              QLineEdit, QRadioButton, QCheckBox, QWidget,
                              QMessageBox, QSlider, QTabWidget)
 
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import Logger
-from electrum_bsty.plugin import hook
-from electrum_bsty.keystore import ScriptTypeNotSupported
+from electrum_brm.i18n import _
+from electrum_brm.logging import Logger
+from electrum_brm.plugin import hook
+from electrum_brm.keystore import ScriptTypeNotSupported
 
-from electrum_bsty.plugins.hw_wallet.qt import QtHandlerBase, QtPluginBase
-from electrum_bsty.plugins.hw_wallet.plugin import only_hook_if_libraries_available, OutdatedHwFirmwareException
+from electrum_brm.plugins.hw_wallet.qt import QtHandlerBase, QtPluginBase
+from electrum_brm.plugins.hw_wallet.plugin import only_hook_if_libraries_available, OutdatedHwFirmwareException
 
-from electrum_bsty.gui.qt.util import (WindowModalDialog, WWLabel, Buttons, CancelButton,
+from electrum_brm.gui.qt.util import (WindowModalDialog, WWLabel, Buttons, CancelButton,
                                   OkButton, CloseButton, PasswordLineEdit, getOpenFileName, ChoiceWidget)
-from electrum_bsty.gui.qt.wizard.wallet import WCScriptAndDerivation, WCHWUnlock, WCHWXPub
-from electrum_bsty.gui.qt.wizard.wizard import WizardComponent
+from electrum_brm.gui.qt.wizard.wallet import WCScriptAndDerivation, WCHWUnlock, WCHWXPub
+from electrum_brm.gui.qt.wizard.wizard import WizardComponent
 
 from .trezor import (TrezorPlugin, TIM_NEW, TIM_RECOVER, TrezorInitSettings,
                      PASSPHRASE_ON_DEVICE, Capability, BackupType, RecoveryDeviceType)
 
 if TYPE_CHECKING:
-    from electrum_bsty.gui.qt.wizard.wallet import QENewWalletWizard
+    from electrum_brm.gui.qt.wizard.wallet import QENewWalletWizard
 
 PASSPHRASE_HELP_SHORT = _(
     "Passphrases allow you to access new wallets, each "
@@ -37,10 +37,10 @@ PASSPHRASE_HELP = PASSPHRASE_HELP_SHORT + "  " + _(
     "accessible behind its own passphrase.")
 RECOMMEND_PIN = _(
     "You should enable PIN protection.  Your PIN is the only protection "
-    "for your globalboosts if your device is lost or stolen.")
+    "for your bitraams if your device is lost or stolen.")
 PASSPHRASE_NOT_PIN = _(
     "If you forget a passphrase you will be unable to access any "
-    "globalboosts in the wallet behind it.  A passphrase is not a PIN. "
+    "bitraams in the wallet behind it.  A passphrase is not a PIN. "
     "Only change this if you are sure you understand it.")
 MATRIX_RECOVERY = _(
     "Enter the recovery words by pressing the buttons according to what "
@@ -611,7 +611,7 @@ class SettingsDialog(WindowModalDialog):
             if wallet and sum(wallet.get_balance()):
                 title = _("Confirm Device Wipe")
                 msg = _("Are you SURE you want to wipe the device?\n"
-                        "Your wallet still has globalboosts in it!")
+                        "Your wallet still has bitraams in it!")
                 if not self.question(msg, title=title,
                                      icon=QMessageBox.Critical):
                     return
@@ -683,7 +683,7 @@ class SettingsDialog(WindowModalDialog):
         settings_glayout.addWidget(pin_button, 2, 1)
         pin_msg = QLabel(_("PIN protection is strongly recommended.  "
                            "A PIN is your only protection against someone "
-                           "stealing your globalboosts if they obtain physical "
+                           "stealing your bitraams if they obtain physical "
                            "access to your {}.").format(plugin.device))
         pin_msg.setWordWrap(True)
         pin_msg.setStyleSheet("color: red")
@@ -748,7 +748,7 @@ class SettingsDialog(WindowModalDialog):
         clear_pin_button.clicked.connect(clear_pin)
         clear_pin_warning = QLabel(
             _("If you disable your PIN, anyone with physical access to your "
-              "{} device can spend your globalboosts.").format(plugin.device))
+              "{} device can spend your bitraams.").format(plugin.device))
         clear_pin_warning.setWordWrap(True)
         clear_pin_warning.setStyleSheet("color: red")
         advanced_glayout.addWidget(clear_pin_button, 0, 2)
@@ -773,7 +773,7 @@ class SettingsDialog(WindowModalDialog):
         wipe_device_msg.setWordWrap(True)
         wipe_device_warning = QLabel(
             _("Only wipe a device if you have the recovery seed written down "
-              "and the device wallet(s) are empty, otherwise the globalboosts "
+              "and the device wallet(s) are empty, otherwise the bitraams "
               "will be lost forever."))
         wipe_device_warning.setWordWrap(True)
         wipe_device_warning.setStyleSheet("color: red")

@@ -57,7 +57,7 @@ from . import GuiImportError
 from .plugin import run_hook, Plugins
 
 if TYPE_CHECKING:
-    from electrum_bsty import gui
+    from electrum_brm import gui
 
 
 _logger = get_logger(__name__)
@@ -226,7 +226,7 @@ class AuthenticatedServer(Logger):
             try:
                 await self.authenticate(request.headers)
             except AuthenticationInvalidOrMissing:
-                return web.Response(headers={"WWW-Authenticate": "Basic realm=Electrum-BSTY"},
+                return web.Response(headers={"WWW-Authenticate": "Basic realm=Electrum-BRM"},
                                     text='Unauthorized', status=401)
             except AuthenticationCredentialsInvalid:
                 return web.Response(text='Forbidden', status=403)
@@ -611,7 +611,7 @@ class Daemon(Logger):
         self.logger.info(f'launching GUI: {gui_name}')
         try:
             try:
-                gui = __import__('electrum_bsty.gui.' + gui_name, fromlist=['electrum_bsty'])
+                gui = __import__('electrum_brm.gui.' + gui_name, fromlist=['electrum_brm'])
             except GuiImportError as e:
                 sys.exit(str(e))
             self.gui_object = gui.ElectrumGui(config=self.config, daemon=self, plugins=self._plugins)

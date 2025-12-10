@@ -1,4 +1,4 @@
-# Electrum-Y - Lightweight GlobalBoost Client
+# Electrum-Y - Lightweight BitRaam Client
 # Copyright (c) 2011-2016 Thomas Voegtlin
 #
 # Permission is hereby granted, free of charge, to any person
@@ -228,7 +228,7 @@ class TxBroadcastHashMismatch(TxBroadcastError):
     def get_message_for_gui(self):
         return "{}\n{}\n\n{}" \
             .format(_("The server returned an unexpected transaction ID when broadcasting the transaction."),
-                    _("Consider trying to connect to a different server, or updating Electrum-BSTY."),
+                    _("Consider trying to connect to a different server, or updating Electrum-BRM."),
                     str(self))
 
 
@@ -236,7 +236,7 @@ class TxBroadcastServerReturnedError(TxBroadcastError):
     def get_message_for_gui(self):
         return "{}\n{}\n\n{}" \
             .format(_("The server returned an error when broadcasting the transaction."),
-                    _("Consider trying to connect to a different server, or updating Electrum-BSTY."),
+                    _("Consider trying to connect to a different server, or updating Electrum-BRM."),
                     str(self))
 
 
@@ -244,7 +244,7 @@ class TxBroadcastUnknownError(TxBroadcastError):
     def get_message_for_gui(self):
         return "{}\n{}" \
             .format(_("Unknown error when broadcasting the transaction."),
-                    _("Consider trying to connect to a different server, or updating Electrum-BSTY."))
+                    _("Consider trying to connect to a different server, or updating Electrum-BRM."))
 
 
 class UntrustedServerReturnedError(NetworkException):
@@ -1159,7 +1159,7 @@ class Network(Logger, NetworkRetryManager[ServerAddr]):
             r"dust":
                 (_("Transaction could not be broadcast due to dust outputs.\n"
                    "Some of the outputs are too small in value, probably lower than 1000 satoshis.\n"
-                   "Check the units, make sure you haven't confused e.g. mBSTY and BSTY.")),
+                   "Check the units, make sure you haven't confused e.g. mBRM and BRM.")),
             r"multi-op-return": _("The transaction was rejected because it contains multiple OP_RETURN outputs."),
         }
         for substring in policy_error_messages:

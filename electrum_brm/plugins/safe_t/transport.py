@@ -1,4 +1,4 @@
-from electrum_bsty.logging import get_logger
+from electrum_brm.logging import get_logger
 
 
 _logger = get_logger(__name__)

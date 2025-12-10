@@ -1362,7 +1362,7 @@ class LNWallet(LNWorker):
         lightning_needed = amount_to_pay - num_sats_can_send
         assert lightning_needed > 0
         min_funding_sat = lightning_needed + (lightning_needed // 20) + 1000 # safety margin
-        min_funding_sat = max(min_funding_sat, 100_000) # at least 1mBSTY
+        min_funding_sat = max(min_funding_sat, 100_000) # at least 1mBRM
         if min_funding_sat > self.config.LIGHTNING_MAX_FUNDING_SAT:
             return
         fee_est = partial(self.config.estimate_fee, allow_fallback_to_static_rates=True)  # to avoid NoDynamicFeeEstimates

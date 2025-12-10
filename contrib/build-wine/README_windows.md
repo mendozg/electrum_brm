@@ -9,8 +9,8 @@
 
 ### 1. Check out the code from GitHub:
 ```
-> git clone https://github.com/mendozg/electrum-bsty.git
-> cd electrum-bsty
+> git clone https://github.com/mendozg/electrum-brm.git
+> cd electrum-brm
 > git submodule update --init
 ```
 
@@ -24,7 +24,7 @@ Run install (this should install most dependencies):
 [libsecp256k1](https://github.com/bitcoin-core/secp256k1) is a required dependency.
 This is a C library, which you need to compile yourself.
 Electrum needs a dll, named `libsecp256k1-0.dll` (or newer `libsecp256k1-*.dll`),
-placed into the inner `electrum_bsty/` folder.
+placed into the inner `electrum_brm/` folder.
 
 For Unix-like systems, the (`contrib/make_libsecp256k1.sh`) script does this for you,
 however it does not work on Windows.
@@ -45,9 +45,9 @@ Alternatively, MSYS2 and MinGW-w64 can be used directly on Windows, as follows.
   $ pacman -S --needed git base-devel mingw-w64-x86_64-toolchain mingw-w64-x86_64-autotools
   $ export PATH="$PATH:/mingw64/bin"
   ```
-  `cd` into the git clone, e.g. `C:\wspace\electrum_bsty` (auto-mounted at `/c/wspace/electrum_bsty`)
+  `cd` into the git clone, e.g. `C:\wspace\electrum_brm` (auto-mounted at `/c/wspace/electrum_brm`)
   ```
-  $ cd /c/wspace/electrum_bsty
+  $ cd /c/wspace/electrum_brm
   $ GCC_TRIPLET_HOST="x86_64-w64-mingw32" ./contrib/make_libsecp256k1.sh
   ```
 

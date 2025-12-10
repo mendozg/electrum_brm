@@ -3,17 +3,17 @@ from typing import TYPE_CHECKING, Optional, Union
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtWidgets import QLabel, QVBoxLayout, QGridLayout, QPushButton
 
-from electrum_bsty.i18n import _
-from electrum_bsty.util import NotEnoughFunds, NoDynamicFeeEstimates
-from electrum_bsty.bitcoin import DummyAddress
-from electrum_bsty.transaction import PartialTxOutput, PartialTransaction
+from electrum_brm.i18n import _
+from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates
+from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.transaction import PartialTxOutput, PartialTransaction
 
-from electrum_bsty.gui import messages
+from electrum_brm.gui import messages
 from . import util
 from .util import (WindowModalDialog, Buttons, OkButton, CancelButton,
                    EnterButton, ColorScheme, WWLabel, read_QIcon, IconLabel, char_width_in_lineedit)
 from .util import qt_event_listener, QtEventListener
-from .amountedit import BSTYAmountEdit
+from .amountedit import BRMAmountEdit
 from .fee_slider import FeeSlider, FeeComboBox
 from .my_treeview import create_toolbar_with_menu
 
@@ -49,8 +49,8 @@ class SwapDialog(WindowModalDialog, QtEventListener):
         ).setEnabled(self.lnworker.can_have_recoverable_channels())
         vbox.addLayout(toolbar)
         self.description_label = WWLabel(self.get_description())
-        self.send_amount_e = BSTYAmountEdit(self.window.get_decimal_point)
-        self.recv_amount_e = BSTYAmountEdit(self.window.get_decimal_point)
+        self.send_amount_e = BRMAmountEdit(self.window.get_decimal_point)
+        self.recv_amount_e = BRMAmountEdit(self.window.get_decimal_point)
         self.max_button = EnterButton(_("Max"), self.spend_max)
         btn_width = 10 * char_width_in_lineedit()
         self.max_button.setFixedWidth(btn_width)
@@ -219,9 +219,9 @@ class SwapDialog(WindowModalDialog, QtEventListener):
     def update(self):
         from .util import IconLabel
         sm = self.swap_manager
-        send_icon = read_QIcon("lightning.png" if self.is_reverse else "globalboost.png")
+        send_icon = read_QIcon("lightning.png" if self.is_reverse else "bitraam.png")
         self.send_label.setIcon(send_icon)
-        recv_icon = read_QIcon("lightning.png" if not self.is_reverse else "globalboost.png")
+        recv_icon = read_QIcon("lightning.png" if not self.is_reverse else "bitraam.png")
         self.recv_label.setIcon(recv_icon)
         self.description_label.setText(self.get_description())
         self.description_label.repaint()  # macOS hack for #6269

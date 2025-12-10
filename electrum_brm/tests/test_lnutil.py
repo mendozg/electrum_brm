@@ -1,10 +1,10 @@
 import unittest
 import json
 
-from electrum_bsty import bitcoin
-from electrum_bsty import ecc
-from electrum_bsty.json_db import StoredDict
-from electrum_bsty.lnutil import (RevocationStore, get_per_commitment_secret_from_seed, make_offered_htlc,
+from electrum_brm import bitcoin
+from electrum_brm import ecc
+from electrum_brm.json_db import StoredDict
+from electrum_brm.lnutil import (RevocationStore, get_per_commitment_secret_from_seed, make_offered_htlc,
                              make_received_htlc, make_commitment, make_htlc_tx_witness, make_htlc_tx_output,
                              make_htlc_tx_inputs, secret_to_pubkey, derive_blinded_pubkey, derive_privkey,
                              derive_pubkey, make_htlc_tx, extract_ctn_from_tx, UnableToDeriveSecret,
@@ -12,11 +12,11 @@ from electrum_bsty.lnutil import (RevocationStore, get_per_commitment_secret_fro
                              ScriptHtlc, extract_nodeid, calc_fees_for_commitment_tx, UpdateAddHtlc, LnFeatures,
                              ln_compare_features, IncompatibleLightningFeatures, ChannelType,
                              ImportedChannelBackupStorage)
-from electrum_bsty.util import bfh, MyEncoder
-from electrum_bsty.transaction import Transaction, PartialTransaction, Sighash
-from electrum_bsty.lnworker import LNWallet
-from electrum_bsty.wallet import restore_wallet_from_text, Standard_Wallet
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.util import bfh, MyEncoder
+from electrum_brm.transaction import Transaction, PartialTransaction, Sighash
+from electrum_brm.lnworker import LNWallet
+from electrum_brm.wallet import restore_wallet_from_text, Standard_Wallet
+from electrum_brm.simple_config import SimpleConfig
 
 from . import ElectrumTestCase, as_testnet
 

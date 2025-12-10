@@ -3,16 +3,16 @@
 import sys
 import asyncio
 
-from electrum_bsty import bitcoin
-from electrum_bsty.network import Network
-from electrum_bsty.util import json_encode, print_msg, create_and_start_event_loop, log_exceptions
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm import bitcoin
+from electrum_brm.network import Network
+from electrum_brm.util import json_encode, print_msg, create_and_start_event_loop, log_exceptions
+from electrum_brm.simple_config import SimpleConfig
 
 
 try:
     addr = sys.argv[1]
 except Exception:
-    print("usage: get_history <globalboost_address>")
+    print("usage: get_history <bitraam_address>")
     sys.exit(1)
 
 config = SimpleConfig()

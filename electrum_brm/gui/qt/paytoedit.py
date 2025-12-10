@@ -31,8 +31,8 @@ from PyQt5.QtCore import QObject, pyqtSignal
 from PyQt5.QtGui import QFontMetrics, QFont
 from PyQt5.QtWidgets import QApplication, QTextEdit, QWidget, QLineEdit, QStackedLayout, QSizePolicy
 
-from electrum_bsty.payment_identifier import PaymentIdentifier
-from electrum_bsty.logging import Logger
+from electrum_brm.payment_identifier import PaymentIdentifier
+from electrum_brm.logging import Logger
 
 from . import util
 from .util import MONOSPACE_FONT, GenericInputHandler, editor_contextMenuEvent, ColorScheme

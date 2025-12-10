@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 #
-# Electrum-BSTY - lightweight GlobalBoost client
+# Electrum-BRM - lightweight BitRaam client
 # Copyright (C) 2011 thomasv@gitorious
 #
 # Permission is hereby granted, free of charge, to any person

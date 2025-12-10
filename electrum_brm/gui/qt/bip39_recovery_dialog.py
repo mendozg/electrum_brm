@@ -8,11 +8,11 @@ import concurrent.futures
 from PyQt5.QtCore import Qt
 from PyQt5.QtWidgets import QWidget, QVBoxLayout, QGridLayout, QLabel, QListWidget, QListWidgetItem
 
-from electrum_bsty.i18n import _
-from electrum_bsty.network import Network
-from electrum_bsty.bip39_recovery import account_discovery
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import get_asyncio_loop, UserFacingException
+from electrum_brm.i18n import _
+from electrum_brm.network import Network
+from electrum_brm.bip39_recovery import account_discovery
+from electrum_brm.logging import get_logger
+from electrum_brm.util import get_asyncio_loop, UserFacingException
 
 from .util import WindowModalDialog, MessageBoxMixin, TaskThread, Buttons, CancelButton, OkButton
 

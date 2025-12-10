@@ -13,9 +13,9 @@ from .fee_slider import FeeSlider, FeeComboBox
 from .util import (ColorScheme, WindowModalDialog, Buttons,
                    OkButton, WWLabel, CancelButton)
 
-from electrum_bsty.i18n import _
-from electrum_bsty.transaction import PartialTransaction
-from electrum_bsty.wallet import CannotRBFTx, BumpFeeStrategy
+from electrum_brm.i18n import _
+from electrum_brm.transaction import PartialTransaction
+from electrum_brm.wallet import CannotRBFTx, BumpFeeStrategy
 
 if TYPE_CHECKING:
     from .main_window import ElectrumWindow

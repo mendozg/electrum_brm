@@ -5,8 +5,8 @@ import tempfile
 import shutil
 from io import StringIO
 
-from electrum_bsty.simple_config import SimpleConfig, read_user_config
-from electrum_bsty import constants
+from electrum_brm.simple_config import SimpleConfig, read_user_config
+from electrum_brm import constants
 
 from . import ElectrumTestCase
 

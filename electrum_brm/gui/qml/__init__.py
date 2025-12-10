@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING
 try:
     import PyQt6
 except Exception as e:
-    from electrum_bsty import GuiImportError
+    from electrum_brm import GuiImportError
     raise GuiImportError(
         "Error: Could not import PyQt6. On Linux systems, "
         "you may try 'sudo apt-get install python3-pyqt6'") from e
@@ -15,7 +15,7 @@ except Exception as e:
 try:
     import PyQt6.QtQml
 except Exception as e:
-    from electrum_bsty import GuiImportError
+    from electrum_brm import GuiImportError
     raise GuiImportError(
         "Error: Could not import PyQt6.QtQml. On Linux systems, "
         "you may try 'sudo apt-get install python3-pyqt6.qtquick'") from e
@@ -24,16 +24,16 @@ from PyQt6.QtCore import (Qt, QCoreApplication, QLocale, QTranslator, QTimer, QT
 from PyQt6.QtGui import QGuiApplication
 sys._GUI_QT_VERSION = 6  # used by gui/common_qt
 
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.util import profiler
-from electrum_bsty.logging import Logger
-from electrum_bsty.gui import BaseElectrumGui
+from electrum_brm.i18n import _
+from electrum_brm.plugin import run_hook
+from electrum_brm.util import profiler
+from electrum_brm.logging import Logger
+from electrum_brm.gui import BaseElectrumGui
 
 if TYPE_CHECKING:
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.plugin import Plugins
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.plugin import Plugins
 
 from .qeapp import ElectrumQmlApplication, Exception_Hook
 
@@ -73,7 +73,7 @@ class ElectrumGui(BaseElectrumGui, Logger):
         if hasattr(Qt, "AA_ShareOpenGLContexts"):
             QCoreApplication.setAttribute(Qt.AA_ShareOpenGLContexts)
         if hasattr(QGuiApplication, 'setDesktopFileName'):
-            QGuiApplication.setDesktopFileName('electrum-bsty.desktop')
+            QGuiApplication.setDesktopFileName('electrum-brm.desktop')
 
         if "QT_QUICK_CONTROLS_STYLE" not in os.environ:
             os.environ["QT_QUICK_CONTROLS_STYLE"] = "Material"
@@ -94,7 +94,7 @@ class ElectrumGui(BaseElectrumGui, Logger):
 
         # Initialize any QML plugins
         run_hook('init_qml', self.app)
-        self.app.engine.load('electrum_bsty/gui/qml/components/main.qml')
+        self.app.engine.load('electrum_brm/gui/qml/components/main.qml')
 
     def close(self):
         self.app.quit()

@@ -1,9 +1,9 @@
 # -*- coding: utf-8 -*-
 
-from electrum_bsty.bitcoin import hash_encode
-from electrum_bsty.transaction import Transaction
-from electrum_bsty.util import bfh
-from electrum_bsty.verifier import SPV, InnerNodeOfSpvProofIsValidTx
+from electrum_brm.bitcoin import hash_encode
+from electrum_brm.transaction import Transaction
+from electrum_brm.util import bfh
+from electrum_brm.verifier import SPV, InnerNodeOfSpvProofIsValidTx
 
 from . import ElectrumTestCase
 

@@ -35,7 +35,7 @@ WizardComponent {
             wizard_data['seed_extend'] = extendcb.checked
             wizard_data['seed_extra_words'] = extendcb.checked ? customwordstext.text : ''
 
-            // determine script type from electrum_bsty seed type
+            // determine script type from electrum_brm seed type
             // (used to limit script type options for bip39 cosigners)
             if (wizard_data['wallet_type'] == 'multisig' && seed_variant_cb.currentValue == 'electrum') {
                 wizard_data['script_type'] = {

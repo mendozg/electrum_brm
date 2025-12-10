@@ -32,14 +32,14 @@ from PyQt5.QtGui import QIcon
 
 from PyQt5.QtWidgets import QWidget, QHBoxLayout, QVBoxLayout, QLabel, QGridLayout, QPushButton, QLineEdit, QToolButton, QMenu
 
-from electrum_bsty.i18n import _
-from electrum_bsty.util import NotEnoughFunds, NoDynamicFeeEstimates
-from electrum_bsty.util import quantize_feerate
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.transaction import Transaction, PartialTransaction
-from electrum_bsty.wallet import InternalAddressCorruption
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.bitcoin import DummyAddress
+from electrum_brm.i18n import _
+from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates
+from electrum_brm.util import quantize_feerate
+from electrum_brm.plugin import run_hook
+from electrum_brm.transaction import Transaction, PartialTransaction
+from electrum_brm.wallet import InternalAddressCorruption
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.bitcoin import DummyAddress
 
 from .util import (WindowModalDialog, ColorScheme, HelpLabel, Buttons, CancelButton,
                    BlockingWaitingDialog, PasswordLineEdit, WWLabel, read_QIcon)
@@ -47,12 +47,12 @@ from .util import (WindowModalDialog, ColorScheme, HelpLabel, Buttons, CancelBut
 from .fee_slider import FeeSlider, FeeComboBox
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import ConfigVarWithConfig
+    from electrum_brm.simple_config import ConfigVarWithConfig
     from .main_window import ElectrumWindow
 
 from .transaction_dialog import TxSizeLabel, TxFiatLabel, TxInOutWidget
 from .fee_slider import FeeSlider, FeeComboBox
-from .amountedit import FeerateEdit, BSTYAmountEdit
+from .amountedit import FeerateEdit, BRMAmountEdit
 from .locktimeedit import LockTimeEdit
 
 
@@ -172,7 +172,7 @@ class TxEditor(WindowModalDialog):
         self.feerate_e.editingFinished.connect(partial(self.on_fee_or_feerate, self.feerate_e, True))
         self.update_feerate_label()
 
-        self.fee_e = BSTYAmountEdit(self.main_window.get_decimal_point)
+        self.fee_e = BRMAmountEdit(self.main_window.get_decimal_point)
         self.fee_e.textEdited.connect(partial(self.on_fee_or_feerate, self.fee_e, False))
         self.fee_e.editingFinished.connect(partial(self.on_fee_or_feerate, self.fee_e, True))
 
@@ -683,7 +683,7 @@ class ConfirmTxDialog(TxEditor):
         grid.addWidget(HelpLabel(_("Amount to be sent") + ": ", msg), 0, 0)
         grid.addWidget(self.amount_label, 0, 1)
 
-        msg = _('GlobalBoost transactions are in general not free. A transaction fee is paid by the sender of the funds.') + '\n\n'\
+        msg = _('BitRaam transactions are in general not free. A transaction fee is paid by the sender of the funds.') + '\n\n'\
               + _('The amount of fee can be decided freely by the sender. However, transactions with low fees take more time to be processed.') + '\n\n'\
               + _('A suggested fee is automatically added to this field. You may override it. The suggested fee increases with the size of the transaction.')
 

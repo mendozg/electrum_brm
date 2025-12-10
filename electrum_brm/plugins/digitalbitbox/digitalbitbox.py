@@ -17,29 +17,29 @@ import time
 import copy
 from typing import TYPE_CHECKING, Optional
 
-from electrum_bsty.crypto import sha256d, EncodeAES_bytes, DecodeAES_bytes, hmac_oneshot
-from electrum_bsty.bitcoin import public_key_to_p2pkh
-from electrum_bsty.bip32 import BIP32Node, convert_bip32_intpath_to_strpath, is_all_public_derivation
-from electrum_bsty.bip32 import normalize_bip32_derivation
-from electrum_bsty import descriptor
-from electrum_bsty import ecc
-from electrum_bsty.ecc import msg_magic
-from electrum_bsty.wallet import Standard_Wallet
-from electrum_bsty import constants
-from electrum_bsty.transaction import Transaction, PartialTransaction, PartialTxInput, Sighash
-from electrum_bsty.i18n import _
-from electrum_bsty.keystore import Hardware_KeyStore
-from electrum_bsty.util import to_string, UserCancelled, UserFacingException, bfh
-from electrum_bsty.network import Network
-from electrum_bsty.logging import get_logger
-from electrum_bsty.plugin import runs_in_hwd_thread, run_in_hwd_thread
+from electrum_brm.crypto import sha256d, EncodeAES_bytes, DecodeAES_bytes, hmac_oneshot
+from electrum_brm.bitcoin import public_key_to_p2pkh
+from electrum_brm.bip32 import BIP32Node, convert_bip32_intpath_to_strpath, is_all_public_derivation
+from electrum_brm.bip32 import normalize_bip32_derivation
+from electrum_brm import descriptor
+from electrum_brm import ecc
+from electrum_brm.ecc import msg_magic
+from electrum_brm.wallet import Standard_Wallet
+from electrum_brm import constants
+from electrum_brm.transaction import Transaction, PartialTransaction, PartialTxInput, Sighash
+from electrum_brm.i18n import _
+from electrum_brm.keystore import Hardware_KeyStore
+from electrum_brm.util import to_string, UserCancelled, UserFacingException, bfh
+from electrum_brm.network import Network
+from electrum_brm.logging import get_logger
+from electrum_brm.plugin import runs_in_hwd_thread, run_in_hwd_thread
 
 from ..hw_wallet import HW_PluginBase, HardwareClientBase, HardwareHandlerBase
 from ..hw_wallet.plugin import OperationCancelled
 
 if TYPE_CHECKING:
-    from electrum_bsty.plugin import DeviceInfo
-    from electrum_bsty.wizard import NewWalletWizard
+    from electrum_brm.plugin import DeviceInfo
+    from electrum_brm.wizard import NewWalletWizard
 
 _logger = get_logger(__name__)
 

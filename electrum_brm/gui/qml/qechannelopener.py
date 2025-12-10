@@ -5,13 +5,13 @@ from typing import TYPE_CHECKING, Optional
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.i18n import _
-from electrum_bsty.gui import messages
-from electrum_bsty.util import bfh
-from electrum_bsty.lnutil import extract_nodeid, ConnStringFormatError
-from electrum_bsty.bitcoin import DummyAddress
-from electrum_bsty.lnworker import hardcoded_trampoline_nodes
-from electrum_bsty.logging import get_logger
+from electrum_brm.i18n import _
+from electrum_brm.gui import messages
+from electrum_brm.util import bfh
+from electrum_brm.lnutil import extract_nodeid, ConnStringFormatError
+from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.lnworker import hardcoded_trampoline_nodes
+from electrum_brm.logging import get_logger
 
 from .auth import AuthMixin, auth_protect
 from .qetxfinalizer import QETxFinalizer

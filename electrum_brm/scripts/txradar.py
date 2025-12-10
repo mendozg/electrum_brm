@@ -2,9 +2,9 @@
 import sys
 import asyncio
 
-from electrum_bsty.network import filter_protocol, Network
-from electrum_bsty.util import create_and_start_event_loop, log_exceptions
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.network import filter_protocol, Network
+from electrum_brm.util import create_and_start_event_loop, log_exceptions
+from electrum_brm.simple_config import SimpleConfig
 
 
 try:

@@ -1,6 +1,6 @@
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.logging import get_logger
+from electrum_brm.logging import get_logger
 
 from .auth import auth_protect, AuthMixin
 from .qetransactionlistmodel import QETransactionListModel

@@ -1,4 +1,4 @@
-# Electrum-BSTY - Lightweight GlobalBoost client
+# Electrum-BRM - Lightweight BitRaam client
 
 ```
 Licence: MIT Licence
@@ -14,10 +14,10 @@ Homepage: https://electrum.org/
 
 ## Getting started
 
-_(If you've come here looking to simply run Electrum,
+_(If you've come here looking to simply run Electrum-BRM,
 [you may download it here](https://electrum.org/#download).)_
 
-Electrum itself is pure Python, and so are most of the required dependencies,
+Electrum-BRM itself is pure Python, and so are most of the required dependencies,
 but not everything. The following sections describe how to run from source, but here
 is a TL;DR:
 
@@ -61,22 +61,22 @@ If you would like hardware wallet support,
 ### Running from tar.gz
 
 If you downloaded the official package (tar.gz), you can run
-Electrum from its root directory without installing it on your
+Electrum-BRM from its root directory without installing it on your
 system; all the pure python dependencies are included in the 'packages'
-directory. To run Electrum from its root directory, just do:
+directory. To run Electrum-BRM from its root directory, just do:
 ```
-$ ./run_electrum
+$ ./run_electrum_brm
 ```
 
-You can also install Electrum on your system, by running this command:
+You can also install Electrum-BRM on your system, by running this command:
 ```
 $ sudo apt-get install python3-setuptools python3-pip
 $ python3 -m pip install --user .
 ```
 
 This will download and install the Python dependencies used by
-Electrum instead of using the 'packages' directory.
-It will also place an executable named `electrum` in `~/.local/bin`,
+Electrum-BRM instead of using the 'packages' directory.
+It will also place an executable named `electrum-brm` in `~/.local/bin`,
 so make sure that is on your `PATH` variable.
 
 
@@ -87,7 +87,7 @@ and [for macOS](contrib/osx/README_macos.md))_
 
 Check out the code from GitHub:
 ```
-$ git clone https://github.com/spesmilo/electrum.git
+$ git clone https://github.com/mendozg/electrum_brm.git
 $ cd electrum
 $ git submodule update --init
 ```
@@ -103,21 +103,21 @@ $ sudo apt-get install python3-requests gettext qttools5-dev-tools
 $ ./contrib/pull_locale
 ```
 
-Finally, to start Electrum:
+Finally, to start Electrum-BRM:
 ```
-$ ./run_electrum
+$ ./run_electrum_brm
 ```
 
 ### Run tests
 
 Run unit tests with `pytest`:
 ```
-$ pytest electrum/tests -v
+$ pytest electrum_brm/tests -v
 ```
 
 To run a single file, specify it directly like this:
 ```
-$ pytest electrum_bsty/tests/test_bitcoin.py -v
+$ pytest electrum_brm/tests/test_bitcoin.py -v
 ```
 
 ## Creating Binaries

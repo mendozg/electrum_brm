@@ -1,13 +1,13 @@
 from typing import Optional, TYPE_CHECKING, Sequence
 
-from electrum_bsty.util import UserFacingException
-from electrum_bsty.bip32 import BIP32Node
-from electrum_bsty import descriptor
-from electrum_bsty import constants
-from electrum_bsty.i18n import _
-from electrum_bsty.transaction import Transaction, PartialTransaction, PartialTxInput, Sighash
-from electrum_bsty.keystore import Hardware_KeyStore
-from electrum_bsty.plugin import Device, runs_in_hwd_thread
+from electrum_brm.util import UserFacingException
+from electrum_brm.bip32 import BIP32Node
+from electrum_brm import descriptor
+from electrum_brm import constants
+from electrum_brm.i18n import _
+from electrum_brm.transaction import Transaction, PartialTransaction, PartialTxInput, Sighash
+from electrum_brm.keystore import Hardware_KeyStore
+from electrum_brm.plugin import Device, runs_in_hwd_thread
 
 from ..hw_wallet import HW_PluginBase
 from ..hw_wallet.plugin import is_any_tx_output_on_change_branch, trezor_validate_op_return_output_and_get_data
@@ -15,8 +15,8 @@ from ..hw_wallet.plugin import is_any_tx_output_on_change_branch, trezor_validat
 if TYPE_CHECKING:
     import usb1
     from .client import KeepKeyClient
-    from electrum_bsty.plugin import DeviceInfo
-    from electrum_bsty.wizard import NewWalletWizard
+    from electrum_brm.plugin import DeviceInfo
+    from electrum_brm.wizard import NewWalletWizard
 
 
 # TREZOR initialization methods

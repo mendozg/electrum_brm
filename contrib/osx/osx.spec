@@ -4,8 +4,8 @@ from PyInstaller.utils.hooks import collect_data_files, collect_submodules, coll
 
 import sys, os
 
-PACKAGE_NAME='Electrum-BSTY.app'
-PYPKG='electrum_bsty'
+PACKAGE_NAME='Electrum-BRM.app'
+PYPKG='electrum_brm'
 MAIN_SCRIPT='run_electrum'
 PROJECT_ROOT = os.path.abspath(".")
 ICONS_FILE=f"{PROJECT_ROOT}/{PYPKG}/gui/icons/electrum.icns"

@@ -7,22 +7,22 @@ import time
 from typing import TYPE_CHECKING, Optional
 import struct
 
-from electrum_bsty import bip32
-from electrum_bsty.bip32 import BIP32Node, InvalidMasterKeyVersionBytes
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import Device, hook, runs_in_hwd_thread
-from electrum_bsty.keystore import Hardware_KeyStore, KeyStoreWithMPK
-from electrum_bsty.transaction import PartialTransaction
-from electrum_bsty.wallet import Standard_Wallet, Multisig_Wallet, Abstract_Wallet
-from electrum_bsty.util import bfh, versiontuple, UserFacingException
-from electrum_bsty.logging import get_logger
+from electrum_brm import bip32
+from electrum_brm.bip32 import BIP32Node, InvalidMasterKeyVersionBytes
+from electrum_brm.i18n import _
+from electrum_brm.plugin import Device, hook, runs_in_hwd_thread
+from electrum_brm.keystore import Hardware_KeyStore, KeyStoreWithMPK
+from electrum_brm.transaction import PartialTransaction
+from electrum_brm.wallet import Standard_Wallet, Multisig_Wallet, Abstract_Wallet
+from electrum_brm.util import bfh, versiontuple, UserFacingException
+from electrum_brm.logging import get_logger
 
 from ..hw_wallet import HW_PluginBase, HardwareClientBase
 from ..hw_wallet.plugin import LibraryFoundButUnusable, only_hook_if_libraries_available
 
 if TYPE_CHECKING:
-    from electrum_bsty.plugin import DeviceInfo
-    from electrum_bsty.wizard import NewWalletWizard
+    from electrum_brm.plugin import DeviceInfo
+    from electrum_brm.wizard import NewWalletWizard
 
 _logger = get_logger(__name__)
 
@@ -43,7 +43,7 @@ try:
         # avoid use of pycoin for MiTM message signature test
         def mitm_verify(self, sig, expect_xpub):
             # verify a signature (65 bytes) over the session key, using the master bip32 node
-            # - customized to use specific EC library of Electrum-BSTY.
+            # - customized to use specific EC library of Electrum-BRM.
             pubkey = BIP32Node.from_xkey(expect_xpub).eckey
             return pubkey.verify_message_hash(sig[1:65], self.session_key)
 

@@ -27,7 +27,7 @@ from typing import TYPE_CHECKING
 
 from PyQt5.QtWidgets import QVBoxLayout, QLabel
 
-from electrum_bsty.i18n import _
+from electrum_brm.i18n import _
 
 from .util import WindowModalDialog, ButtonsLineEdit, ShowQRLineEdit, ColorScheme, Buttons, CloseButton
 from .history_list import HistoryList, HistoryModel

@@ -63,7 +63,7 @@ ElDialog {
                     Layout.preferredHeight: constants.iconSizeSmall
                     source: swaphelper.isReverse
                         ? '../../icons/lightning.png'
-                        : '../../icons/globalboost.png'
+                        : '../../icons/bitraam.png'
                 }
             }
 
@@ -94,7 +94,7 @@ ElDialog {
                     Layout.preferredWidth: constants.iconSizeSmall
                     Layout.preferredHeight: constants.iconSizeSmall
                     source: swaphelper.isReverse
-                        ? '../../icons/globalboost.png'
+                        ? '../../icons/bitraam.png'
                         : '../../icons/lightning.png'
                 }
             }

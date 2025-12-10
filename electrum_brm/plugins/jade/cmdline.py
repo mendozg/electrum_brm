@@ -1,4 +1,4 @@
-from electrum_bsty.plugin import hook
+from electrum_brm.plugin import hook
 from .jade import JadePlugin
 from ..hw_wallet import CmdLineHandler
 

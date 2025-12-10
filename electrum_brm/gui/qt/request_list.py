@@ -30,10 +30,10 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem
 from PyQt5.QtWidgets import QMenu, QAbstractItemView
 from PyQt5.QtCore import Qt, QItemSelectionModel, QModelIndex
 
-from electrum_bsty.i18n import _
-from electrum_bsty.util import format_time
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.invoices import Invoice
+from electrum_brm.i18n import _
+from electrum_brm.util import format_time
+from electrum_brm.plugin import run_hook
+from electrum_brm.invoices import Invoice
 
 from .util import pr_icons, read_QIcon, webopen
 from .my_treeview import MyTreeView, MySortModel
@@ -198,9 +198,9 @@ class RequestList(MyTreeView):
         menu = QMenu(self)
         copy_menu = self.add_copy_menu(menu, idx)
         if req.get_address():
-            copy_menu.addAction(_("Address"), lambda: self.main_window.do_copy(req.get_address(), title='GlobalBoost Address'))
+            copy_menu.addAction(_("Address"), lambda: self.main_window.do_copy(req.get_address(), title='BitRaam Address'))
         if URI := self.wallet.get_request_URI(req):
-            copy_menu.addAction(_("GlobalBoot URI"), lambda: self.main_window.do_copy(URI, title='GlobalBoost URI'))
+            copy_menu.addAction(_("GlobalBoot URI"), lambda: self.main_window.do_copy(URI, title='BitRaam URI'))
         if req.is_lightning():
             copy_menu.addAction(_("Lightning Request"), lambda: self.main_window.do_copy(self.wallet.get_bolt11_invoice(req), title='Lightning Request'))
         #if 'view_url' in req:

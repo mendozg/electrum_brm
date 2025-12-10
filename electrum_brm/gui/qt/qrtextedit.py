@@ -1,9 +1,9 @@
 from functools import partial
 from typing import Callable
 
-from electrum_bsty.i18n import _
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.simple_config import SimpleConfig
+from electrum_brm.i18n import _
+from electrum_brm.plugin import run_hook
+from electrum_brm.simple_config import SimpleConfig
 
 from .util import ButtonsTextEdit, MessageBoxMixin, ColorScheme, read_QIcon
 from .util import get_iconname_camera, get_iconname_qrcode

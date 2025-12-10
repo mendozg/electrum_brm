@@ -73,7 +73,7 @@ ApplicationWindow
 
         MenuItem {
             icon.color: action.enabled ? 'transparent' : Material.iconDisabledColor
-            icon.source: '../../icons/electrum-bsty.png'
+            icon.source: '../../icons/electrum-brm.png'
             action: Action {
                 text: qsTr('About');
                 onTriggered: menu.openPage(Qt.resolvedUrl('About.qml'))

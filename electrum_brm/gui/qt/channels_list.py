@@ -11,17 +11,17 @@ from PyQt5.QtWidgets import (QMenu, QHBoxLayout, QLabel, QVBoxLayout, QGridLayou
                              QToolTip)
 from PyQt5.QtGui import QFont, QStandardItem, QBrush, QPainter, QIcon, QHelpEvent
 
-from electrum_bsty.util import NotEnoughFunds, NoDynamicFeeEstimates
-from electrum_bsty.i18n import _
-from electrum_bsty.lnchannel import AbstractChannel, PeerState, ChannelBackup, Channel, ChannelState, ChanCloseOption
-from electrum_bsty.wallet import Abstract_Wallet
-from electrum_bsty.lnutil import LOCAL, REMOTE, format_short_channel_id
-from electrum_bsty.lnworker import LNWallet
-from electrum_bsty.gui import messages
+from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates
+from electrum_brm.i18n import _
+from electrum_brm.lnchannel import AbstractChannel, PeerState, ChannelBackup, Channel, ChannelState, ChanCloseOption
+from electrum_brm.wallet import Abstract_Wallet
+from electrum_brm.lnutil import LOCAL, REMOTE, format_short_channel_id
+from electrum_brm.lnworker import LNWallet
+from electrum_brm.gui import messages
 
 from .util import (WindowModalDialog, Buttons, OkButton, CancelButton,
                    EnterButton, WaitingDialog, MONOSPACE_FONT, ColorScheme)
-from .amountedit import BSTYAmountEdit, FreezableLineEdit
+from .amountedit import BRMAmountEdit, FreezableLineEdit
 from .util import read_QIcon, font_height
 from .my_treeview import MyTreeView
 
@@ -174,7 +174,7 @@ class ChannelsList(MyTreeView):
     def export_channel_backup(self, channel_id):
         msg = ' '.join([
             _("Channel backups can be imported in another instance of the same wallet."),
-            _("In the Electrum-BSTY mobile app, use the 'Send' button to scan this QR code."),
+            _("In the Electrum-BRM mobile app, use the 'Send' button to scan this QR code."),
             '\n\n',
             _("Please note that channel backups cannot be used to restore your channels."),
             _("If you lose your wallet file, the only thing you can do with a backup is to request your channel to be closed, so that your funds will be sent on-chain."),

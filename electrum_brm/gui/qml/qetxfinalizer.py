@@ -4,19 +4,19 @@ from functools import partial
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.logging import get_logger
-from electrum_bsty.i18n import _
-from electrum_bsty.transaction import PartialTxOutput, PartialTransaction, Transaction
-from electrum_bsty.util import NotEnoughFunds, profiler
-from electrum_bsty.wallet import CannotBumpFee, CannotDoubleSpendTx, CannotCPFP, BumpFeeStrategy
-from electrum_bsty.plugin import run_hook
+from electrum_brm.logging import get_logger
+from electrum_brm.i18n import _
+from electrum_brm.transaction import PartialTxOutput, PartialTransaction, Transaction
+from electrum_brm.util import NotEnoughFunds, profiler
+from electrum_brm.wallet import CannotBumpFee, CannotDoubleSpendTx, CannotCPFP, BumpFeeStrategy
+from electrum_brm.plugin import run_hook
 
 from .qewallet import QEWallet
 from .qetypes import QEAmount
 from .util import QtEventListener, event_listener
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
+    from electrum_brm.simple_config import SimpleConfig
 
 
 class FeeSlider(QObject):

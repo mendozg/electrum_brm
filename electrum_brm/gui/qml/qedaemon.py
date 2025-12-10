@@ -6,14 +6,14 @@ from typing import TYPE_CHECKING
 from PyQt6.QtCore import Qt, QAbstractListModel, QModelIndex
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject
 
-from electrum_bsty.i18n import _
-from electrum_bsty.logging import get_logger
-from electrum_bsty.util import WalletFileException, standardize_path, InvalidPassword, send_exception_to_crash_reporter
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.lnchannel import ChannelState
-from electrum_bsty.bitcoin import is_address
-from electrum_bsty.ecc import verify_message_with_address
-from electrum_bsty.storage import StorageReadWriteError
+from electrum_brm.i18n import _
+from electrum_brm.logging import get_logger
+from electrum_brm.util import WalletFileException, standardize_path, InvalidPassword, send_exception_to_crash_reporter
+from electrum_brm.plugin import run_hook
+from electrum_brm.lnchannel import ChannelState
+from electrum_brm.bitcoin import is_address
+from electrum_brm.ecc import verify_message_with_address
+from electrum_brm.storage import StorageReadWriteError
 
 from .auth import AuthMixin, auth_protect
 from .qefx import QEFX
@@ -21,8 +21,8 @@ from .qewallet import QEWallet
 from .qewizard import QENewWalletWizard, QEServerConnectWizard
 
 if TYPE_CHECKING:
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.plugin import Plugins
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.plugin import Plugins
 
 
 # wallet list model. supports both wallet basenames (wallet file basenames)

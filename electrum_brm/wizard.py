@@ -3,22 +3,22 @@ import os
 
 from typing import List, NamedTuple, Any, Dict, Optional, Tuple, TYPE_CHECKING
 
-from electrum_bsty.i18n import _
-from electrum_bsty.interface import ServerAddr
-from electrum_bsty.keystore import hardware_keystore
-from electrum_bsty.logging import get_logger
-from electrum_bsty.plugin import run_hook
-from electrum_bsty.slip39 import EncryptedSeed
-from electrum_bsty.storage import WalletStorage, StorageEncryptionVersion
-from electrum_bsty.wallet_db import WalletDB
-from electrum_bsty.bip32 import normalize_bip32_derivation, xpub_type
-from electrum_bsty import keystore, mnemonic, bitcoin
-from electrum_bsty.mnemonic import is_any_2fa_seed_type
+from electrum_brm.i18n import _
+from electrum_brm.interface import ServerAddr
+from electrum_brm.keystore import hardware_keystore
+from electrum_brm.logging import get_logger
+from electrum_brm.plugin import run_hook
+from electrum_brm.slip39 import EncryptedSeed
+from electrum_brm.storage import WalletStorage, StorageEncryptionVersion
+from electrum_brm.wallet_db import WalletDB
+from electrum_brm.bip32 import normalize_bip32_derivation, xpub_type
+from electrum_brm import keystore, mnemonic, bitcoin
+from electrum_brm.mnemonic import is_any_2fa_seed_type
 
 if TYPE_CHECKING:
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.plugin import Plugins
-    from electrum_bsty.keystore import Hardware_KeyStore
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.plugin import Plugins
+    from electrum_brm.keystore import Hardware_KeyStore
 
 
 class WizardViewState(NamedTuple):
@@ -532,7 +532,7 @@ class NewWalletWizard(AbstractWizard):
                     addresses[addr] = {}
         elif data['keystore_type'] in ['createseed', 'haveseed']:
             if data['seed_type'] in ['old', 'standard', 'segwit']:
-                self._logger.debug('creating keystore from electrum_bsty seed')
+                self._logger.debug('creating keystore from electrum_brm seed')
                 k = keystore.from_seed(data['seed'], data['seed_extra_words'], data['wallet_type'] == 'multisig')
             elif data['seed_type'] in ['bip39', 'slip39']:
                 self._logger.debug('creating keystore from %s seed' % data['seed_type'])

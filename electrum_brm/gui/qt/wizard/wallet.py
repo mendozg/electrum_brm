@@ -9,32 +9,32 @@ from PyQt5.QtGui import QPen, QPainter, QPalette
 from PyQt5.QtWidgets import (QVBoxLayout, QHBoxLayout, QLabel, QLineEdit, QPushButton, QWidget,
                              QFileDialog, QSlider, QGridLayout, QDialog, QApplication)
 
-from electrum_bsty.bip32 import is_bip32_derivation, BIP32Node, normalize_bip32_derivation, xpub_type
-from electrum_bsty.daemon import Daemon
-from electrum_bsty.i18n import _
-from electrum_bsty.keystore import bip44_derivation, bip39_to_seed, purpose48_derivation, ScriptTypeNotSupported
-from electrum_bsty.plugin import run_hook, HardwarePluginLibraryUnavailable
-from electrum_bsty.storage import StorageReadWriteError
-from electrum_bsty.util import WalletFileException, get_new_wallet_name, UserFacingException, InvalidPassword
-from electrum_bsty.wallet import wallet_types
+from electrum_brm.bip32 import is_bip32_derivation, BIP32Node, normalize_bip32_derivation, xpub_type
+from electrum_brm.daemon import Daemon
+from electrum_brm.i18n import _
+from electrum_brm.keystore import bip44_derivation, bip39_to_seed, purpose48_derivation, ScriptTypeNotSupported
+from electrum_brm.plugin import run_hook, HardwarePluginLibraryUnavailable
+from electrum_brm.storage import StorageReadWriteError
+from electrum_brm.util import WalletFileException, get_new_wallet_name, UserFacingException, InvalidPassword
+from electrum_brm.wallet import wallet_types
 from .wizard import QEAbstractWizard, WizardComponent
-from electrum_bsty.logging import get_logger, Logger
-from electrum_bsty import WalletStorage, mnemonic, keystore
-from electrum_bsty.wallet_db import WalletDB
-from electrum_bsty.wizard import NewWalletWizard
+from electrum_brm.logging import get_logger, Logger
+from electrum_brm import WalletStorage, mnemonic, keystore
+from electrum_brm.wallet_db import WalletDB
+from electrum_brm.wizard import NewWalletWizard
 
-from electrum_bsty.gui.qt.bip39_recovery_dialog import Bip39RecoveryDialog
-from electrum_bsty.gui.qt.password_dialog import PasswordLayout, PW_NEW, MSG_ENTER_PASSWORD, PasswordLayoutForHW
-from electrum_bsty.gui.qt.seed_dialog import SeedLayout, MSG_PASSPHRASE_WARN_ISSUE4566, KeysLayout
-from electrum_bsty.gui.qt.util import (PasswordLineEdit, char_width_in_lineedit, WWLabel, InfoButton, font_height,
+from electrum_brm.gui.qt.bip39_recovery_dialog import Bip39RecoveryDialog
+from electrum_brm.gui.qt.password_dialog import PasswordLayout, PW_NEW, MSG_ENTER_PASSWORD, PasswordLayoutForHW
+from electrum_brm.gui.qt.seed_dialog import SeedLayout, MSG_PASSPHRASE_WARN_ISSUE4566, KeysLayout
+from electrum_brm.gui.qt.util import (PasswordLineEdit, char_width_in_lineedit, WWLabel, InfoButton, font_height,
                                   ChoiceWidget, MessageBoxMixin, WindowModalDialog, ChoicesLayout, CancelButton,
                                   Buttons, OkButton)
 
 if TYPE_CHECKING:
-    from electrum_bsty.simple_config import SimpleConfig
-    from electrum_bsty.plugin import Plugins
-    from electrum_bsty.daemon import Daemon
-    from electrum_bsty.gui.qt import QElectrumApplication
+    from electrum_brm.simple_config import SimpleConfig
+    from electrum_brm.plugin import Plugins
+    from electrum_brm.daemon import Daemon
+    from electrum_brm.gui.qt import QElectrumApplication
 
 WIF_HELP_TEXT = (_('WIF keys are typed in Electrum, based on script type.') + '\n\n' +
                  _('A few examples') + ':\n' +
@@ -404,7 +404,7 @@ class WCWalletType(WizardComponent):
             ('standard',  _('Standard wallet')),
             ('2fa',       _('Wallet with two-factor authentication')),
             ('multisig',  _('Multi-signature wallet')),
-            ('imported',  _('Import GlobalBoost addresses or private keys')),
+            ('imported',  _('Import BitRaam addresses or private keys')),
         ]
         choices = [pair for pair in wallet_kinds if pair[0] in wallet_types]
 
@@ -934,9 +934,9 @@ class WCMultisig(WizardComponent):
 
 class WCImport(WizardComponent):
     def __init__(self, parent, wizard):
-        WizardComponent.__init__(self, parent, wizard, title=_('Import GlobalBoost Addresses or Private Keys'))
+        WizardComponent.__init__(self, parent, wizard, title=_('Import BitRaam Addresses or Private Keys'))
         message = _(
-            'Enter a list of GlobalBoost addresses (this will create a watching-only wallet), or a list of private keys.')
+            'Enter a list of BitRaam addresses (this will create a watching-only wallet), or a list of private keys.')
         header_layout = QHBoxLayout()
         label = WWLabel(message)
         label.setMinimumWidth(400)

@@ -6,25 +6,25 @@ import base64
 import hashlib
 from typing import Dict, List, Optional, Sequence, Tuple, TYPE_CHECKING
 
-from electrum_bsty import bip32, constants, ecc
-from electrum_bsty import descriptor
-from electrum_bsty.bip32 import BIP32Node, convert_bip32_intpath_to_strpath, normalize_bip32_derivation
-from electrum_bsty.bitcoin import EncodeBase58Check, int_to_hex, is_b58_address, is_segwit_script_type, var_int
-from electrum_bsty.crypto import hash_160
-from electrum_bsty.i18n import _
-from electrum_bsty.keystore import Hardware_KeyStore
-from electrum_bsty.logging import get_logger
-from electrum_bsty.plugin import Device, runs_in_hwd_thread
-from electrum_bsty.transaction import PartialTransaction, Transaction, PartialTxInput
-from electrum_bsty.util import bfh, UserFacingException, versiontuple
-from electrum_bsty.wallet import Standard_Wallet
+from electrum_brm import bip32, constants, ecc
+from electrum_brm import descriptor
+from electrum_brm.bip32 import BIP32Node, convert_bip32_intpath_to_strpath, normalize_bip32_derivation
+from electrum_brm.bitcoin import EncodeBase58Check, int_to_hex, is_b58_address, is_segwit_script_type, var_int
+from electrum_brm.crypto import hash_160
+from electrum_brm.i18n import _
+from electrum_brm.keystore import Hardware_KeyStore
+from electrum_brm.logging import get_logger
+from electrum_brm.plugin import Device, runs_in_hwd_thread
+from electrum_brm.transaction import PartialTransaction, Transaction, PartialTxInput
+from electrum_brm.util import bfh, UserFacingException, versiontuple
+from electrum_brm.wallet import Standard_Wallet
 
 from ..hw_wallet import HardwareClientBase, HW_PluginBase
 from ..hw_wallet.plugin import is_any_tx_output_on_change_branch, validate_op_return_output, LibraryFoundButUnusable
 
 if TYPE_CHECKING:
-    from electrum_bsty.plugin import DeviceInfo
-    from electrum_bsty.wizard import NewWalletWizard
+    from electrum_brm.plugin import DeviceInfo
+    from electrum_brm.wizard import NewWalletWizard
 
 _logger = get_logger(__name__)
 
@@ -45,12 +45,12 @@ try:
     from btchip.bitcoinTransaction import bitcoinTransaction
     from btchip.btchipException import BTChipException
 
-    LEDGER_GLOBALBOOST = True
+    LEDGER_BITRAAM = True
 except ImportError as e:
     if not (isinstance(e, ModuleNotFoundError) and e.name == 'ledger_bitcoin'):
         _logger.exception('error importing ledger plugin deps')
 
-    LEDGER_GLOBALBOOST = False
+    LEDGER_BITRAAM = False
 
 
 MSG_NEEDS_FW_UPDATE_GENERIC = _('Firmware version too old. Please update at') + \
@@ -1373,7 +1373,7 @@ class LedgerPlugin(HW_PluginBase):
             raise
         except Exception:
             version = "unknown"
-        if LEDGER_GLOBALBOOST:
+        if LEDGER_BITRAAM:
             return version
         else:
             raise LibraryFoundButUnusable(library_version=version)

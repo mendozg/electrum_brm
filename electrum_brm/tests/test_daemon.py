@@ -1,10 +1,10 @@
 import os
 from typing import Optional, Iterable
 
-from electrum_bsty.daemon import Daemon
-from electrum_bsty.simple_config import SimpleConfig
-from electrum_bsty.wallet import restore_wallet_from_text
-from electrum_bsty import util
+from electrum_brm.daemon import Daemon
+from electrum_brm.simple_config import SimpleConfig
+from electrum_brm.wallet import restore_wallet_from_text
+from electrum_brm import util
 
 from . import ElectrumTestCase, as_testnet
 

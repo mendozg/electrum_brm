@@ -54,20 +54,20 @@ from PyQt5.QtWidgets import (QPushButton, QLabel, QMessageBox, QHBoxLayout,
                              QMenu, QStyleOptionViewItem, QLayout, QLayoutItem, QAbstractButton,
                              QGraphicsEffect, QGraphicsScene, QGraphicsPixmapItem, QSizePolicy, QAction)
 
-from electrum_bsty.i18n import _, languages
-from electrum_bsty.util import FileImportFailed, FileExportFailed, make_aiohttp_session, resource_path
-from electrum_bsty.util import EventListener, event_listener
-from electrum_bsty.invoices import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT, PR_UNKNOWN, PR_FAILED, PR_ROUTING, PR_UNCONFIRMED
-from electrum_bsty.logging import Logger
-from electrum_bsty.qrreader import MissingQrDetectionLib
-from electrum_bsty.simple_config import ConfigVarWithConfig
+from electrum_brm.i18n import _, languages
+from electrum_brm.util import FileImportFailed, FileExportFailed, make_aiohttp_session, resource_path
+from electrum_brm.util import EventListener, event_listener
+from electrum_brm.invoices import PR_UNPAID, PR_PAID, PR_EXPIRED, PR_INFLIGHT, PR_UNKNOWN, PR_FAILED, PR_ROUTING, PR_UNCONFIRMED
+from electrum_brm.logging import Logger
+from electrum_brm.qrreader import MissingQrDetectionLib
+from electrum_brm.simple_config import ConfigVarWithConfig
 
-from electrum_bsty.gui import messages
+from electrum_brm.gui import messages
 
 from .util import read_QIcon
 
 if TYPE_CHECKING:
-    from electrum_bsty import SimpleConfig
+    from electrum_brm import SimpleConfig
     from .main_window import ElectrumWindow
 
 

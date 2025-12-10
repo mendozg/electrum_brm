@@ -87,7 +87,7 @@ class Plugins(DaemonThread):
                 #       we exclude the ones packaged as *code*, here:
                 if loader.__class__.__qualname__ == "FrozenImporter":
                     continue
-                full_name = f'electrum_bsty.plugins.{name}'
+                full_name = f'electrum_brm.plugins.{name}'
                 spec = importlib.util.find_spec(full_name)
                 if spec is None:  # pkgutil found it but importlib can't ?!
                     raise Exception(f"Error pre-loading {full_name}: no spec")
@@ -133,7 +133,7 @@ class Plugins(DaemonThread):
     def load_plugin(self, name) -> 'BasePlugin':
         if name in self.plugins:
             return self.plugins[name]
-        full_name = f'electrum_bsty.plugins.{name}.{self.gui_name}'
+        full_name = f'electrum_brm.plugins.{name}.{self.gui_name}'
         spec = importlib.util.find_spec(full_name)
         if spec is None:
             raise RuntimeError("%s implementation for %s plugin not found"
@@ -617,9 +617,9 @@ class DeviceMgr(ThreadJob):
         # or it is not pairable
         raise DeviceUnpairableError(
             _('Electrum cannot pair with your {}.\n\n'
-              'Before you request globalboosts to be sent to addresses in this '
+              'Before you request bitraams to be sent to addresses in this '
               'wallet, ensure you can pair with your device, or that you have '
-              'its seed (and passphrase, if any).  Otherwise all globalboosts you '
+              'its seed (and passphrase, if any).  Otherwise all bitraams you '
               'receive will be unspendable.').format(plugin.device))
 
     def list_pairable_device_infos(
