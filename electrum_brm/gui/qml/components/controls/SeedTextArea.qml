@@ -58,7 +58,7 @@ Pane {
                     root.text = text
 
                 // update suggestions
-                _suggestions = bitcoin.mnemonicsFor(seedtextarea.text.split(' ').pop())
+                _suggestions = bitraam.mnemonicsFor(seedtextarea.text.split(' ').pop())
                 // TODO: cursorPosition only on suggestion apply
                 cursorPosition = text.length
             }
@@ -144,6 +144,6 @@ Pane {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 }

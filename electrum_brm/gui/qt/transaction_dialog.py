@@ -44,9 +44,9 @@ from qrcode import exceptions
 
 from electrum_brm.simple_config import SimpleConfig
 from electrum_brm.util import quantize_feerate
-from electrum_brm import bitcoin
+from electrum_brm import bitraam
 
-from electrum_brm.bitcoin import base_encode, NLOCKTIME_BLOCKHEIGHT_MAX, DummyAddress
+from electrum_brm.bitraam import base_encode, NLOCKTIME_BLOCKHEIGHT_MAX, DummyAddress
 from electrum_brm.i18n import _
 from electrum_brm.plugin import run_hook
 from electrum_brm import simple_config
@@ -305,7 +305,7 @@ class TxInOutWidget(QWidget):
         if isinstance(target, QUrl):
             target = target.toString(QUrl.None_)
         assert target
-        if bitcoin.is_address(target):
+        if bitraam.is_address(target):
             # target was an address, open address dialog
             self.main_window.show_address(target, parent=self)
         else:

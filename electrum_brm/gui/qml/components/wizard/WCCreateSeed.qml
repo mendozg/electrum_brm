@@ -90,11 +90,11 @@ WizardComponent {
     }
 
     Component.onCompleted: {
-        bitcoin.generateSeed(wizard_data['seed_type'])
+        bitraam.generateSeed(wizard_data['seed_type'])
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
         onGeneratedSeedChanged: {
             seedtext.text = generatedSeed
             setWarningText(generatedSeed.split(' ').length)

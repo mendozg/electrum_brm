@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import (QWidget, QLineEdit, QStyle, QStyleOptionFrame, QCom
                              QHBoxLayout, QDateTimeEdit)
 
 from electrum_brm.i18n import _
-from electrum_brm.bitcoin import NLOCKTIME_MIN, NLOCKTIME_MAX, NLOCKTIME_BLOCKHEIGHT_MAX
+from electrum_brm.bitraam import NLOCKTIME_MIN, NLOCKTIME_MAX, NLOCKTIME_BLOCKHEIGHT_MAX
 
 from .util import char_width_in_lineedit, ColorScheme
 

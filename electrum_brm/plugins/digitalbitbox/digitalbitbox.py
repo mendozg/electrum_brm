@@ -18,7 +18,7 @@ import copy
 from typing import TYPE_CHECKING, Optional
 
 from electrum_brm.crypto import sha256d, EncodeAES_bytes, DecodeAES_bytes, hmac_oneshot
-from electrum_brm.bitcoin import public_key_to_p2pkh
+from electrum_brm.bitraam import public_key_to_p2pkh
 from electrum_brm.bip32 import BIP32Node, convert_bip32_intpath_to_strpath, is_all_public_derivation
 from electrum_brm.bip32 import normalize_bip32_derivation
 from electrum_brm import descriptor

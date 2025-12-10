@@ -35,8 +35,8 @@ from .invoices import BaseInvoice
 from .util import NetworkRetryManager, JsonRPCClient, NotEnoughFunds
 from .util import EventListener, event_listener
 from .keystore import BIP32_KeyStore
-from .bitcoin import COIN
-from .bitcoin import opcodes, make_op_return, address_to_scripthash
+from .bitraam import COIN
+from .bitraam import opcodes, make_op_return, address_to_scripthash
 from .transaction import Transaction
 from .transaction import get_script_type_from_output_script
 from .crypto import sha256
@@ -57,7 +57,7 @@ from .lnrater import LNRater
 from . import lnutil
 from .lnutil import funding_output_script
 from .lnutil import serialize_htlc_key, deserialize_htlc_key
-from .bitcoin import redeem_script_to_address, DummyAddress
+from .bitraam import redeem_script_to_address, DummyAddress
 from .lnutil import (Outpoint, LNPeerAddr,
                      get_compressed_pubkey_from_bech32, extract_nodeid,
                      PaymentFailure, split_host_port, ConnStringFormatError,

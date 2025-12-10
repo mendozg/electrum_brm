@@ -31,7 +31,7 @@ from PyQt5.QtCore import Qt, QPersistentModelIndex, QModelIndex
 from PyQt5.QtWidgets import (QAbstractItemView, QMenu)
 
 from electrum_brm.i18n import _
-from electrum_brm.bitcoin import is_address
+from electrum_brm.bitraam import is_address
 from electrum_brm.util import block_explorer_URL
 from electrum_brm.plugin import run_hook
 

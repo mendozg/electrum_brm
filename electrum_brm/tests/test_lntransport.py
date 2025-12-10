@@ -7,7 +7,7 @@ from electrum_brm.lntransport import LNResponderTransport, LNTransport
 from electrum_brm.util import OldTaskGroup
 
 from . import ElectrumTestCase
-from .test_bitcoin import needs_test_with_all_chacha20_implementations
+from .test_bitraam import needs_test_with_all_chacha20_implementations
 
 
 class TestLNTransport(ElectrumTestCase):

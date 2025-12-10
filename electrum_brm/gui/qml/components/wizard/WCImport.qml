@@ -13,15 +13,15 @@ WizardComponent {
     valid: false
 
     function apply() {
-        if (bitcoin.isAddressList(import_ta.text)) {
+        if (bitraam.isAddressList(import_ta.text)) {
             wizard_data['address_list'] = import_ta.text
-        } else if (bitcoin.isPrivateKeyList(import_ta.text)) {
+        } else if (bitraam.isPrivateKeyList(import_ta.text)) {
             wizard_data['private_key_list'] = import_ta.text
         }
     }
 
     function verify(text) {
-        return bitcoin.isAddressList(text) || bitcoin.isPrivateKeyList(text)
+        return bitraam.isAddressList(text) || bitraam.isPrivateKeyList(text)
     }
 
     ColumnLayout {
@@ -70,9 +70,9 @@ WizardComponent {
                     scale: 1.2
                     onClicked: {
                         var dialog = app.scanDialog.createObject(app, {
-                            hint: bitcoin.isAddressList(import_ta.text)
+                            hint: bitraam.isAddressList(import_ta.text)
                                 ? qsTr('Scan another address')
-                                : bitcoin.isPrivateKeyList(import_ta.text)
+                                : bitraam.isPrivateKeyList(import_ta.text)
                                     ? qsTr('Scan another private key')
                                     : qsTr('Scan a private key or an address')
                         })
@@ -92,7 +92,7 @@ WizardComponent {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 
 }

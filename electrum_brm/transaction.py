@@ -40,11 +40,11 @@ import itertools
 import binascii
 import copy
 
-from . import ecc, bitcoin, constants, segwit_addr, bip32
+from . import ecc, bitraam, constants, segwit_addr, bip32
 from .bip32 import BIP32Node
 from .i18n import _
 from .util import profiler, to_bytes, bfh, chunks, is_hex_str, parse_max_spend
-from .bitcoin import (TYPE_ADDRESS, TYPE_SCRIPT, hash_160,
+from .bitraam import (TYPE_ADDRESS, TYPE_SCRIPT, hash_160,
                       hash160_to_p2sh, hash160_to_p2pkh, hash_to_segwit_addr,
                       var_int, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, COIN,
                       int_to_hex, push_script, b58_address_to_hash160,
@@ -53,7 +53,7 @@ from .bitcoin import (TYPE_ADDRESS, TYPE_SCRIPT, hash_160,
 from .crypto import sha256d
 from .logging import get_logger
 from .util import ShortID, OldTaskGroup
-from .bitcoin import DummyAddress
+from .bitraam import DummyAddress
 from .descriptor import Descriptor, MissingSolutionPiece, create_dummy_descriptor_from_address
 from .json_db import stored_in
 
@@ -138,7 +138,7 @@ class TxOutput:
 
     @classmethod
     def from_address_and_value(cls, address: str, value: Union[int, str]) -> Union['TxOutput', 'PartialTxOutput']:
-        return cls(scriptpubkey=bfh(bitcoin.address_to_script(address)),
+        return cls(scriptpubkey=bfh(bitraam.address_to_script(address)),
                    value=value)
 
     def serialize_to_network(self) -> bytes:
@@ -601,15 +601,15 @@ SCRIPTPUBKEY_TEMPLATE_ANYSEGWIT = [OP_ANYSEGWIT_VERSION, OPPushDataGeneric(lambd
 
 def check_scriptpubkey_template_and_dust(scriptpubkey, amount: Optional[int]):
     if match_script_against_template(scriptpubkey, SCRIPTPUBKEY_TEMPLATE_P2PKH):
-        dust_limit = bitcoin.DUST_LIMIT_P2PKH
+        dust_limit = bitraam.DUST_LIMIT_P2PKH
     elif match_script_against_template(scriptpubkey, SCRIPTPUBKEY_TEMPLATE_P2SH):
-        dust_limit = bitcoin.DUST_LIMIT_P2SH
+        dust_limit = bitraam.DUST_LIMIT_P2SH
     elif match_script_against_template(scriptpubkey, SCRIPTPUBKEY_TEMPLATE_P2WSH):
-        dust_limit = bitcoin.DUST_LIMIT_P2WSH
+        dust_limit = bitraam.DUST_LIMIT_P2WSH
     elif match_script_against_template(scriptpubkey, SCRIPTPUBKEY_TEMPLATE_P2WPKH):
-        dust_limit = bitcoin.DUST_LIMIT_P2WPKH
+        dust_limit = bitraam.DUST_LIMIT_P2WPKH
     elif match_script_against_template(scriptpubkey, SCRIPTPUBKEY_TEMPLATE_ANYSEGWIT):
-        dust_limit = bitcoin.DUST_LIMIT_UNKNOWN_SEGWIT
+        dust_limit = bitraam.DUST_LIMIT_UNKNOWN_SEGWIT
     else:
         raise Exception(f'scriptpubkey does not conform to any template: {scriptpubkey.hex()}')
     if amount < dust_limit:
@@ -1099,7 +1099,7 @@ class Transaction:
     @classmethod
     def estimated_output_size_for_address(cls, address: str) -> int:
         """Return an estimate of serialized output size in bytes."""
-        script = bitcoin.address_to_script(address)
+        script = bitraam.address_to_script(address)
         return cls.estimated_output_size_for_script(script)
 
     @classmethod
@@ -1165,7 +1165,7 @@ class Transaction:
         return set(self._script_to_output_idx[script])  # copy
 
     def get_output_idxs_from_address(self, addr: str) -> Set[int]:
-        script = bitcoin.address_to_script(addr)
+        script = bitraam.address_to_script(addr)
         return self.get_output_idxs_from_scriptpubkey(script)
 
     def replace_output_address(self, old_address: str, new_address: str) -> None:
@@ -1488,11 +1488,11 @@ class PartialTxInput(TxInput, PSBTSection):
                                                   f"If a redeemScript is provided, the scriptPubKey must be for that redeemScript")
         if self.witness_script:
             if self.redeem_script:
-                if self.redeem_script != bfh(bitcoin.p2wsh_nested_script(self.witness_script.hex())):
+                if self.redeem_script != bfh(bitraam.p2wsh_nested_script(self.witness_script.hex())):
                     raise PSBTInputConsistencyFailure(f"PSBT input validation: "
                                                       f"If a witnessScript is provided, the redeemScript must be for that witnessScript")
             elif self.address:
-                if self.address != bitcoin.script_to_p2wsh(self.witness_script.hex()):
+                if self.address != bitraam.script_to_p2wsh(self.witness_script.hex()):
                     raise PSBTInputConsistencyFailure(f"PSBT input validation: "
                                                       f"If a witnessScript is provided, the scriptPubKey must be for that witnessScript")
 
@@ -1606,7 +1606,7 @@ class PartialTxInput(TxInput, PSBTSection):
         if (spk := super().scriptpubkey) is not None:
             return spk
         if self._trusted_address is not None:
-            return bfh(bitcoin.address_to_script(self._trusted_address))
+            return bfh(bitraam.address_to_script(self._trusted_address))
         if self.witness_utxo:
             return self.witness_utxo.scriptpubkey
         return None
@@ -1683,7 +1683,7 @@ class PartialTxInput(TxInput, PSBTSection):
         """Whether this input is native segwit. None means inconclusive."""
         if self._is_native_segwit is None:
             if self.address:
-                self._is_native_segwit = bitcoin.is_segwit_address(self.address)
+                self._is_native_segwit = bitraam.is_segwit_address(self.address)
         return self._is_native_segwit
 
     def is_p2sh_segwit(self) -> Optional[bool]:
@@ -1692,7 +1692,7 @@ class PartialTxInput(TxInput, PSBTSection):
             def calc_if_p2sh_segwit_now():
                 if not (self.address and self.redeem_script):
                     return None
-                if self.address != bitcoin.hash160_to_p2sh(hash_160(self.redeem_script)):
+                if self.address != bitraam.hash160_to_p2sh(hash_160(self.redeem_script)):
                     # not p2sh address
                     return False
                 try:

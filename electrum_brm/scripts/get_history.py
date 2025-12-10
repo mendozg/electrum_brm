@@ -3,7 +3,7 @@
 import sys
 import asyncio
 
-from electrum_brm import bitcoin
+from electrum_brm import bitraam
 from electrum_brm.network import Network
 from electrum_brm.util import json_encode, print_msg, create_and_start_event_loop, log_exceptions
 from electrum_brm.simple_config import SimpleConfig
@@ -24,7 +24,7 @@ network.start()
 @log_exceptions
 async def f():
     try:
-        sh = bitcoin.address_to_scripthash(addr)
+        sh = bitraam.address_to_scripthash(addr)
         hist = await network.get_history_for_scripthash(sh)
         print_msg(json_encode(hist))
     finally:

@@ -37,7 +37,7 @@ from . import ecc
 from . import constants, util
 from .util import bfh, chunks, TxMinedInfo
 from .invoices import PR_PAID
-from .bitcoin import redeem_script_to_address
+from .bitraam import redeem_script_to_address
 from .crypto import sha256, sha256d
 from .transaction import Transaction, PartialTransaction, TxInput, Sighash
 from .logging import Logger
@@ -519,7 +519,7 @@ class ChannelBackup(AbstractChannel):
             htlc_minimum_msat=1,
             upfront_shutdown_script='',
             announcement_node_sig=b'',
-            announcement_bitcoin_sig=b'',
+            announcement_bitraam_sig=b'',
         )
         self.config[REMOTE] = RemoteConfig(
             # payment_basepoint needed to deobfuscate ctn in our_ctx
@@ -541,7 +541,7 @@ class ChannelBackup(AbstractChannel):
             current_per_commitment_point=None,
             upfront_shutdown_script='',
             announcement_node_sig=b'',
-            announcement_bitcoin_sig=b'',
+            announcement_bitraam_sig=b'',
         )
 
     def can_be_deleted(self):
@@ -805,14 +805,14 @@ class Channel(AbstractChannel):
         return chan_upd
 
     def construct_channel_announcement_without_sigs(self) -> bytes:
-        bitcoin_keys = [
+        bitraam_keys = [
             self.config[REMOTE].multisig_key.pubkey,
             self.config[LOCAL].multisig_key.pubkey]
         node_ids = [self.node_id, self.get_local_pubkey()]
         is_reverse = node_ids[0] > node_ids[1]
         if is_reverse:
             node_ids.reverse()
-            bitcoin_keys.reverse()
+            bitraam_keys.reverse()
         chan_ann = encode_msg(
             "channel_announcement",
             len=0,
@@ -821,8 +821,8 @@ class Channel(AbstractChannel):
             short_channel_id=self.short_channel_id,
             node_id_1=node_ids[0],
             node_id_2=node_ids[1],
-            bitcoin_key_1=bitcoin_keys[0],
-            bitcoin_key_2=bitcoin_keys[1],
+            bitraam_key_1=bitraam_keys[0],
+            bitraam_key_2=bitraam_keys[1],
         )
         return chan_ann, is_reverse
 

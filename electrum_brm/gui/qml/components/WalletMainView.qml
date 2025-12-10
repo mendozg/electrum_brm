@@ -48,7 +48,7 @@ Item {
         scanner.onFound.connect(function() {
             var data = scanner.scanData
             data = data.trim()
-            if (bitcoin.isRawTx(data)) {
+            if (bitraam.isRawTx(data)) {
                 app.stack.push(Qt.resolvedUrl('TxDetails.qml'), { rawtx: data })
             } else if (Daemon.currentWallet.isValidChannelBackup(data)) {
                 var dialog = app.messageDialog.createObject(app, {
@@ -380,7 +380,7 @@ Item {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 
     Connections {

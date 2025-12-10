@@ -897,7 +897,7 @@ def age(
             return _("in over {} years").format(round(distance_in_minutes / 525600))
 
 mainnet_block_explorers = {
-'BitRaam Explorer': ('https://brmexplorer.bitraam.info/', 
+'BitRaam Explorer': ('https://explorer.bitraam.org/', 
                         {'tx': 'tx/', 'addr': 'address/'})
 }
 

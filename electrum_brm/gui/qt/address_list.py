@@ -34,7 +34,7 @@ from PyQt5.QtWidgets import QAbstractItemView, QComboBox, QLabel, QMenu
 from electrum_brm.i18n import _
 from electrum_brm.util import block_explorer_URL, profiler
 from electrum_brm.plugin import run_hook
-from electrum_brm.bitcoin import is_address
+from electrum_brm.bitraam import is_address
 from electrum_brm.wallet import InternalAddressCorruption
 from electrum_brm.simple_config import SimpleConfig
 

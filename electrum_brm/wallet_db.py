@@ -36,7 +36,7 @@ from functools import partial
 
 import attr
 
-from . import util, bitcoin
+from . import util, bitraam
 from .util import profiler, WalletFileException, multisig_type, TxMinedInfo, bfh, MyEncoder
 from .invoices import Invoice, Request
 from .keystore import bip44_derivation
@@ -47,7 +47,7 @@ from .lnutil import LOCAL, REMOTE, HTLCOwner, ChannelType
 from . import json_db
 from .json_db import StoredDict, JsonDB, locked, modifier, StoredObject, stored_in, stored_as
 from .plugin import run_hook, plugin_loaders
-from .version import ELECTRUM_VERSION
+from .version import ELECTRUM_BRM_VERSION
 
 
 class WalletRequiresUpgrade(WalletFileException):
@@ -330,7 +330,7 @@ class WalletDBUpgrader(Logger):
                 d = {'change': []}
                 receiving_addresses = []
                 for pubkey in pubkeys:
-                    addr = bitcoin.pubkey_to_address('p2pkh', pubkey)
+                    addr = bitraam.pubkey_to_address('p2pkh', pubkey)
                     receiving_addresses.append(addr)
                 d['receiving'] = receiving_addresses
                 self.put('addresses', d)
@@ -355,7 +355,7 @@ class WalletDBUpgrader(Logger):
                 assert len(addresses) == len(pubkeys)
                 d = {}
                 for pubkey in pubkeys:
-                    addr = bitcoin.pubkey_to_address('p2pkh', pubkey)
+                    addr = bitraam.pubkey_to_address('p2pkh', pubkey)
                     assert addr in addresses
                     d[addr] = {
                         'pubkey': pubkey,
@@ -407,7 +407,7 @@ class WalletDBUpgrader(Logger):
             assert isinstance(addresses, dict)
             addresses_new = dict()
             for address, details in addresses.items():
-                if not bitcoin.is_address(address):
+                if not bitraam.is_address(address):
                     remove_address(address)
                     continue
                 if details is None:
@@ -508,7 +508,7 @@ class WalletDBUpgrader(Logger):
         if not self._is_upgrade_method_needed(21, 21):
             return
 
-        from .bitcoin import script_to_scripthash
+        from .bitraam import script_to_scripthash
         transactions = self.get('transactions', {})  # txid -> raw_tx
         prevouts_by_scripthash = defaultdict(list)
         for txid, raw_tx in transactions.items():
@@ -786,7 +786,7 @@ class WalletDBUpgrader(Logger):
             return
         PR_TYPE_ONCHAIN = 0
         PR_TYPE_LN = 2
-        from .bitcoin import TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, COIN
+        from .bitraam import TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, COIN
         max_sats = TOTAL_COIN_SUPPLY_LIMIT_IN_BRM * COIN
         requests = self.data.get('payment_requests', {})
         invoices = self.data.get('invoices', {})
@@ -1062,7 +1062,7 @@ class WalletDBUpgrader(Logger):
         # note: similar to convert_version_38
         if not self._is_upgrade_method_needed(53, 53):
             return
-        from .bitcoin import TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, COIN
+        from .bitraam import TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, COIN
         max_sats = TOTAL_COIN_SUPPLY_LIMIT_IN_BRM * COIN
         requests = self.data.get('payment_requests', {})
         invoices = self.data.get('invoices', {})
@@ -1092,7 +1092,7 @@ class WalletDBUpgrader(Logger):
             item['constraints']['flags'] = 0
             for c in ['local_config', 'remote_config']:
                 item[c]['announcement_node_sig'] = ''
-                item[c]['announcement_bitcoin_sig'] = ''
+                item[c]['announcement_bitraam_sig'] = ''
             item['local_config'].pop('was_announced')
         self.data['seed_version'] = 56
 
@@ -1202,7 +1202,7 @@ def upgrade_wallet_db(data: dict, do_upgrade) -> Tuple[dict, bool]:
         # store this for debugging purposes
         v = DBMetadata(
             creation_timestamp=int(time.time()),
-            first_electrum_version_used=ELECTRUM_VERSION,
+            first_electrum_version_used=ELECTRUM_BRM_VERSION,
         )
         assert data.get("db_metadata", None) is None
         data["db_metadata"] = v

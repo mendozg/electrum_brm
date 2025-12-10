@@ -32,7 +32,7 @@ from PyQt5.QtGui import QStandardItemModel, QStandardItem, QFont
 from PyQt5.QtWidgets import QAbstractItemView, QMenu, QLabel, QHBoxLayout
 
 from electrum_brm.i18n import _
-from electrum_brm.bitcoin import is_address
+from electrum_brm.bitraam import is_address
 from electrum_brm.transaction import PartialTxInput, PartialTxOutput
 from electrum_brm.lnutil import MIN_FUNDING_SAT
 from electrum_brm.util import profiler

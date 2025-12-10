@@ -27,7 +27,7 @@ import dns
 import threading
 from dns.exception import DNSException
 
-from . import bitcoin
+from . import bitraam
 from . import dnssec
 from .util import read_json_file, write_json_file, to_string
 from .logging import Logger, get_logger
@@ -58,7 +58,7 @@ class Contacts(dict, Logger):
         # backward compatibility
         for k, v in self.items():
             _type, n = v
-            if _type == 'address' and bitcoin.is_address(n):
+            if _type == 'address' and bitraam.is_address(n):
                 self.pop(k)
                 self[n] = ('address', k)
 
@@ -85,7 +85,7 @@ class Contacts(dict, Logger):
             return res
 
     def resolve(self, k):
-        if bitcoin.is_address(k):
+        if bitraam.is_address(k):
             return {
                 'address': k,
                 'type': 'address'
@@ -170,7 +170,7 @@ class Contacts(dict, Logger):
         for k, v in list(data.items()):
             if k == 'contacts':
                 return self._validate(v)
-            if not bitcoin.is_address(k):
+            if not bitraam.is_address(k):
                 data.pop(k)
             else:
                 _type, _ = v

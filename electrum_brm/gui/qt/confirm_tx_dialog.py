@@ -39,7 +39,7 @@ from electrum_brm.plugin import run_hook
 from electrum_brm.transaction import Transaction, PartialTransaction
 from electrum_brm.wallet import InternalAddressCorruption
 from electrum_brm.simple_config import SimpleConfig
-from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.bitraam import DummyAddress
 
 from .util import (WindowModalDialog, ColorScheme, HelpLabel, Buttons, CancelButton,
                    BlockingWaitingDialog, PasswordLineEdit, WWLabel, read_QIcon)

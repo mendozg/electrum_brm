@@ -17,14 +17,14 @@ import aiorpcx
 from aiorpcx import ignore_after
 
 from .crypto import sha256, sha256d
-from . import bitcoin, util
+from . import bitraam, util
 from . import ecc
 from .ecc import sig_string_from_r_and_s, der_sig_from_sig_string
 from . import constants
 from .util import (bfh, log_exceptions, ignore_exceptions, chunks, OldTaskGroup,
                    UnrelatedTransactionException, error_text_bytes_to_safe_str)
 from . import transaction
-from .bitcoin import make_op_return, DummyAddress
+from .bitraam import make_op_return, DummyAddress
 from .transaction import PartialTxOutput, match_script_against_template, Sighash
 from .logging import Logger
 from .lnrouter import RouteEdge
@@ -409,13 +409,13 @@ class Peer(Logger):
     def on_announcement_signatures(self, chan: Channel, payload):
         h = chan.get_channel_announcement_hash()
         node_signature = payload["node_signature"]
-        bitcoin_signature = payload["bitcoin_signature"]
-        if not ecc.verify_signature(chan.config[REMOTE].multisig_key.pubkey, bitcoin_signature, h):
-            raise Exception("bitcoin_sig invalid in announcement_signatures")
+        bitraam_signature = payload["bitraam_signature"]
+        if not ecc.verify_signature(chan.config[REMOTE].multisig_key.pubkey, bitraam_signature, h):
+            raise Exception("bitraam_sig invalid in announcement_signatures")
         if not ecc.verify_signature(self.pubkey, node_signature, h):
             raise Exception("node_sig invalid in announcement_signatures")
         chan.config[REMOTE].announcement_node_sig = node_signature
-        chan.config[REMOTE].announcement_bitcoin_sig = bitcoin_signature
+        chan.config[REMOTE].announcement_bitraam_sig = bitraam_signature
         self.lnworker.save_channel(chan)
         self.maybe_send_announcement_signatures(chan, is_reply=True)
 
@@ -663,7 +663,7 @@ class Peer(Logger):
         addr = wallet.get_new_sweep_address_for_channel()
         static_remotekey = bytes.fromhex(wallet.get_public_key(addr))
 
-        dust_limit_sat = bitcoin.DUST_LIMIT_P2PKH
+        dust_limit_sat = bitraam.DUST_LIMIT_P2PKH
         reserve_sat = max(funding_sat // 100, dust_limit_sat)
         # for comparison of defaults, see
         # https://github.com/ACINQ/eclair/blob/afa378fbb73c265da44856b4ad0f2128a88ae6c6/eclair-core/src/main/resources/reference.conf#L66
@@ -684,7 +684,7 @@ class Peer(Logger):
             current_htlc_signatures=b'',
             htlc_minimum_msat=1,
             announcement_node_sig=b'',
-            announcement_bitcoin_sig=b'',
+            announcement_bitraam_sig=b'',
         )
         local_config.validate_params(funding_sat=funding_sat, config=self.network.config, peer_features=self.features)
         return local_config
@@ -838,7 +838,7 @@ class Peer(Logger):
             current_per_commitment_point=None,
             upfront_shutdown_script=upfront_shutdown_script,
             announcement_node_sig=b'',
-            announcement_bitcoin_sig=b'',
+            announcement_bitraam_sig=b'',
         )
         ChannelConfig.cross_validate_params(
             local_config=local_config,
@@ -853,7 +853,7 @@ class Peer(Logger):
         # -> funding created
         # replace dummy output in funding tx
         redeem_script = funding_output_script(local_config, remote_config)
-        funding_address = bitcoin.redeem_script_to_address('p2wsh', redeem_script)
+        funding_address = bitraam.redeem_script_to_address('p2wsh', redeem_script)
         funding_output = PartialTxOutput.from_address_and_value(funding_address, funding_sat)
         funding_tx.replace_output_address(DummyAddress.CHANNEL, funding_address)
         # find and encrypt op_return data associated to funding_address
@@ -1008,7 +1008,7 @@ class Peer(Logger):
             current_per_commitment_point=None,
             upfront_shutdown_script=upfront_shutdown_script,
             announcement_node_sig=b'',
-            announcement_bitcoin_sig=b'',
+            announcement_bitraam_sig=b'',
         )
         ChannelConfig.cross_validate_params(
             local_config=local_config,
@@ -1411,18 +1411,18 @@ class Peer(Logger):
 
     def maybe_send_channel_announcement(self, chan: Channel):
         node_sigs = [chan.config[REMOTE].announcement_node_sig, chan.config[LOCAL].announcement_node_sig]
-        bitcoin_sigs = [chan.config[REMOTE].announcement_bitcoin_sig, chan.config[LOCAL].announcement_bitcoin_sig]
-        if not bitcoin_sigs[0] or not bitcoin_sigs[1]:
+        bitraam_sigs = [chan.config[REMOTE].announcement_bitraam_sig, chan.config[LOCAL].announcement_bitraam_sig]
+        if not bitraam_sigs[0] or not bitraam_sigs[1]:
             return
         raw_msg, is_reverse = chan.construct_channel_announcement_without_sigs()
         if is_reverse:
             node_sigs.reverse()
-            bitcoin_sigs.reverse()
+            bitraam_sigs.reverse()
         message_type, payload = decode_msg(raw_msg)
         payload['node_signature_1'] = node_sigs[0]
         payload['node_signature_2'] = node_sigs[1]
-        payload['bitcoin_signature_1'] = bitcoin_sigs[0]
-        payload['bitcoin_signature_2'] = bitcoin_sigs[1]
+        payload['bitraam_signature_1'] = bitraam_sigs[0]
+        payload['bitraam_signature_2'] = bitraam_sigs[1]
         raw_msg = encode_msg(message_type, **payload)
         self.transport.send_bytes(raw_msg)
 
@@ -1466,17 +1466,17 @@ class Peer(Logger):
         if not is_reply and chan.config[REMOTE].announcement_node_sig:
             return
         h = chan.get_channel_announcement_hash()
-        bitcoin_signature = ecc.ECPrivkey(chan.config[LOCAL].multisig_key.privkey).sign(h, sig_string_from_r_and_s)
+        bitraam_signature = ecc.ECPrivkey(chan.config[LOCAL].multisig_key.privkey).sign(h, sig_string_from_r_and_s)
         node_signature = ecc.ECPrivkey(self.privkey).sign(h, sig_string_from_r_and_s)
         self.send_message(
             "announcement_signatures",
             channel_id=chan.channel_id,
             short_channel_id=chan.short_channel_id,
             node_signature=node_signature,
-            bitcoin_signature=bitcoin_signature
+            bitraam_signature=bitraam_signature
         )
         chan.config[LOCAL].announcement_node_sig = node_signature
-        chan.config[LOCAL].announcement_bitcoin_sig = bitcoin_signature
+        chan.config[LOCAL].announcement_bitraam_sig = bitraam_signature
         self.lnworker.save_channel(chan)
         chan.sent_announcement_signatures = True
 
@@ -1681,7 +1681,7 @@ class Peer(Logger):
         self.logger.info(f"on_update_add_htlc. chan {chan.short_channel_id}. htlc={str(htlc)}")
         if chan.get_state() != ChannelState.OPEN:
             raise RemoteMisbehaving(f"received update_add_htlc while chan.get_state() != OPEN. state was {chan.get_state()!r}")
-        if cltv_abs > bitcoin.NLOCKTIME_BLOCKHEIGHT_MAX:
+        if cltv_abs > bitraam.NLOCKTIME_BLOCKHEIGHT_MAX:
             self.schedule_force_closing(chan.channel_id)
             raise RemoteMisbehaving(f"received update_add_htlc with {cltv_abs=} > BLOCKHEIGHT_MAX")
         # add htlc
@@ -2290,7 +2290,7 @@ class Peer(Logger):
         if chan.config[LOCAL].upfront_shutdown_script:
             scriptpubkey = chan.config[LOCAL].upfront_shutdown_script
         else:
-            scriptpubkey = bfh(bitcoin.address_to_script(chan.sweep_address))
+            scriptpubkey = bfh(bitraam.address_to_script(chan.sweep_address))
         assert scriptpubkey
         # wait until no more pending updates (bolt2)
         chan.set_can_send_ctx_updates(False)
@@ -2343,7 +2343,7 @@ class Peer(Logger):
         if chan.config[LOCAL].upfront_shutdown_script:
             our_scriptpubkey = chan.config[LOCAL].upfront_shutdown_script
         else:
-            our_scriptpubkey = bfh(bitcoin.address_to_script(chan.sweep_address))
+            our_scriptpubkey = bfh(bitraam.address_to_script(chan.sweep_address))
         assert our_scriptpubkey
         # estimate fee of closing tx
         dummy_sig, dummy_tx = chan.make_closing_tx(our_scriptpubkey, their_scriptpubkey, fee_sat=0)

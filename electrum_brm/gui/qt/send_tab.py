@@ -11,7 +11,7 @@ from PyQt5.QtGui import QMovie, QColor
 
 from electrum_brm.i18n import _
 from electrum_brm.logging import Logger
-from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.bitraam import DummyAddress
 from electrum_brm.plugin import run_hook
 from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates, parse_max_spend
 from electrum_brm.invoices import PR_PAID, Invoice, PR_BROADCASTING, PR_BROADCAST

@@ -9,7 +9,7 @@ from electrum_brm.i18n import _
 from electrum_brm.gui import messages
 from electrum_brm.util import bfh
 from electrum_brm.lnutil import extract_nodeid, ConnStringFormatError
-from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.bitraam import DummyAddress
 from electrum_brm.lnworker import hardcoded_trampoline_nodes
 from electrum_brm.logging import get_logger
 

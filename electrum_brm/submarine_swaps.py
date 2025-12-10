@@ -12,13 +12,13 @@ import aiohttp
 from . import lnutil
 from .crypto import sha256, hash_160
 from .ecc import ECPrivkey
-from .bitcoin import (script_to_p2wsh, opcodes, p2wsh_nested_script, push_script,
+from .bitraam import (script_to_p2wsh, opcodes, p2wsh_nested_script, push_script,
                       is_segwit_address, construct_witness)
 from .transaction import PartialTxInput, PartialTxOutput, PartialTransaction, Transaction, TxInput, TxOutpoint
 from .transaction import script_GetOp, match_script_against_template, OPPushDataGeneric, OPPushDataPubkey
 from .util import log_exceptions, BelowDustLimit, OldTaskGroup
 from .lnutil import REDEEM_AFTER_DOUBLE_SPENT_DELAY
-from .bitcoin import dust_threshold, DummyAddress
+from .bitraam import dust_threshold, DummyAddress
 from .logging import Logger
 from .lnutil import hex_to_bytes
 from .lnaddr import lndecode
@@ -27,7 +27,7 @@ from . import constants
 from .address_synchronizer import TX_HEIGHT_LOCAL
 from .i18n import _
 
-from .bitcoin import construct_script
+from .bitraam import construct_script
 from .crypto import ripemd
 from .invoices import Invoice
 from .network import TxBroadcastServerReturnedError

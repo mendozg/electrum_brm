@@ -38,11 +38,11 @@ try:
 except ImportError:
     sys.exit("Error: could not find paymentrequest_pb2.py. Create it with 'contrib/generate_payreqpb2.sh'")
 
-from . import bitcoin, constants, ecc, util, transaction, x509, rsakey
+from . import bitraam, constants, ecc, util, transaction, x509, rsakey
 from .util import bfh, make_aiohttp_session, error_text_bytes_to_safe_str, get_running_loop
 from .invoices import Invoice, get_id_from_onchain_outputs
 from .crypto import sha256
-from .bitcoin import address_to_script
+from .bitraam import address_to_script
 from .transaction import PartialTxOutput
 from .network import Network
 from .logging import get_logger, Logger
@@ -83,7 +83,7 @@ async def get_payment_request(url: str) -> 'PaymentRequest':
                     response.raise_for_status()
                     # Guard against `bitraam:`-URIs with invalid payment request URLs
                     if "Content-Type" not in response.headers \
-                    or response.headers["Content-Type"] != "application/bitcoin-paymentrequest":
+                    or response.headers["Content-Type"] != "application/bitraam-paymentrequest":
                         data = None
                         error = "payment URL not pointing to a payment request handling server"
                     else:
@@ -355,7 +355,7 @@ def sign_request_with_alias(pr, alias, alias_privkey):
     pr.pki_data = str(alias)
     message = pr.SerializeToString()
     ec_key = ecc.ECPrivkey(alias_privkey)
-    compressed = bitcoin.is_compressed_privkey(alias_privkey)
+    compressed = bitraam.is_compressed_privkey(alias_privkey)
     pr.signature = ec_key.sign_message(message, compressed)
 
 

@@ -9,7 +9,7 @@ from PyQt5.QtCore import Qt, QSize
 from PyQt5.QtWidgets import (QComboBox, QLabel, QVBoxLayout, QGridLayout, QLineEdit, QTextEdit,
                              QHBoxLayout, QPushButton, QWidget, QSizePolicy, QFrame)
 
-from electrum_brm.bitcoin import is_address
+from electrum_brm.bitraam import is_address
 from electrum_brm.i18n import _
 from electrum_brm.util import InvoiceError
 from electrum_brm.invoices import pr_expiration_values
@@ -307,7 +307,7 @@ class ReceiveTab(QWidget, MessageBoxMixin, Logger):
                 self.show_error(_('Amount too small to be received onchain'))
                 return
         else:
-            address = self.get_bitcoin_address_for_request(amount_sat)
+            address = self.get_bitraam_address_for_request(amount_sat)
             if not address:
                 return
             self.window.address_list.update()
@@ -332,7 +332,7 @@ class ReceiveTab(QWidget, MessageBoxMixin, Logger):
         # copy current tab to clipboard
         self.on_tab_changed()
 
-    def get_bitcoin_address_for_request(self, amount) -> Optional[str]:
+    def get_bitraam_address_for_request(self, amount) -> Optional[str]:
         addr = self.wallet.get_unused_address()
         if addr is None:
             if not self.wallet.is_deterministic():  # imported wallet

@@ -6,7 +6,7 @@ from decimal import Decimal, InvalidOperation
 from enum import IntEnum
 from typing import NamedTuple, Optional, Callable, List, TYPE_CHECKING, Tuple
 
-from . import bitcoin
+from . import bitraam
 from .contacts import AliasNotFoundException
 from .i18n import _
 from .invoices import Invoice
@@ -15,7 +15,7 @@ from .util import parse_max_spend, format_satoshis_plain, InvoiceError
 from .util import get_asyncio_loop, log_exceptions
 from .transaction import PartialTxOutput
 from .lnurl import decode_lnurl, request_lnurl, callback_lnurl, LNURLError, lightning_address_to_url
-from .bitcoin import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, opcodes, construct_script
+from .bitraam import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM, opcodes, construct_script
 from .lnaddr import lndecode, LnDecodeException, LnInvoiceException
 from .lnutil import IncompatibleOrInsaneFeatures
 from .bip21 import parse_bip21_URI, InvalidBitcoinURI, LIGHTNING_URI_SCHEME, BITRAAM_BIP21_URI_SCHEME
@@ -319,8 +319,8 @@ class PaymentIdentifier(Logger):
                             'WARNING: the alias "{}" could not be validated via an additional '
                             'security check, DNSSEC, and thus may not be correct.').format(key)
                     try:
-                        assert bitcoin.is_address(address)
-                        scriptpubkey = bytes.fromhex(bitcoin.address_to_script(address))
+                        assert bitraam.is_address(address)
+                        scriptpubkey = bytes.fromhex(bitraam.address_to_script(address))
                         self._type = PaymentIdentifierType.OPENALIAS
                         self.spk = scriptpubkey
                         self.set_state(PaymentIdentifierState.AVAILABLE)
@@ -518,7 +518,7 @@ class PaymentIdentifier(Logger):
     def parse_output(self, x: str) -> Tuple[bytes, bool]:
         try:
             address = self.parse_address(x)
-            return bytes.fromhex(bitcoin.address_to_script(address)), True
+            return bytes.fromhex(bitraam.address_to_script(address)), True
         except Exception as e:
             pass
         try:
@@ -557,7 +557,7 @@ class PaymentIdentifier(Logger):
         r = line.strip()
         m = re.match('^' + RE_ALIAS + '$', r)
         address = str(m.group(2) if m else r)
-        assert bitcoin.is_address(address)
+        assert bitraam.is_address(address)
         return address
 
     def _get_error_from_invoiceerror(self, e: 'InvoiceError') -> str:
@@ -649,7 +649,7 @@ class PaymentIdentifier(Logger):
         # if not (('.' in key) and ('<' not in key) and (' ' not in key)):
         #     return None
         parts = key.split(sep=',')  # assuming single line
-        if parts and len(parts) > 0 and bitcoin.is_address(parts[0]):
+        if parts and len(parts) > 0 and bitraam.is_address(parts[0]):
             return None
         try:
             data = self.contacts.resolve(key) # TODO: don't use contacts as delegate to resolve openalias, separate.

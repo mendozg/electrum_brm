@@ -14,7 +14,7 @@ from aiorpcx.curio import timeout_after, TaskTimeout, ignore_after
 import aiohttp
 
 from . import util
-from .bitcoin import COIN
+from .bitraam import COIN
 from .i18n import _
 from .util import (ThreadJob, make_dir, log_exceptions, OldTaskGroup,
                    make_aiohttp_session, resource_path, EventListener, event_listener, to_decimal)

@@ -31,7 +31,7 @@ ElDialog {
 
     function dispatch(data) {
         data = data.trim()
-        if (bitcoin.isRawTx(data)) {
+        if (bitraam.isRawTx(data)) {
             txFound(data)
         } else if (Daemon.currentWallet.isValidChannelBackup(data)) {
             channelBackupFound(data)
@@ -78,6 +78,6 @@ ElDialog {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 }

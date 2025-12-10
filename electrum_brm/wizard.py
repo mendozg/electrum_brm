@@ -12,7 +12,7 @@ from electrum_brm.slip39 import EncryptedSeed
 from electrum_brm.storage import WalletStorage, StorageEncryptionVersion
 from electrum_brm.wallet_db import WalletDB
 from electrum_brm.bip32 import normalize_bip32_derivation, xpub_type
-from electrum_brm import keystore, mnemonic, bitcoin
+from electrum_brm import keystore, mnemonic, bitraam
 from electrum_brm.mnemonic import is_any_2fa_seed_type
 
 if TYPE_CHECKING:
@@ -523,9 +523,9 @@ class NewWalletWizard(AbstractWizard):
                 k = keystore.Imported_KeyStore({})
                 keys = keystore.get_private_keys(data['private_key_list'])
                 for pk in keys:
-                    assert bitcoin.is_private_key(pk)
+                    assert bitraam.is_private_key(pk)
                     txin_type, pubkey = k.import_privkey(pk, None)
-                    addr = bitcoin.pubkey_to_address(txin_type, pubkey)
+                    addr = bitraam.pubkey_to_address(txin_type, pubkey)
                     addresses[addr] = {'type': txin_type, 'pubkey': pubkey}
             elif 'address_list' in data:
                 for addr in data['address_list'].split():

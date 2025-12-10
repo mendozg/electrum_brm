@@ -29,7 +29,7 @@ from typing import TYPE_CHECKING, Sequence, Optional, Type, Iterable, Any
 from electrum_brm.plugin import (BasePlugin, hook, Device, DeviceMgr,
                              assert_runs_in_hwd_thread, runs_in_hwd_thread)
 from electrum_brm.i18n import _
-from electrum_brm.bitcoin import is_address, opcodes
+from electrum_brm.bitraam import is_address, opcodes
 from electrum_brm.util import versiontuple, UserFacingException
 from electrum_brm.transaction import TxOutput, PartialTransaction
 from electrum_brm.bip32 import BIP32Node

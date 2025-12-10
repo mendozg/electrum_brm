@@ -40,7 +40,7 @@ WizardComponent {
             return false
         }
 
-        if (!bitcoin.verifyMasterKey(key, wizard_data['wallet_type'])) {
+        if (!bitraam.verifyMasterKey(key, wizard_data['wallet_type'])) {
             validationtext.text = qsTr('Error: invalid master key')
             return false
         }
@@ -187,7 +187,7 @@ WizardComponent {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
         onValidationMessageChanged: {
             validationtext.text = validationMessage
         }

@@ -22,9 +22,9 @@ ElDialog {
 
     function verify(text) {
         if (Daemon.currentWallet.isWatchOnly)
-            return bitcoin.isAddressList(text)
+            return bitraam.isAddressList(text)
         else
-            return bitcoin.isPrivateKeyList(text)
+            return bitraam.isPrivateKeyList(text)
     }
 
     onAccepted: {
@@ -121,7 +121,7 @@ ElDialog {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 
 }

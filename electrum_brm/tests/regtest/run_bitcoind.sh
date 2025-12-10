@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 export HOME=~
 set -eux pipefail
-mkdir -p ~/.bitcoin
-cat > ~/.bitcoin/bitcoin.conf <<EOF
+mkdir -p ~/.bitraam
+cat > ~/.bitraam/bitraam.conf <<EOF
 regtest=1
 txindex=1
 printtoconsole=1
@@ -16,10 +16,10 @@ fallbackfee=0.0002
 rpcbind=0.0.0.0
 rpcport=18554
 EOF
-rm -rf ~/.bitcoin/regtest
-bitcoind -regtest &
+rm -rf ~/.bitraam/regtest
+bitraamd -regtest &
 sleep 6
-bitcoin-cli createwallet test_wallet
-addr=$(bitcoin-cli getnewaddress)
-bitcoin-cli generatetoaddress 150 $addr
-tail -f ~/.bitcoin/regtest/debug.log
+bitraam-cli createwallet test_wallet
+addr=$(bitraam-cli getnewaddress)
+bitraam-cli generatetoaddress 150 $addr
+tail -f ~/.bitraam/regtest/debug.log

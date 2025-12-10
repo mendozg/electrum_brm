@@ -49,9 +49,9 @@ from PyQt5.QtWidgets import (QMessageBox, QSystemTrayIcon, QTabWidget,
 
 import electrum_brm as electrum
 from electrum_brm.gui import messages
-from electrum_brm import (keystore, ecc, constants, util, bitcoin, commands,
+from electrum_brm import (keystore, ecc, constants, util, bitraam, commands,
                       paymentrequest, lnutil)
-from electrum_brm.bitcoin import COIN, is_address, DummyAddress
+from electrum_brm.bitraam import COIN, is_address, DummyAddress
 from electrum_brm.plugin import run_hook, BasePlugin
 from electrum_brm.i18n import _
 from electrum_brm.util import (format_time, UserCancelled, profiler, bfh, InvalidPassword,
@@ -65,7 +65,7 @@ from electrum_brm.transaction import (Transaction, PartialTxInput,
 from electrum_brm.wallet import (Multisig_Wallet, Abstract_Wallet,
                              sweep_preparations, InternalAddressCorruption,
                              CannotCPFP)
-from electrum_brm.version import ELECTRUM_VERSION
+from electrum_brm.version import ELECTRUM_BRM_VERSION
 from electrum_brm.network import Network, UntrustedServerReturnedError, NetworkException
 from electrum_brm.exchange_rate import FxThread
 from electrum_brm.simple_config import SimpleConfig
@@ -553,7 +553,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         name = "Electrum-BRM"
         if constants.net.TESTNET:
             name += " " + constants.net.NET_NAME.capitalize()
-        return f"{name} {ELECTRUM_VERSION}"
+        return f"{name} {ELECTRUM_BRM_VERSION}"
 
     def watching_only_changed(self):
         name_and_version = self.get_app_name_and_version_str()
@@ -774,7 +774,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
         help_menu.addSeparator()
         help_menu.addAction(_("&Documentation"), lambda: webopen("http://docs.electrum.org/")).setShortcut(QKeySequence.HelpContents)
         if not constants.net.TESTNET:
-            help_menu.addAction(_("&Bitcoin Paper"), self.show_bitcoin_paper)
+            help_menu.addAction(_("&Bitcoin Paper"), self.show_bitraam_paper)
         help_menu.addAction(_("&Report Bug"), self.show_report_bug)
         help_menu.addSeparator()
         help_menu.addAction(_("&Donate to server"), self.donate_to_server)
@@ -791,7 +791,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
 
     def show_about(self):
         QMessageBox.about(self, "Electrum-BRM",
-                          (_("Version")+" %s" % ELECTRUM_VERSION + "\n\n" +
+                          (_("Version")+" %s" % ELECTRUM_BRM_VERSION + "\n\n" +
                            _("Electrum-BRM's focus is speed, with low resource usage and simplifying BitRaam.") + " " +
                            _("You do not need to perform regular backups, because your wallet can be "
                               "recovered from a secret phrase that you can memorize or write on paper.") + " " +
@@ -799,8 +799,8 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
                               "servers that handle the most complicated parts of the BitRaam system.") + "\n\n" +
                            _("Uses icons from the Icons8 icon pack (icons8.com).")))
 
-    def show_bitcoin_paper(self):
-        filename = os.path.join(self.config.path, 'bitcoin.pdf')
+    def show_bitraam_paper(self):
+        filename = os.path.join(self.config.path, 'bitraam.pdf')
         if not os.path.exists(filename):
             s = self._fetch_tx_from_network("54e48e5f5c656b26c3bca14a8c95aa583d07ebe84dde3b7dd4a78f4e4186e713")
             if not s:
@@ -1575,7 +1575,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
             'electrum': electrum,
             'daemon': self.gui_object.daemon,
             'util': util,
-            'bitcoin': bitcoin,
+            'bitraam': bitraam,
             'lnutil': lnutil,
             'channels': list(self.wallet.lnworker.channels.values()) if self.wallet.lnworker else []
         })
@@ -1889,7 +1889,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
             self.logger.exception('')
             self.show_message(repr(e))
             return
-        xtype = bitcoin.deserialize_privkey(pk)[0]
+        xtype = bitraam.deserialize_privkey(pk)[0]
         d = WindowModalDialog(self, _("Private key"))
         d.setMinimumSize(600, 150)
         vbox = QVBoxLayout()
@@ -1913,7 +1913,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
     def do_sign(self, address, message, signature, password):
         address  = address.text().strip()
         message = message.toPlainText().strip()
-        if not bitcoin.is_address(address):
+        if not bitraam.is_address(address):
             self.show_message(_('Invalid BitRaam address.'))
             return
         if self.wallet.is_watching_only():
@@ -1941,7 +1941,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
     def do_verify(self, address, message, signature):
         address  = address.text().strip()
         message = message.toPlainText().strip().encode('utf-8')
-        if not bitcoin.is_address(address):
+        if not bitraam.is_address(address):
             self.show_message(_('Invalid BitRaam address.'))
             return
         try:
@@ -2097,7 +2097,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
                 return
             if not data:
                 return
-            # if the user scanned a bitcoin URI
+            # if the user scanned a bitraam URI
             if data.lower().startswith(BITRAAM_BIP21_URI_SCHEME + ':'):
                 self.handle_payment_identifier(data)
                 return
@@ -2364,7 +2364,7 @@ class ElectrumWindow(QMainWindow, MessageBoxMixin, Logger, QtEventListener):
 
         def get_address():
             addr = str(address_e.text()).strip()
-            if bitcoin.is_address(addr):
+            if bitraam.is_address(addr):
                 return addr
 
         def get_pk(*, raise_on_error=False):

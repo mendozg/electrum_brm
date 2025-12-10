@@ -7,7 +7,7 @@ from typing import Union, Optional
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QTimer, pyqtEnum
 
 from electrum_brm.i18n import _
-from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.bitraam import DummyAddress
 from electrum_brm.logging import get_logger
 from electrum_brm.transaction import PartialTxOutput, PartialTransaction
 from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates, profiler, get_asyncio_loop

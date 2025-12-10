@@ -7,7 +7,7 @@ import tlslite
 from electrum_brm.transaction import Transaction
 from electrum_brm import paymentrequest
 from electrum_brm import paymentrequest_pb2 as pb2
-from electrum_brm.bitcoin import address_to_script
+from electrum_brm.bitraam import address_to_script
 
 chain_file = 'mychain.pem'
 cert_file = 'mycert.pem'

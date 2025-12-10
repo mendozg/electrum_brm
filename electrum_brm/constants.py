@@ -27,7 +27,7 @@ import os
 import json
 
 from .util import inv_dict, all_subclasses
-from . import bitcoin
+from . import bitraam
 
 
 def read_json(filename, default):
@@ -65,7 +65,7 @@ class AbstractNet:
 
     @classmethod
     def rev_genesis_bytes(cls) -> bytes:
-        return bytes.fromhex(bitcoin.rev_hex(cls.GENESIS))
+        return bytes.fromhex(bitraam.rev_hex(cls.GENESIS))
 
 
 class BitraamMainnet(AbstractNet):

@@ -11,8 +11,8 @@ from .bip21 import create_bip21_uri
 from .lnutil import hex_to_bytes
 from .lnaddr import lndecode, LnAddr
 from . import constants
-from .bitcoin import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
-from .bitcoin import address_to_script
+from .bitraam import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
+from .bitraam import address_to_script
 from .transaction import PartialTxOutput
 from .crypto import sha256d
 
@@ -354,7 +354,7 @@ class Request(BaseInvoice):
         if lightning_invoice:
             extra['lightning'] = lightning_invoice
         if not addr and lightning_invoice:
-            return "bitcoin:?lightning="+lightning_invoice
+            return "bitraam:?lightning="+lightning_invoice
         if not addr and not lightning_invoice:
             return None
         uri = create_bip21_uri(addr, amount, message, extra_query_params=extra)

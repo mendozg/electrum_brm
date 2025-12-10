@@ -32,7 +32,7 @@ from urllib.parse import urljoin
 from urllib.parse import quote
 from aiohttp import ClientResponse
 
-from electrum_brm import ecc, constants, keystore, version, bip32, bitcoin
+from electrum_brm import ecc, constants, keystore, version, bip32, bitraam
 from electrum_brm.bip32 import BIP32Node, xpub_type
 from electrum_brm.crypto import sha256
 from electrum_brm.transaction import PartialTxOutput, PartialTxInput, PartialTransaction, Transaction
@@ -256,7 +256,7 @@ class TrustedCoinCosignerClient(Logger):
         return self.send_request('post', relative_url, payload, headers)
 
 
-server = TrustedCoinCosignerClient(user_agent="Electrum/" + version.ELECTRUM_VERSION)
+server = TrustedCoinCosignerClient(user_agent="Electrum/" + version.ELECTRUM_BRM_VERSION)
 
 
 class Wallet_2fa(Multisig_Wallet):
@@ -430,9 +430,9 @@ def make_billing_address(wallet, num, addr_type):
     child_node = usernode.subkey_at_public_derivation([num])
     pubkey = child_node.eckey.get_public_key_bytes(compressed=True)
     if addr_type == 'legacy':
-        return bitcoin.public_key_to_p2pkh(pubkey)
+        return bitraam.public_key_to_p2pkh(pubkey)
     elif addr_type == 'segwit':
-        return bitcoin.public_key_to_p2wpkh(pubkey)
+        return bitraam.public_key_to_p2wpkh(pubkey)
     else:
         raise ValueError(f'unexpected billing type: {addr_type}')
 

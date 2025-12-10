@@ -9,7 +9,7 @@ from typing import Dict, List, Optional, Sequence, Tuple, TYPE_CHECKING
 from electrum_brm import bip32, constants, ecc
 from electrum_brm import descriptor
 from electrum_brm.bip32 import BIP32Node, convert_bip32_intpath_to_strpath, normalize_bip32_derivation
-from electrum_brm.bitcoin import EncodeBase58Check, int_to_hex, is_b58_address, is_segwit_script_type, var_int
+from electrum_brm.bitraam import EncodeBase58Check, int_to_hex, is_b58_address, is_segwit_script_type, var_int
 from electrum_brm.crypto import hash_160
 from electrum_brm.i18n import _
 from electrum_brm.keystore import Hardware_KeyStore
@@ -32,12 +32,12 @@ _logger = get_logger(__name__)
 try:
     import ledger_bitcoin
     from ledger_bitcoin import WalletPolicy, MultisigWallet, AddressType, Chain
-    from ledger_bitcoin.exception.errors import DenyError, NotSupportedError, SecurityStatusNotSatisfiedError
-    from ledger_bitcoin.key import KeyOriginInfo
+    from ledger_bitraam.exception.errors import DenyError, NotSupportedError, SecurityStatusNotSatisfiedError
+    from ledger_bitraam.key import KeyOriginInfo
     from ledgercomm.interfaces.hid_device import HID
 
     # legacy imports
-    # note: we could replace "btchip" with "ledger_bitcoin.btchip" but the latter does not support HW.1
+    # note: we could replace "btchip" with "ledger_bitraam.btchip" but the latter does not support HW.1
     import hid
     from btchip.btchipComm import HIDDongleHIDAPI
     from btchip.btchip import btchip
@@ -313,19 +313,19 @@ class Ledger_Client(HardwareClientBase, ABC):
         hid_device = HID()
         hid_device.path = device.path
         hid_device.open()
-        transport = ledger_bitcoin.TransportClient('hid', hid=hid_device)
+        transport = ledger_bitraam.TransportClient('hid', hid=hid_device)
         try:
-            cl = ledger_bitcoin.createClient(transport, chain=get_chain())
-        except (ledger_bitcoin.exception.errors.InsNotSupportedError,
-                ledger_bitcoin.exception.errors.ClaNotSupportedError) as e:
+            cl = ledger_bitraam.createClient(transport, chain=get_chain())
+        except (ledger_bitraam.exception.errors.InsNotSupportedError,
+                ledger_bitraam.exception.errors.ClaNotSupportedError) as e:
             # This can happen on very old versions.
             # E.g. with a "nano s", with bitcoin app 1.1.10, SE 1.3.1, MCU 1.0,
             #      - on machine one, ghost43 got InsNotSupportedError
             #      - on machine two, thomasv got ClaNotSupportedError
             #      unclear why the different exceptions, ledger_bitcoin version 0.2.1 in both cases
-            _logger.info(f"ledger_bitcoin.createClient() got exc: {e}. falling back to old plugin.")
+            _logger.info(f"ledger_bitraam.createClient() got exc: {e}. falling back to old plugin.")
             cl = None
-        if isinstance(cl, ledger_bitcoin.client.NewClient):
+        if isinstance(cl, ledger_bitraam.client.NewClient):
             return Ledger_Client_New(hid_device, *args, **kwargs)
         else:
             return Ledger_Client_Legacy(hid_device, *args, **kwargs)
@@ -902,8 +902,8 @@ class Ledger_Client_New(Ledger_Client):
                  plugin: HW_PluginBase):
         Ledger_Client.__init__(self, plugin=plugin)
 
-        transport = ledger_bitcoin.TransportClient('hid', hid=hidDevice)
-        self.client = ledger_bitcoin.client.NewClient(transport, get_chain())
+        transport = ledger_bitraam.TransportClient('hid', hid=hidDevice)
+        self.client = ledger_bitraam.client.NewClient(transport, get_chain())
 
         self._product_key = product_key
         self._soft_device_id = None
@@ -1086,7 +1086,7 @@ class Ledger_Client_New(Ledger_Client):
         # mostly adapted from HWI
 
         psbt_bytes = tx.serialize_as_bytes()
-        psbt = ledger_bitcoin.client.PSBT()
+        psbt = ledger_bitraam.client.PSBT()
         psbt.deserialize(base64.b64encode(psbt_bytes).decode('ascii'))
 
         try:
@@ -1368,7 +1368,7 @@ class LedgerPlugin(HW_PluginBase):
     def get_library_version(self):
         try:
             import ledger_bitcoin
-            version = ledger_bitcoin.__version__
+            version = ledger_bitraam.__version__
         except ImportError:
             raise
         except Exception:

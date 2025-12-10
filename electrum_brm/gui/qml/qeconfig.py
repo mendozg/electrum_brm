@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QRegularExpression
 
-from electrum_brm.bitcoin import TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
+from electrum_brm.bitraam import TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
 from electrum_brm.i18n import set_language, languages
 from electrum_brm.logging import get_logger
 from electrum_brm.util import base_unit_name_to_decimal_point

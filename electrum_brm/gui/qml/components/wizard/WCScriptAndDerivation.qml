@@ -48,7 +48,7 @@ WizardComponent {
         var p = isMultisig ? getMultisigScriptTypePurposeDict() : getScriptTypePurposeDict()
         if (!scripttypegroup.checkedButton.scripttype in p)
             return
-        if (!bitcoin.verifyDerivationPath(derivationpathtext.text))
+        if (!bitraam.verifyDerivationPath(derivationpathtext.text))
             return
 
         if (isMultisig && cosigner) {
@@ -218,7 +218,7 @@ WizardComponent {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 
     Component {

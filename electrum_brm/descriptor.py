@@ -17,8 +17,8 @@
 import enum
 
 from .bip32 import convert_bip32_strpath_to_intpath, BIP32Node, KeyOriginInfo, BIP32_PRIME
-from . import bitcoin
-from .bitcoin import construct_script, opcodes, construct_witness
+from . import bitraam
+from .bitraam import construct_script, opcodes, construct_witness
 from . import constants
 from .crypto import hash_160, sha256
 from . import ecc
@@ -75,7 +75,7 @@ class ExpandedScripts:
         self._scriptcode_for_sighash = value
 
     def address(self, *, net=None) -> Optional[str]:
-        return bitcoin.script_to_address(self.output_script.hex(), net=net)
+        return bitraam.script_to_address(self.output_script.hex(), net=net)
 
 
 class ScriptSolutionInner(NamedTuple):
@@ -369,7 +369,7 @@ class Descriptor(object):
         sigdata: Mapping[bytes, bytes] = None,  # pubkey -> sig
         allow_dummy: bool = False,
     ) -> ScriptSolutionTop:
-        """Construct a witness and/or scriptSig to be used in a txin, to satisfy the bitcoin SCRIPT.
+        """Construct a witness and/or scriptSig to be used in a txin, to satisfy the bitraam SCRIPT.
 
         Raises MissingSolutionPiece if satisfaction is not yet possible due to e.g. missing a signature,
         unless `allow_dummy` is set to True, in which case dummy data is used where needed (e.g. for size estimation).
@@ -514,7 +514,7 @@ class PKHDescriptor(Descriptor):
     def expand(self, *, pos: Optional[int] = None) -> "ExpandedScripts":
         pubkey = self.pubkeys[0].get_pubkey_bytes(pos=pos)
         pkh = hash_160(pubkey).hex()
-        script = bitcoin.pubkeyhash_to_p2pkh_script(pkh)
+        script = bitraam.pubkeyhash_to_p2pkh_script(pkh)
         return ExpandedScripts(output_script=bytes.fromhex(script))
 
     def _satisfy_inner(self, *, sigdata=None, allow_dummy=False) -> ScriptSolutionInner:
@@ -556,7 +556,7 @@ class WPKHDescriptor(Descriptor):
     def expand(self, *, pos: Optional[int] = None) -> "ExpandedScripts":
         pkh = hash_160(self.pubkeys[0].get_pubkey_bytes(pos=pos))
         output_script = construct_script([0, pkh])
-        scriptcode = bitcoin.pubkeyhash_to_p2pkh_script(pkh.hex())
+        scriptcode = bitraam.pubkeyhash_to_p2pkh_script(pkh.hex())
         return ExpandedScripts(
             output_script=bytes.fromhex(output_script),
             scriptcode_for_sighash=bytes.fromhex(scriptcode),
@@ -1033,7 +1033,7 @@ def create_dummy_descriptor_from_address(addr: Optional[str]) -> 'Descriptor':
         witver, witprog = segwit_addr.decode_segwit_address(constants.net.SEGWIT_HRP, addr)
         if witprog is not None:
             return 'p2wpkh'
-        addrtype, hash_160_ = bitcoin.b58_address_to_hash160(addr)
+        addrtype, hash_160_ = bitraam.b58_address_to_hash160(addr)
         if addrtype == constants.net.ADDRTYPE_P2PKH:
             return 'p2pkh'
         elif addrtype == constants.net.ADDRTYPE_P2SH:

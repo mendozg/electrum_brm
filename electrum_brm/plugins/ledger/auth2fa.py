@@ -9,7 +9,7 @@ from btchip.btchip import BTChipException
 from electrum_brm.gui.qt.util import PasswordLineEdit
 
 from electrum_brm.i18n import _
-from electrum_brm import constants, bitcoin
+from electrum_brm import constants, bitraam
 from electrum_brm.logging import get_logger
 
 if TYPE_CHECKING:
@@ -116,7 +116,7 @@ class LedgerAuthDialog(QDialog):
                     text = addr[:i] + '<u><b>' + addr[i:i+1] + '</u></b>' + addr[i+1:]
                 else:
                     # pin needs to be created from mainnet address
-                    addr_mainnet = bitcoin.script_to_address(bitcoin.address_to_script(addr), net=constants.BitcoinMainnet)
+                    addr_mainnet = bitraam.script_to_address(bitraam.address_to_script(addr), net=constants.BitcoinMainnet)
                     addr_mainnet = addr_mainnet[:i] + '<u><b>' + addr_mainnet[i:i+1] + '</u></b>' + addr_mainnet[i+1:]
                     text = str(addr) + '\n' + str(addr_mainnet)
                 self.addrtext.setHtml(str(text))

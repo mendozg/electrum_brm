@@ -14,7 +14,7 @@ from electrum_brm.gui import BaseElectrumGui
 from electrum_brm.bip21 import parse_bip21_URI
 from electrum_brm.util import format_satoshis, format_time
 from electrum_brm.util import EventListener, event_listener
-from electrum_brm.bitcoin import is_address, address_to_script, COIN
+from electrum_brm.bitraam import is_address, address_to_script, COIN
 from electrum_brm.transaction import PartialTxOutput
 from electrum_brm.wallet import Wallet, Abstract_Wallet
 from electrum_brm.wallet_db import WalletDB

@@ -11,13 +11,13 @@ from electrum_brm.lnutil import ShortChannelID
 from electrum_brm.lnonion import (OnionHopsDataSingle, new_onion_packet,
                               process_onion_packet, _decode_onion_error, decode_onion_error,
                               OnionFailureCode, OnionPacket)
-from electrum_brm import bitcoin, lnrouter
+from electrum_brm import bitraam, lnrouter
 from electrum_brm.constants import BitcoinTestnet
 from electrum_brm.simple_config import SimpleConfig
 from electrum_brm.lnrouter import PathEdge, LiquidityHintMgr, DEFAULT_PENALTY_PROPORTIONAL_MILLIONTH, DEFAULT_PENALTY_BASE_MSAT, fee_for_edge_msat
 
 from . import ElectrumTestCase
-from .test_bitcoin import needs_test_with_all_chacha20_implementations
+from .test_bitraam import needs_test_with_all_chacha20_implementations
 
 
 def channel(number: int) -> ShortChannelID:
@@ -76,7 +76,7 @@ class Test_LNRouter(ElectrumTestCase):
         self.assertEqual(self.cdb.num_channels, 0)
         self.cdb.add_channel_announcements({
             'node_id_1': node('b'), 'node_id_2': node('c'),
-            'bitcoin_key_1': node('b'), 'bitcoin_key_2': node('c'),
+            'bitraam_key_1': node('b'), 'bitraam_key_2': node('c'),
             'short_channel_id': channel(1),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''
@@ -84,42 +84,42 @@ class Test_LNRouter(ElectrumTestCase):
         self.assertEqual(self.cdb.num_channels, 1)
         self.cdb.add_channel_announcements({
             'node_id_1': node('b'), 'node_id_2': node('e'),
-            'bitcoin_key_1': node('b'), 'bitcoin_key_2': node('e'),
+            'bitraam_key_1': node('b'), 'bitraam_key_2': node('e'),
             'short_channel_id': channel(2),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''
         }, trusted=True)
         self.cdb.add_channel_announcements({
             'node_id_1': node('a'), 'node_id_2': node('b'),
-            'bitcoin_key_1': node('a'), 'bitcoin_key_2': node('b'),
+            'bitraam_key_1': node('a'), 'bitraam_key_2': node('b'),
             'short_channel_id': channel(3),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''
         }, trusted=True)
         self.cdb.add_channel_announcements({
             'node_id_1': node('c'), 'node_id_2': node('d'),
-            'bitcoin_key_1': node('c'), 'bitcoin_key_2': node('d'),
+            'bitraam_key_1': node('c'), 'bitraam_key_2': node('d'),
             'short_channel_id': channel(4),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''
         }, trusted=True)
         self.cdb.add_channel_announcements({
             'node_id_1': node('d'), 'node_id_2': node('e'),
-            'bitcoin_key_1': node('d'), 'bitcoin_key_2': node('e'),
+            'bitraam_key_1': node('d'), 'bitraam_key_2': node('e'),
             'short_channel_id': channel(5),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''
         }, trusted=True)
         self.cdb.add_channel_announcements({
             'node_id_1': node('a'), 'node_id_2': node('d'),
-            'bitcoin_key_1': node('a'), 'bitcoin_key_2': node('d'),
+            'bitraam_key_1': node('a'), 'bitraam_key_2': node('d'),
             'short_channel_id': channel(6),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''
         }, trusted=True)
         self.cdb.add_channel_announcements({
             'node_id_1': node('c'), 'node_id_2': node('e'),
-            'bitcoin_key_1': node('c'), 'bitcoin_key_2': node('e'),
+            'bitraam_key_1': node('c'), 'bitraam_key_2': node('e'),
             'short_channel_id': channel(7),
             'chain_hash': BitcoinTestnet.rev_genesis_bytes(),
             'len': 0, 'features': b''

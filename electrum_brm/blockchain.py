@@ -26,7 +26,7 @@ import time
 from typing import Optional, Dict, Mapping, Sequence, TYPE_CHECKING
 
 from . import util
-from .bitcoin import hash_encode, int_to_hex, rev_hex
+from .bitraam import hash_encode, int_to_hex, rev_hex
 from .crypto import sha256d
 from . import constants
 from .util import bfh, with_lock

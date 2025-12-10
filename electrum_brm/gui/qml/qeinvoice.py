@@ -10,7 +10,7 @@ from electrum_brm.invoices import (Invoice, PR_UNPAID, PR_EXPIRED, PR_UNKNOWN, P
                                PR_FAILED, PR_ROUTING, PR_UNCONFIRMED, PR_BROADCASTING, PR_BROADCAST, LN_EXPIRY_NEVER)
 from electrum_brm.transaction import PartialTxOutput, TxOutput
 from electrum_brm.lnutil import format_short_channel_id
-from electrum_brm.bitcoin import COIN
+from electrum_brm.bitraam import COIN
 from electrum_brm.paymentrequest import PaymentRequest
 from electrum_brm.payment_identifier import (PaymentIdentifier, PaymentIdentifierState, PaymentIdentifierType)
 from .qetypes import QEAmount

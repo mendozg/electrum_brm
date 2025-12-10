@@ -1,17 +1,17 @@
 from typing import NamedTuple, Union
 
-from electrum_brm import transaction, bitcoin
+from electrum_brm import transaction, bitraam
 from electrum_brm.transaction import (convert_raw_tx_to_hex, tx_from_any, Transaction,
                                   PartialTransaction, TxOutpoint, PartialTxInput,
                                   PartialTxOutput, Sighash, match_script_against_template,
                                   SCRIPTPUBKEY_TEMPLATE_ANYSEGWIT)
 from electrum_brm.util import bfh
-from electrum_brm.bitcoin import (deserialize_privkey, opcodes,
+from electrum_brm.bitraam import (deserialize_privkey, opcodes,
                               construct_script, construct_witness)
 from electrum_brm.ecc import ECPrivkey
 from electrum_brm import descriptor
 
-from .test_bitcoin import disable_ecdsa_r_value_grinding
+from .test_bitraam import disable_ecdsa_r_value_grinding
 from . import ElectrumTestCase
 
 signed_blob = '01000000012a5c9a94fcde98f5581cd00162c60a13936ceb75389ea65bf38633b424eb4031000000006c493046022100a82bbc57a0136751e5433f41cf000b3f1a99c6744775e76ec764fb78c54ee100022100f9e80b7de89de861dc6fb0c1429d5da72c2b6b2ee2406bc9bfb1beedd729d985012102e61d176da16edd1d258a200ad9759ef63adf8e14cd97f53227bae35cdb84d2f6ffffffff0140420f00000000001976a914230ac37834073a42146f11ef8414ae929feaafc388ac00000000'
@@ -166,7 +166,7 @@ class TestTransaction(ElectrumTestCase):
                          convert_raw_tx_to_hex('64XF-8+PM6*4IYN-QWW$B2QLNW+:C8-$I$-+T:L.6DKXTSWSFFONDP1J/MOS3SPK0-SYVW38U9.3+A1/*2HTHQTJGP79LVEK-IITQJ1H.C/X$NSOV$8DWR6JAFWXD*LX4-EN0.BDOF+PPYPH16$NM1H.-MAA$V1SCP0Q.6Y5FR822S6K-.5K5F.Z4Q:0SDRG-4GEBLAO4W9Z*H-$1-KDYAFOGF675W0:CK5M1LT92IG:3X60P3GKPM:X2$SP5A7*LT9$-TTEG0/DRZYV$7B4ADL9CVS5O7YG.J64HLZ24MVKO/-GV:V.T/L$D3VQ:MR8--44HK8W'))
 
     def test_get_address_from_output_script(self):
-        # the inverse of this test is in test_bitcoin: test_address_to_script
+        # the inverse of this test is in test_bitraam: test_address_to_script
         addr_from_script = lambda script: transaction.get_address_from_output_script(bfh(script))
 
         # bech32/bech32m native segwit
@@ -386,7 +386,7 @@ class TestTransaction(ElectrumTestCase):
         txid = '9b9f39e314662a7433aadaa5c94a2f1e24c7e7bf55fc9e1f83abd72be933eb95'
         self._run_naive_tests_on_tx(raw_tx, txid)
 
-    # see https://bitcoin.stackexchange.com/questions/38006/txout-script-criteria-scriptpubkey-critieria
+    # see https://bitraam.stackexchange.com/questions/38006/txout-script-criteria-scriptpubkey-critieria
     def test_txid_invalid_op_return(self):
         raw_tx = '01000000019ac03d5ae6a875d970128ef9086cef276a1919684a6988023cc7254691d97e6d010000006b4830450221009d41dc793ba24e65f571473d40b299b6459087cea1509f0d381740b1ac863cb6022039c425906fcaf51b2b84d8092569fb3213de43abaff2180e2a799d4fcb4dd0aa012102d5ede09a8ae667d0f855ef90325e27f6ce35bbe60a1e6e87af7f5b3c652140fdffffffff080100000000000000010101000000000000000202010100000000000000014c0100000000000000034c02010100000000000000014d0100000000000000044dffff010100000000000000014e0100000000000000064effffffff0100000000'
         txid = 'ebc9fa1196a59e192352d76c0f6e73167046b9d37b8302b6bb6968dfd279b767'
@@ -846,7 +846,7 @@ class TestTransaction(ElectrumTestCase):
         txid = '2862bc0c69d2af55da7284d1b16a7cddc03971b77e5a97939cca7631add83bf5'
         self._run_naive_tests_on_tx(raw_tx, txid)
 
-    def test_txid_bitcoin_core_0091(self):
+    def test_txid_bitraam_core_0091(self):
         raw_tx = '01000000019275cb8d4a485ce95741c013f7c0d28722160008021bb469a11982d47a662896581b0000fd6f01004830450220487fb382c4974de3f7d834c1b617fe15860828c7f96454490edd6d891556dcc9022100baf95feb48f845d5bfc9882eb6aeefa1bc3790e39f59eaa46ff7f15ae626c53e0148304502205286f726690b2e9b0207f0345711e63fa7012045b9eb0f19c2458ce1db90cf43022100e89f17f86abc5b149eba4115d4f128bcf45d77fb3ecdd34f594091340c03959601522102cd74a2809ffeeed0092bc124fd79836706e41f048db3f6ae9df8708cefb83a1c2102e615999372426e46fd107b76eaf007156a507584aa2cc21de9eee3bdbd26d36c4c9552af4830450220487fb382c4974de3f7d834c1b617fe15860828c7f96454490edd6d891556dcc9022100baf95feb48f845d5bfc9882eb6aeefa1bc3790e39f59eaa46ff7f15ae626c53e0148304502205286f726690b2e9b0207f0345711e63fa7012045b9eb0f19c2458ce1db90cf43022100e89f17f86abc5b149eba4115d4f128bcf45d77fb3ecdd34f594091340c0395960175ffffffff0101000000000000000000000000'
         txid = '1aebf0c98f01381765a8c33d688f8903e4d01120589ac92b78f1185dc1f4119c'
         self._run_naive_tests_on_tx(raw_tx, txid)
@@ -906,7 +906,7 @@ class TestTransactionTestnet(ElectrumTestCase):
         witness_script = bfh(construct_script([
             locktime, opcodes.OP_CHECKLOCKTIMEVERIFY, opcodes.OP_DROP, pubkey, opcodes.OP_CHECKSIG,
         ]))
-        from_addr = bitcoin.script_to_p2wsh(witness_script.hex())
+        from_addr = bitraam.script_to_p2wsh(witness_script.hex())
         self.assertEqual("tb1q9dn6qke9924xe3zmptmhrdge0s043pjxpjndypgnu2t9fvsd4crs2qjuer", from_addr)
         prevout = TxOutpoint(txid=bfh('8680971efd5203025cffe746f8598d0a704fae81f236ffe009c2609ec673d59a'), out_idx=0)
         txin = PartialTxInput(prevout=prevout)

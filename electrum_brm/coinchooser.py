@@ -27,7 +27,7 @@ from math import floor, log10
 from typing import NamedTuple, List, Callable, Sequence, Union, Dict, Tuple, Mapping, Type, TYPE_CHECKING
 from decimal import Decimal
 
-from .bitcoin import sha256, COIN, is_address
+from .bitraam import sha256, COIN, is_address
 from .transaction import Transaction, TxOutput, PartialTransaction, PartialTxInput, PartialTxOutput
 from .util import NotEnoughFunds
 from .logging import Logger
@@ -312,7 +312,7 @@ class CoinChooserBase(Logger):
             total_input = input_value + bucket_value_sum
             if total_input < spent_amount:  # shortcut for performance
                 return False
-            # any bitcoin tx must have at least 1 input by consensus
+            # any bitraam tx must have at least 1 input by consensus
             # (check we add some new UTXOs now or already have some fixed inputs)
             if not buckets and not inputs:
                 return False

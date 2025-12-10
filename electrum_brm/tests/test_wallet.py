@@ -14,7 +14,7 @@ from electrum_brm.wallet import (Abstract_Wallet, Standard_Wallet, create_new_wa
                              restore_wallet_from_text, Imported_Wallet, Wallet)
 from electrum_brm.exchange_rate import ExchangeBase, FxThread
 from electrum_brm.util import TxMinedInfo, InvalidPassword
-from electrum_brm.bitcoin import COIN
+from electrum_brm.bitraam import COIN
 from electrum_brm.wallet_db import WalletDB, JsonDB
 from electrum_brm.simple_config import SimpleConfig
 from electrum_brm import util

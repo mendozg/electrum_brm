@@ -873,7 +873,7 @@ class JadeAPI:
         Parameters
         ----------
         identity : str
-            Identity string to format and sign. For example ssh://satoshi@bitcoin.org
+            Identity string to format and sign. For example ssh://satoshi@bitraam.org
 
         curve : str
             Name of curve to use - currently only 'nist256p1' is supported
@@ -905,7 +905,7 @@ class JadeAPI:
         Parameters
         ----------
         identity : str
-            Identity string to format and sign. For example ssh://satoshi@bitcoin.org
+            Identity string to format and sign. For example ssh://satoshi@bitraam.org
 
         curve : str
             Name of curve to use - currently only 'nist256p1' is supported
@@ -937,7 +937,7 @@ class JadeAPI:
         Parameters
         ----------
         identity : str
-            Identity string to format and sign. For example ssh://satoshi@bitcoin.org
+            Identity string to format and sign. For example ssh://satoshi@bitraam.org
 
         curve : str
             Name of curve to use - currently only 'nist256p1' is supported

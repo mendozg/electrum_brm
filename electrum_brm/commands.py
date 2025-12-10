@@ -43,8 +43,8 @@ import os
 from .import util, ecc
 from .util import (bfh, format_satoshis, json_decode, json_normalize,
                    is_hash256_str, is_hex_str, to_bytes, parse_max_spend, to_decimal)
-from . import bitcoin
-from .bitcoin import is_address,  hash_160, COIN
+from . import bitraam
+from .bitraam import is_address,  hash_160, COIN
 from .bip32 import BIP32Node
 from .i18n import _
 from .transaction import (Transaction, multisig_script, TxOutput, PartialTransaction, PartialTxOutput,
@@ -60,7 +60,7 @@ from .lnutil import LnFeatures
 from .lnutil import extract_nodeid
 from .lnpeer import channel_id_from_funding_tx
 from .plugin import run_hook, DeviceMgr, Plugins
-from .version import ELECTRUM_VERSION
+from .version import ELECTRUM_BRM_VERSION
 from .simple_config import SimpleConfig
 from .invoices import Invoice
 from . import submarine_swaps
@@ -220,7 +220,7 @@ class Commands:
             'spv_nodes': len(self.network.get_interfaces()),
             'connected': self.network.is_connected(),
             'auto_connect': net_params.auto_connect,
-            'version': ELECTRUM_VERSION,
+            'version': ELECTRUM_BRM_VERSION,
             'default_wallet': self.config.get_wallet_path(),
             'fee_per_kb': self.config.fee_per_kb(),
         }
@@ -363,7 +363,7 @@ class Commands:
         """Return the transaction history of any address. Note: This is a
         walletless server query, results are not checked by SPV.
         """
-        sh = bitcoin.address_to_scripthash(address)
+        sh = bitraam.address_to_scripthash(address)
         return await self.network.get_history_for_scripthash(sh)
 
     @command('w')
@@ -383,7 +383,7 @@ class Commands:
         """Returns the UTXO list of any address. Note: This
         is a walletless server query, results are not checked by SPV.
         """
-        sh = bitcoin.address_to_scripthash(address)
+        sh = bitraam.address_to_scripthash(address)
         return await self.network.listunspent_for_scripthash(sh)
 
     @command('')
@@ -420,7 +420,7 @@ class Commands:
                 txin.nsequence = nsequence
             sec = txin_dict.get('privkey')
             if sec:
-                txin_type, privkey, compressed = bitcoin.deserialize_privkey(sec)
+                txin_type, privkey, compressed = bitraam.deserialize_privkey(sec)
                 pubkey = ecc.ECPrivkey(privkey).get_public_key_hex(compressed=compressed)
                 keypairs[pubkey] = privkey, compressed
                 desc = descriptor.get_singlesig_descriptor_from_legacy_leaf(pubkey=pubkey, script_type=txin_type)
@@ -457,7 +457,7 @@ class Commands:
             privkey = [privkey]
 
         for priv in privkey:
-            txin_type, priv2, compressed = bitcoin.deserialize_privkey(priv)
+            txin_type, priv2, compressed = bitraam.deserialize_privkey(priv)
             pubkey = ecc.ECPrivkey(priv2).get_public_key_bytes(compressed=compressed)
             desc = descriptor.get_singlesig_descriptor_from_legacy_leaf(pubkey=pubkey.hex(), script_type=txin_type)
             address = desc.expand().address()
@@ -493,7 +493,7 @@ class Commands:
         """Create multisig address"""
         assert isinstance(pubkeys, list), (type(num), type(pubkeys))
         redeem_script = multisig_script(pubkeys, num)
-        address = bitcoin.hash160_to_p2sh(hash_160(bfh(redeem_script)))
+        address = bitraam.hash160_to_p2sh(hash_160(bfh(redeem_script)))
         return {'address':address, 'redeemScript':redeem_script}
 
     @command('w')
@@ -574,7 +574,7 @@ class Commands:
         """Return the balance of any address. Note: This is a walletless
         server query, results are not checked by SPV.
         """
-        sh = bitcoin.address_to_scripthash(address)
+        sh = bitraam.address_to_scripthash(address)
         out = await self.network.get_balance_for_scripthash(sh)
         out["confirmed"] =  str(to_decimal(out["confirmed"])/COIN)
         out["unconfirmed"] =  str(to_decimal(out["unconfirmed"])/COIN)
@@ -594,13 +594,13 @@ class Commands:
     @command('')
     async def version(self):
         """Return the version of Electrum."""
-        return ELECTRUM_VERSION
+        return ELECTRUM_BRM_VERSION
 
     @command('')
     async def version_info(self):
         """Return information about dependencies, such as their version and path."""
         ret = {
-            "electrum_brm.version": ELECTRUM_VERSION,
+            "electrum_brm.version": ELECTRUM_BRM_VERSION,
             "electrum_brm.path": os.path.dirname(os.path.realpath(__file__)),
             "python.version": sys.version,
             "python.path": sys.executable,
@@ -1500,10 +1500,10 @@ config_variables = {
     'addrequest': {
         'ssl_privkey': 'Path to your SSL private key, needed to sign the request.',
         'ssl_chain': 'Chain of SSL certificates, needed for signed requests. Put your certificate at the top and the root CA at the end',
-        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of bitcoin: URIs. Example: \"(\'file:///var/www/\',\'https://electrum.org/\')\"',
+        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of bitraam: URIs. Example: \"(\'file:///var/www/\',\'https://electrum.org/\')\"',
     },
     'listrequests':{
-        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of bitcoin: URIs. Example: \"(\'file:///var/www/\',\'https://electrum.org/\')\"',
+        'url_rewrite': 'Parameters passed to str.replace(), in order to create the r= part of bitraam: URIs. Example: \"(\'file:///var/www/\',\'https://electrum.org/\')\"',
     }
 }
 

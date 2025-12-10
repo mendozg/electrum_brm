@@ -53,7 +53,7 @@ from . import pem
 from . import version
 from . import blockchain
 from .blockchain import Blockchain, HEADER_SIZE
-from . import bitcoin
+from . import bitraam
 from . import constants
 from .i18n import _
 from .logging import Logger
@@ -922,7 +922,7 @@ class Interface(Logger):
 
     @classmethod
     def client_name(cls) -> str:
-        return f'electrum_brm/{version.ELECTRUM_VERSION}'
+        return f'electrum_brm/{version.ELECTRUM_BRM_VERSION}'
 
     def is_tor(self):
         return self.host.endswith('.onion')
@@ -1103,7 +1103,7 @@ class Interface(Logger):
         # check response
         if not res:  # ignore empty string
             return ''
-        if not bitcoin.is_address(res):
+        if not bitraam.is_address(res):
             # note: do not hard-fail -- allow server to use future-type
             #       bitraam address we do not recognize
             self.logger.info(f"invalid donation address from server: {repr(res)}")
@@ -1116,7 +1116,7 @@ class Interface(Logger):
         res = await self.session.send_request('blockchain.relayfee')
         # check response
         assert_non_negative_int_or_float(res)
-        relayfee = int(res * bitcoin.COIN)
+        relayfee = int(res * bitraam.COIN)
         relayfee = max(0, relayfee)
         return relayfee
 
@@ -1141,7 +1141,7 @@ class Interface(Logger):
         except aiorpcx.jsonrpc.RPCError as e:
             # The protocol spec says the server itself should already have returned -1
             # if it cannot provide an estimate. "Fulcrum" often sends:
-            #   aiorpcx.jsonrpc.RPCError: (-32603, 'internal error: bitcoind request timed out')
+            #   aiorpcx.jsonrpc.RPCError: (-32603, 'internal error: bitraamd request timed out')
             if e.code == JSONRPC.INTERNAL_ERROR:
                 res = -1
             else:
@@ -1149,7 +1149,7 @@ class Interface(Logger):
         # check response
         if res != -1:
             assert_non_negative_int_or_float(res)
-            res = int(res * bitcoin.COIN)
+            res = int(res * bitraam.COIN)
         return res
 
 

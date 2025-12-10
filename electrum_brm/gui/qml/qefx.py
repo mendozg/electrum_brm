@@ -3,7 +3,7 @@ from decimal import Decimal
 
 from PyQt6.QtCore import pyqtProperty, pyqtSignal, pyqtSlot, QObject, QRegularExpression
 
-from electrum_brm.bitcoin import COIN
+from electrum_brm.bitraam import COIN
 from electrum_brm.exchange_rate import FxThread
 from electrum_brm.logging import get_logger
 from electrum_brm.simple_config import SimpleConfig

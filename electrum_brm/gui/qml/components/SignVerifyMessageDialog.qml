@@ -32,7 +32,7 @@ ElDialog {
 
     function validateAddress() {
         // TODO: not all types of addresses are valid (e.g. p2wsh)
-        _addressValid = bitcoin.isAddress(addressField.text)
+        _addressValid = bitraam.isAddress(addressField.text)
         _addressMine = Daemon.currentWallet.isAddressMine(addressField.text)
     }
 
@@ -212,7 +212,7 @@ ElDialog {
     }
 
     Bitcoin {
-        id: bitcoin
+        id: bitraam
     }
 
     FontMetrics {

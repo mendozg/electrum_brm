@@ -8,11 +8,11 @@ alice="./run_electrum --regtest -D /tmp/alice"
 bob="./run_electrum --regtest -D /tmp/bob"
 carol="./run_electrum --regtest -D /tmp/carol"
 
-bitcoin_cli="bitcoin-cli -rpcuser=doggman -rpcpassword=donkey -rpcport=18554 -regtest"
+bitraam_cli="bitraam-cli -rpcuser=doggman -rpcpassword=donkey -rpcport=18554 -regtest"
 
 function new_blocks()
 {
-    $bitcoin_cli generatetoaddress $1 $($bitcoin_cli getnewaddress) > /dev/null
+    $bitraam_cli generatetoaddress $1 $($bitraam_cli getnewaddress) > /dev/null
 }
 
 function wait_until_htlcs_settled()
@@ -67,7 +67,7 @@ function wait_until_channel_closed()
 function wait_until_spent()
 {
     msg="wait until $1:$2 is spent"
-    while [[ $($bitcoin_cli gettxout $1 $2) ]]; do
+    while [[ $($bitraam_cli gettxout $1 $2) ]]; do
         sleep 1
 	msg="$msg."
 	printf "$msg\r"
@@ -96,7 +96,7 @@ if [[ $1 == "init" ]]; then
     $agent setconfig --offline test_force_disable_mpp True
     echo "funding $2"
     # note: changing the funding amount affects all tests, as they rely on "wait_for_balance"
-    $bitcoin_cli sendtoaddress $($agent getunusedaddress -o) 1
+    $bitraam_cli sendtoaddress $($agent getunusedaddress -o) 1
 fi
 
 if [[ $1 == "setconfig" ]]; then
@@ -139,7 +139,7 @@ if [[ $1 == "breach" ]]; then
     echo "alice pays again"
     $alice lnpay $request
     echo "alice broadcasts old ctx"
-    $bitcoin_cli sendrawtransaction $ctx
+    $bitraam_cli sendrawtransaction $ctx
     new_blocks 1
     wait_until_channel_closed bob
     new_blocks 1
@@ -348,7 +348,7 @@ if [[ $1 == "breach_with_unspent_htlc" ]]; then
         exit 1
     fi
     echo "alice breaches with old ctx"
-    $bitcoin_cli sendrawtransaction $ctx
+    $bitraam_cli sendrawtransaction $ctx
     wait_for_balance bob 1.14
 fi
 
@@ -380,10 +380,10 @@ if [[ $1 == "breach_with_spent_htlc" ]]; then
     echo $($bob getbalance)
     echo "bob goes offline"
     $bob stop
-    ctx_id=$($bitcoin_cli sendrawtransaction $ctx)
+    ctx_id=$($bitraam_cli sendrawtransaction $ctx)
     echo "alice breaches with old ctx:" $ctx_id
     new_blocks 1
-    if [[ $($bitcoin_cli gettxout $ctx_id 0 | jq '.confirmations') != "1" ]]; then
+    if [[ $($bitraam_cli gettxout $ctx_id 0 | jq '.confirmations') != "1" ]]; then
         echo "breach tx not confirmed"
         exit 1
     fi
@@ -434,7 +434,7 @@ if [[ $1 == "watchtower" ]]; then
     echo "stopping alice and bob"
     $bob stop
     $alice stop
-    ctx_id=$($bitcoin_cli sendrawtransaction $ctx)
+    ctx_id=$($bitraam_cli sendrawtransaction $ctx)
     echo "alice breaches with old ctx:" $ctx_id
     echo "watchtower publishes justice transaction"
     wait_until_spent $ctx_id 1  # alice's to_local gets punished immediately

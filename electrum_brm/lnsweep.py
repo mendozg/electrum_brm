@@ -6,7 +6,7 @@ from typing import Optional, Dict, List, Tuple, TYPE_CHECKING, NamedTuple, Calla
 from enum import Enum, auto
 
 from .util import bfh
-from .bitcoin import redeem_script_to_address, dust_threshold, construct_witness
+from .bitraam import redeem_script_to_address, dust_threshold, construct_witness
 from .invoices import PR_PAID
 from . import descriptor
 from . import ecc

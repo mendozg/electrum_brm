@@ -10,7 +10,7 @@ from electrum_brm import WalletStorage, Wallet
 from electrum_brm.wallet import Abstract_Wallet
 from electrum_brm.wallet_db import WalletDB
 from electrum_brm.util import format_satoshis, EventListener, event_listener
-from electrum_brm.bitcoin import is_address, COIN
+from electrum_brm.bitraam import is_address, COIN
 from electrum_brm.transaction import PartialTxOutput
 from electrum_brm.network import TxBroadcastError, BestEffortRequestFailed
 

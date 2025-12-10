@@ -5,7 +5,7 @@ from PyQt5.QtWidgets import QLabel, QVBoxLayout, QGridLayout, QPushButton
 
 from electrum_brm.i18n import _
 from electrum_brm.util import NotEnoughFunds, NoDynamicFeeEstimates
-from electrum_brm.bitcoin import DummyAddress
+from electrum_brm.bitraam import DummyAddress
 from electrum_brm.transaction import PartialTxOutput, PartialTransaction
 
 from electrum_brm.gui import messages

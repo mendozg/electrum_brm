@@ -16,14 +16,14 @@ from aiorpcx import timeout_after, TaskTimeout
 
 import electrum_brm as electrum
 import electrum_brm.trampoline
-from electrum_brm import bitcoin
+from electrum_brm import bitraam
 from electrum_brm import util
 from electrum_brm import constants
 from electrum_brm.network import Network
 from electrum_brm.ecc import ECPrivkey
 from electrum_brm import simple_config, lnutil
 from electrum_brm.lnaddr import lnencode, LnAddr, lndecode
-from electrum_brm.bitcoin import COIN, sha256
+from electrum_brm.bitraam import COIN, sha256
 from electrum_brm.util import NetworkRetryManager, bfh, OldTaskGroup, EventListener, InvoiceError
 from electrum_brm.lnpeer import Peer
 from electrum_brm.lnutil import LNPeerAddr, Keypair, privkey_to_pubkey
@@ -357,8 +357,8 @@ class PeerInTests(Peer):
 
 
 high_fee_channel = {
-   'local_balance_msat': 10 * bitcoin.COIN * 1000 // 2,
-   'remote_balance_msat': 10 * bitcoin.COIN * 1000 // 2,
+   'local_balance_msat': 10 * bitraam.COIN * 1000 // 2,
+   'remote_balance_msat': 10 * bitraam.COIN * 1000 // 2,
    'local_base_fee_msat': 500_000,
    'local_fee_rate_millionths': 500,
    'remote_base_fee_msat': 500_000,
@@ -366,8 +366,8 @@ high_fee_channel = {
 }
 
 low_fee_channel = {
-    'local_balance_msat': 10 * bitcoin.COIN * 1000 // 2,
-    'remote_balance_msat': 10 * bitcoin.COIN * 1000 // 2,
+    'local_balance_msat': 10 * bitraam.COIN * 1000 // 2,
+    'remote_balance_msat': 10 * bitraam.COIN * 1000 // 2,
     'local_base_fee_msat': 1_000,
     'local_fee_rate_millionths': 1,
     'remote_base_fee_msat': 1_000,
@@ -376,7 +376,7 @@ low_fee_channel = {
 
 depleted_channel = {
     'local_balance_msat': 0,
-    'remote_balance_msat': 10 * bitcoin.COIN * 1000,
+    'remote_balance_msat': 10 * bitraam.COIN * 1000,
     'local_base_fee_msat': 1_000,
     'local_fee_rate_millionths': 1,
     'remote_base_fee_msat': 1_000,
@@ -1174,8 +1174,8 @@ class TestPeerDirect(TestPeer):
         # create upfront shutdown script for bob, alice doesn't use upfront
         # shutdown script
         bob_uss_pub = lnutil.privkey_to_pubkey(os.urandom(32))
-        bob_uss_addr = bitcoin.pubkey_to_address('p2wpkh', bob_uss_pub.hex())
-        bob_uss = bfh(bitcoin.address_to_script(bob_uss_addr))
+        bob_uss_addr = bitraam.pubkey_to_address('p2wpkh', bob_uss_pub.hex())
+        bob_uss = bfh(bitraam.address_to_script(bob_uss_addr))
 
         # bob commits to close to bob_uss
         alice_channel.config[HTLCOwner.REMOTE].upfront_shutdown_script = bob_uss

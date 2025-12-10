@@ -3,9 +3,9 @@ import re
 from decimal import Decimal
 from typing import Optional
 
-from . import bitcoin
+from . import bitraam
 from .util import format_satoshis_plain
-from .bitcoin import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
+from .bitraam import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
 from .lnaddr import lndecode, LnDecodeException
 
 # note: when checking against these, use .lower() to support case-insensitivity
@@ -24,13 +24,13 @@ def parse_bip21_URI(uri: str) -> dict:
         raise InvalidBitcoinURI(f"expected string, not {repr(uri)}")
 
     if ':' not in uri:
-        if not bitcoin.is_address(uri):
+        if not bitraam.is_address(uri):
             raise InvalidBitcoinURI("Not a bitraam address")
         return {'address': uri}
 
     u = urllib.parse.urlparse(uri)
     if u.scheme.lower() != BITRAAM_BIP21_URI_SCHEME:
-        raise InvalidBitcoinURI("Not a bitcoin URI")
+        raise InvalidBitcoinURI("Not a bitraam URI")
     address = u.path
 
     # python for android fails to parse query
@@ -46,7 +46,7 @@ def parse_bip21_URI(uri: str) -> dict:
 
     out = {k: v[0] for k, v in pq.items()}
     if address:
-        if not bitcoin.is_address(address):
+        if not bitraam.is_address(address):
             raise InvalidBitcoinURI(f"Invalid bitraam address: {address}")
         out['address'] = address
     if 'amount' in out:
@@ -78,7 +78,7 @@ def parse_bip21_URI(uri: str) -> dict:
             raise InvalidBitcoinURI(f"failed to parse 'exp' field: {repr(e)}") from e
     if 'sig' in out:
         try:
-            out['sig'] = bitcoin.base_decode(out['sig'], base=58).hex()
+            out['sig'] = bitraam.base_decode(out['sig'], base=58).hex()
         except Exception as e:
             raise InvalidBitcoinURI(f"failed to parse 'sig' field: {repr(e)}") from e
     if 'lightning' in out:
@@ -102,7 +102,7 @@ def parse_bip21_URI(uri: str) -> dict:
 
 def create_bip21_uri(addr, amount_sat: Optional[int], message: Optional[str],
                      *, extra_query_params: Optional[dict] = None) -> str:
-    if not bitcoin.is_address(addr):
+    if not bitraam.is_address(addr):
         return ""
     if extra_query_params is None:
         extra_query_params = {}

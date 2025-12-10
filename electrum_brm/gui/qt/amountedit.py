@@ -11,7 +11,7 @@ from .util import char_width_in_lineedit, ColorScheme
 
 from electrum_brm.util import (format_satoshis_plain, decimal_point_to_base_unit_name,
                            FEERATE_PRECISION, quantize_feerate, DECIMAL_POINT)
-from electrum_brm.bitcoin import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
+from electrum_brm.bitraam import COIN, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
 
 _NOT_GIVEN = object()  # sentinel value
 

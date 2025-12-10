@@ -15,9 +15,9 @@ from electrum_brm.logging import get_logger
 from electrum_brm.plugin import Device, DeviceInfo, runs_in_hwd_thread
 from electrum_brm.simple_config import SimpleConfig
 from electrum_brm.storage import get_derivation_used_for_hw_device_encryption
-from electrum_brm.bitcoin import OnchainOutputType
+from electrum_brm.bitraam import OnchainOutputType
 
-import electrum_brm.bitcoin as bitcoin
+import electrum_brm.bitraam as bitraam
 import electrum_brm.ecc as ecc
 
 from ..hw_wallet import HW_PluginBase, HardwareClientBase, HardwareHandlerBase
@@ -482,7 +482,7 @@ class BitBox02Client(HardwareClientBase):
                     )
                 )
             else:
-                addrtype, payload = bitcoin.address_to_payload(txout.address)
+                addrtype, payload = bitraam.address_to_payload(txout.address)
                 if addrtype == OnchainOutputType.P2PKH:
                     output_type = bitbox02.btc.P2PKH
                 elif addrtype == OnchainOutputType.P2SH:

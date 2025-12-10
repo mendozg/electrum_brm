@@ -11,7 +11,7 @@ from electrum_brm.logging import get_logger
 from electrum_brm.util import WalletFileException, standardize_path, InvalidPassword, send_exception_to_crash_reporter
 from electrum_brm.plugin import run_hook
 from electrum_brm.lnchannel import ChannelState
-from electrum_brm.bitcoin import is_address
+from electrum_brm.bitraam import is_address
 from electrum_brm.ecc import verify_message_with_address
 from electrum_brm.storage import StorageReadWriteError
 

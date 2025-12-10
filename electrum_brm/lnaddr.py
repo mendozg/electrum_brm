@@ -11,13 +11,13 @@ from typing import Optional, TYPE_CHECKING, Type, Dict, Any
 import random
 import bitstring
 
-from .bitcoin import hash160_to_b58_address, b58_address_to_hash160, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
+from .bitraam import hash160_to_b58_address, b58_address_to_hash160, TOTAL_COIN_SUPPLY_LIMIT_IN_BRM
 from .segwit_addr import bech32_encode, bech32_decode, CHARSET
 from . import segwit_addr
 from . import constants
 from .constants import AbstractNet
 from . import ecc
-from .bitcoin import COIN
+from .bitraam import COIN
 
 if TYPE_CHECKING:
     from .lnutil import LnFeatures
@@ -33,7 +33,7 @@ class LnEncodeException(LnInvoiceException): pass
 # A writer MUST encode `amount` as a positive decimal integer with no
 # leading zeroes, SHOULD use the shortest representation possible.
 def shorten_amount(amount):
-    """ Given an amount in bitcoin, shorten it
+    """ Given an amount in bitraam, shorten it
     """
     # Convert to pico initially
     amount = int(amount * 10**12)
