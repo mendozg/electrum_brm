@@ -1,0 +1,87 @@
+{
+    "CoinGecko": [
+        "AED",
+        "ARS",
+        "AUD",
+        "BCH",
+        "BDT",
+        "BHD",
+        "BMD",
+        "BNB",
+        "BRL",
+        "BSTY",
+        "CAD",
+        "CHF",
+        "CLP",
+        "CNY",
+        "CZK",
+        "DKK",
+        "EOS",
+        "ETH",
+        "EUR",
+        "GBP",
+        "HKD",
+        "HUF",
+        "IDR",
+        "ILS",
+        "INR",
+        "JPY",
+        "KRW",
+        "KWD",
+        "LKR",
+        "LTC",
+        "MMK",
+        "MXN",
+        "MYR",
+        "NOK",
+        "NZD",
+        "PHP",
+        "PKR",
+        "PLN",
+        "RUB",
+        "SAR",
+        "SEK",
+        "SGD",
+        "THB",
+        "TRY",
+        "TWD",
+        "USD",
+        "VEF",
+        "VND",
+        "XAG",
+        "XAU",
+        "XDR",
+        "XLM",
+        "XRP",
+        "ZAR"
+    ],
+    "CointraderMonitor": [
+        "BRL"
+    ],
+    "Kraken": [
+        "CAD",
+        "EUR",
+        "GBP",
+        "JPY",
+        "USD"
+    ],
+    "MercadoBitcoin": [
+        "BRL"
+    ],
+    "TheRockTrading": [
+        "EUR"
+    ],
+    "Zaif": [
+        "JPY"
+    ],
+    "itBit": [],
+    "Bitragem": [
+        "BRL"
+    ],
+    "Biscoint": [
+        "BRL"
+    ],
+    "Walltime": [
+        "BRL"
+    ]
+}

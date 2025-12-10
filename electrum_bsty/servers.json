@@ -1,0 +1,20 @@
+{
+    "66.172.33.56": {
+        "pruning": "-",
+        "s": "50002",
+        "t": "50001",
+        "version": "1.4"
+    },
+    "electrumserver01.globalboost.info": {
+        "pruning": "-",
+        "s": "50014",
+        "t": "50013",
+        "version": "1.4"
+    },
+    "electrumserver02.globalboost.info": {
+        "pruning": "-",
+        "s": "50014",
+        "t": "50013",
+        "version": "1.4"
+    }
+}
