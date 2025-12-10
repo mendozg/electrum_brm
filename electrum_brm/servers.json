@@ -1,20 +1,14 @@
 {
-    "66.172.33.56": {
+    "electrumserver01.bitraam.org": {
         "pruning": "-",
-        "s": "50002",
-        "t": "50001",
+        "s": "50018",
+        "t": "50016",
         "version": "1.4"
     },
-    "electrumserver01.bitraam.info": {
+        "electrumserver02.bitraam.org": {
         "pruning": "-",
-        "s": "50014",
-        "t": "50013",
-        "version": "1.4"
-    },
-    "electrumserver02.bitraam.info": {
-        "pruning": "-",
-        "s": "50014",
-        "t": "50013",
+        "s": "50018",
+        "t": "50016",
         "version": "1.4"
     }
 }

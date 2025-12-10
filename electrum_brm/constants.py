@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 #
-# Electrum - lightweight Bitcoin client
-# Copyright (C) 2018 The Electrum developers
+# Electrum-BRM - lightweight BitRaam client
+# Copyright (C) 2025 The Electrum-BRM developers
 #
 # Permission is hereby granted, free of charge, to any person
 # obtaining a copy of this software and associated documentation files
@@ -40,8 +40,8 @@ def read_json(filename, default):
     return r
 
 
-GIT_REPO_URL = "https://github.com/bitraam/electrum-brm"
-GIT_REPO_ISSUES_URL = "https://github.com/bitraam/electrum-brm/issues"
+GIT_REPO_URL = "https://github.com/mendozgelectrum-brm"
+GIT_REPO_ISSUES_URL = "https://github.com/mendozg/electrum-brm/issues"
 BIP39_WALLET_FORMATS = read_json('bip39_wallet_formats.json', [])
 
 
@@ -68,17 +68,17 @@ class AbstractNet:
         return bytes.fromhex(bitcoin.rev_hex(cls.GENESIS))
 
 
-class BitcoinMainnet(AbstractNet):
+class BitraamMainnet(AbstractNet):
 
     NET_NAME = "mainnet"
     TESTNET = False
-    WIF_PREFIX = 0xd0
-    ADDRTYPE_P2PKH = 77
-    ADDRTYPE_P2SH = 139
-    SEGWIT_HRP = "gb"
+    WIF_PREFIX = 0xe0
+    ADDRTYPE_P2PKH = 40
+    ADDRTYPE_P2SH = 30
+    SEGWIT_HRP = "br"
     BOLT11_HRP = SEGWIT_HRP
-    GENESIS = "2e28050194ad73f2405394d2f081361a23c2df8904ec7f026a018bbe148d5adf"
-    DEFAULT_PORTS = {'t': '50001', 's': '50002'}
+    GENESIS = "000000341302a07b494f3bb6f32b439a6fe3e29d9c98f315bea686f1c7010bc6"
+    DEFAULT_PORTS = {'t': '50016', 's': '50018'}
     DEFAULT_SERVERS = read_json('servers.json', {})
     CHECKPOINTS = read_json('checkpoints.json', [])
     BLOCK_HEIGHT_FIRST_LIGHTNING_CHANNELS = 497000
@@ -99,21 +99,21 @@ class BitcoinMainnet(AbstractNet):
         'p2wsh':       0x02aa7ed3,  # Zpub
     }
     XPUB_HEADERS_INV = inv_dict(XPUB_HEADERS)
-    BIP44_COIN_TYPE = 664
+    BIP44_COIN_TYPE = 0
     LN_REALM_BYTE = 0
     LN_DNS_SEEDS = [
         'brm.nodes.lightning.directory.',
     ]
 
 
-class BitcoinTestnet(AbstractNet):
+class BitraamTestnet(AbstractNet):
 
     NET_NAME = "testnet"
     TESTNET = True
     WIF_PREFIX = 0xef
     ADDRTYPE_P2PKH = 111
     ADDRTYPE_P2SH = 196
-    SEGWIT_HRP = "tgb"
+    SEGWIT_HRP = "tbr"
     BOLT11_HRP = SEGWIT_HRP
     GENESIS = "000000000933ea01ad0ee984209779baaec3ced90fa3f408719526f8d77f4943"
     DEFAULT_PORTS = {'t': '51001', 's': '51002'}
@@ -144,10 +144,10 @@ class BitcoinTestnet(AbstractNet):
     ]
 
 
-class BitcoinRegtest(BitcoinTestnet):
+class BitraamRegtest(BitraamTestnet):
 
     NET_NAME = "regtest"
-    SEGWIT_HRP = "gbrt"
+    SEGWIT_HRP = "brrt"
     BOLT11_HRP = SEGWIT_HRP
     GENESIS = "0f9188f13cb7b2c71f2a335e3a4fc328bf5beb436012afca590b1a11466e2206"
     DEFAULT_SERVERS = read_json('servers_regtest.json', {})
@@ -155,7 +155,7 @@ class BitcoinRegtest(BitcoinTestnet):
     LN_DNS_SEEDS = []
 
 
-class BitcoinSimnet(BitcoinTestnet):
+class BitraamSimnet(BitraamTestnet):
 
     NET_NAME = "simnet"
     WIF_PREFIX = 0x64
@@ -169,7 +169,7 @@ class BitcoinSimnet(BitcoinTestnet):
     LN_DNS_SEEDS = []
 
 
-class BitcoinSignet(BitcoinTestnet):
+class BitraamSignet(BitraamTestnet):
 
     NET_NAME = "signet"
     BOLT11_HRP = "tbs"
@@ -182,24 +182,24 @@ class BitcoinSignet(BitcoinTestnet):
 NETS_LIST = tuple(all_subclasses(AbstractNet))
 
 # don't import net directly, import the module instead (so that net is singleton)
-net = BitcoinMainnet
+net = BitraamMainnet
 
 def set_signet():
     global net
-    net = BitcoinSignet
+    net = BitraamSignet
 
 def set_simnet():
     global net
-    net = BitcoinSimnet
+    net = BitraamSimnet
 
 def set_mainnet():
     global net
-    net = BitcoinMainnet
+    net = BitraamMainnet
 
 def set_testnet():
     global net
-    net = BitcoinTestnet
+    net = BitraamTestnet
 
 def set_regtest():
     global net
-    net = BitcoinRegtest
+    net = BitraamRegtest
